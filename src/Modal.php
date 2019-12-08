@@ -5,7 +5,6 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Inflector;
 
 class Modal extends \kilyakus\widgets\Widget
 {
@@ -35,21 +34,21 @@ class Modal extends \kilyakus\widgets\Widget
 
         $this->initOptions();
 
-        echo $this->renderToggleButton() . "\n";
-        echo Html::beginTag('div', $this->options) . "\n";
-        echo Html::beginTag('div', ['class' => 'modal-dialog ' . $this->size]) . "\n";
-        echo Html::beginTag('div', ['class' => 'modal-content']) . "\n";
-        echo $this->renderHeader() . "\n";
-        echo $this->renderBodyBegin() . "\n";
+        echo $this->renderToggleButton();
+        echo Html::beginTag('div', $this->options);
+        echo Html::beginTag('div', ['class' => 'modal-dialog ' . $this->size]);
+        echo Html::beginTag('div', ['class' => 'modal-content']);
+        echo $this->renderHeader();
+        echo $this->renderBodyBegin();
     }
 
     public function run()
     {
-        echo "\n" . $this->renderBodyEnd();
-        echo "\n" . $this->renderFooter();
-        echo "\n" . Html::endTag('div'); // modal-content
-        echo "\n" . Html::endTag('div'); // modal-dialog
-        echo "\n" . Html::endTag('div');
+        echo $this->renderBodyEnd();
+        echo $this->renderFooter();
+        echo Html::endTag('div'); // modal-content
+        echo Html::endTag('div'); // modal-dialog
+        echo Html::endTag('div');
 
         $this->registerPlugin('modal');
     }
@@ -58,11 +57,11 @@ class Modal extends \kilyakus\widgets\Widget
     {
         $button = $this->renderCloseButton();
         if ($button !== null) {
-            $this->header = $button . "\n" . $this->header;
+            $this->header = $button . $this->header;
         }
         if ($this->header !== null) {
             Html::addCssClass($this->headerOptions, ['widget' => 'modal-header']);
-            return Html::tag('div', "\n" . $this->header . "\n", $this->headerOptions);
+            return Html::tag('div', $this->header, $this->headerOptions);
         } else {
             return null;
         }
@@ -82,7 +81,7 @@ class Modal extends \kilyakus\widgets\Widget
     {
         if ($this->footer !== null) {
             Html::addCssClass($this->footerOptions, ['widget' => 'modal-footer']);
-            return Html::tag('div', "\n" . $this->footer . "\n", $this->footerOptions);
+            return Html::tag('div', $this->footer, $this->footerOptions);
         } else {
             return null;
         }

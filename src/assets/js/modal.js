@@ -5508,6 +5508,7 @@ $.widget( "mi.draggable", $.mi.mouse, {
 		this.helper[ 0 ].style.top = this.position.top + "px";
 
 		if ( $.mi.ddmanager ) {
+			// console.log($.mi.ddmanager.drag( this, event ))
 			$.mi.ddmanager.drag( this, event );
 		}
 
@@ -8073,8 +8074,8 @@ $.widget( "mi.dialog", {
 		this.miDialogTitlebarClose = $( "<button type='button'></button>" )
 			.button( {
 				label: $( "<a>" ).text( this.options.closeText ).html(),
-				icon: "ui-icon-closethick",
-				showLabel: false
+				// icon: "ui-icon-closethick",
+				// showLabel: false
 			} )
 			.appendTo( this.miDialogTitlebar );
 
