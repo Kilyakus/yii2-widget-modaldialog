@@ -1,15 +1,7 @@
-/*! jQuery UI - v1.12.1 - 2016-09-14
-* http://jquerymi.com
-* Copyright jQuery Foundation and other contributors; Licensed MIT */
-
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
-
-		// AMD. Register as an anonymous module.
 		define([ "jquery" ], factory );
 	} else {
-
-		// Browser globals
 		factory( jQuery );
 	}
 }(function( $ ) {
@@ -17,24 +9,6 @@
 $.mi = $.mi || {};
 
 var version = $.mi.version = "1.12.1";
-
-
-/*!
- * jQuery UI Widget 1.12.1
- * http://jquerymi.com
- *
- * Copyright jQuery Foundation and other contributors
- * Released under the MIT license.
- * http://jquery.org/license
- */
-
-//>>label: Widget
-//>>group: Core
-//>>description: Provides a factory for creating stateful widgets with a common API.
-//>>docs: http://api.jquerymi.com/jQuery.widget/
-//>>demos: http://jquerymi.com/widget/
-
-
 
 var widgetUuid = 0;
 var widgetSlice = Array.prototype.slice;
@@ -44,14 +18,10 @@ $.cleanData = ( function( orig ) {
 		var events, elem, i;
 		for ( i = 0; ( elem = elems[ i ] ) != null; i++ ) {
 			try {
-
-				// Only trigger remove when necessary to save time
 				events = $._data( elem, "events" );
 				if ( events && events.remove ) {
 					$( elem ).triggerHandler( "remove" );
 				}
-
-			// Http://bugs.jquery.com/ticket/8235
 			} catch ( e ) {}
 		}
 		orig( elems );
@@ -61,8 +31,6 @@ $.cleanData = ( function( orig ) {
 $.widget = function( name, base, prototype ) {
 	var existingConstructor, constructor, basePrototype;
 
-	// ProxiedPrototype allows the provided prototype to remain unmodified
-	// so that it can be used as a mixin for multiple widgets (#8876)
 	var proxiedPrototype = {};
 
 	var namespace = name.split( "." )[ 0 ];
@@ -1917,8 +1885,9 @@ $.fn.extend( {
 			body = $( "body" ),
 			fixTop = targetFixed ? body.scrollTop() : 0,
 			fixLeft = targetFixed ? body.scrollLeft() : 0,
-			endPosition = target.offset(),
-			animation = {
+			endPosition = target.offset();
+		console.log($( this ).offset());
+		var animation = {
 				top: endPosition.top - fixTop,
 				left: endPosition.left - fixLeft,
 				height: target.innerHeight(),
@@ -7692,11 +7661,11 @@ $.widget( "mi.dialog", {
 	version: "1.12.1",
 	options: {
 		appendTo: "body",
-		autoOpen: true,
+		autoOpen: false,
 		buttons: [],
 		classes: {
 			"ui-dialog": "ui-corner-all",
-			// "ui-dialog-titlebar": "ui-corner-all"
+			"ui-dialog-titlebar": "ui-corner-all"
 		},
 		closeOnEscape: true,
 		closeText: "×",
@@ -7737,7 +7706,10 @@ $.widget( "mi.dialog", {
 		open: null,
 		resize: null,
 		resizeStart: null,
-		resizeStop: null
+		resizeStop: null,
+
+		// fix
+		positionStart: null,
 	},
 
 	sizeRelatedOptions: {
@@ -7877,6 +7849,15 @@ $.widget( "mi.dialog", {
 		this._hide( this.miDialog, this.options.hide, function() {
 			that._trigger( "close", event );
 		} );
+
+		$('body').css({
+			'overflow' : 'auto',
+			'padding-right' : '0'
+		});
+
+		// this.miDialog.css({
+		// 	'position' : 'absolute',
+		// });
 	},
 
 	isOpen: function() {
@@ -7902,6 +7883,7 @@ $.widget( "mi.dialog", {
 		if ( moved && !silent ) {
 			this._trigger( "focus", event );
 		}
+
 		return moved;
 	},
 
@@ -7968,6 +7950,21 @@ $.widget( "mi.dialog", {
 			hasFocus = this.miDialog;
 		}
 		hasFocus.eq( 0 ).trigger( "focus" );
+
+
+		if ( this.options.height === 'auto') {
+
+			var childrens = $(this.element).children(), height = 0;
+			for (var i = 0; i < childrens.length; i++) {
+				height += $(childrens[i]).height();
+			}
+			// height += this.miDialogTitlebar.height();
+
+			if(height >= $(window).height()){
+				this.miDialog.css({'height' : '100%'});
+				this.element.css({'height' : (this.miDialog.height() - this.miDialogTitlebar.height()) + 'px' });
+			}
+		}
 	},
 
 	_keepFocus: function( event ) {
@@ -7995,8 +7992,9 @@ $.widget( "mi.dialog", {
 
 				// Setting tabIndex makes the div focusable
 				tabIndex: -1,
-				role: "dialog"
+				role: "dialog",
 			} )
+			.css({'position' : 'fixed'})
 			.appendTo( this._appendTo() );
 
 		this._addClass( this.miDialog, "ui-dialog", "ui-widget ui-widget-content ui-front" );
@@ -8193,13 +8191,45 @@ $.widget( "mi.dialog", {
 				that._addClass( $( this ), "ui-dialog-dragging" );
 				that._blockFrames();
 				that._trigger( "dragStart", event, filteredUi( mi ) );
+
+				$( this ).css({'position' : 'absolute'});
+
+				if(!that.positionStart){
+					that.positionStart = mi.position.top;
+				}
 			},
 			drag: function( event, mi ) {
+
+				var offsetTop = that.document.scrollTop(),
+					offsetBottom = that.document.scrollTop() + that.window.height() - that.miDialog.height();
+
+				if(mi.position.top <= offsetTop){
+					mi.position.top = mi.offset.top;
+				}else if(mi.position.top >= that.document.scrollTop() + that.window.height()){
+					mi.position.top = offsetBottom;
+				}else{
+					mi.position.top = mi.position.top + that.document.scrollTop();
+				}
+
 				that._trigger( "drag", event, filteredUi( mi ) );
 			},
 			stop: function( event, mi ) {
-				var left = mi.offset.left - that.document.scrollLeft(),
-					top = mi.offset.top - that.document.scrollTop();
+				var offsetTop = that.document.scrollTop(),
+					offsetBottom = that.document.scrollTop() + that.window.height() - that.miDialog.height();
+
+				if(mi.position.top < offsetTop){
+					mi.position.top = offsetTop;
+				}else if(mi.position.top > offsetBottom){
+					mi.position.top = offsetBottom;
+				}
+
+				$( this ).css({
+					'position' : 'fixed',
+					'top' : mi.position.top - that.document.scrollTop() + 'px'
+				});
+
+				var left = mi.position.left - that.document.scrollLeft(),
+					top = mi.position.top - that.document.scrollTop();
 
 				options.position = {
 					my: "left top",
@@ -8426,7 +8456,7 @@ $.widget( "mi.dialog", {
 		this.element.show().css( {
 			width: "auto",
 			minHeight: 0,
-			maxHeight: "none",
+			maxHeight: '100%', //"none",
 			height: 0
 		} );
 
@@ -8444,7 +8474,7 @@ $.widget( "mi.dialog", {
 		minContentHeight = Math.max( 0, options.minHeight - nonContentHeight );
 		maxContentHeight = typeof options.maxHeight === "number" ?
 			Math.max( 0, options.maxHeight - nonContentHeight ) :
-			"none";
+			"100%";
 
 		if ( options.height === "auto" ) {
 			this.element.css( {
@@ -8528,11 +8558,25 @@ $.widget( "mi.dialog", {
 			.appendTo( this._appendTo() );
 
 		this._addClass( this.overlay, null, "ui-widget-overlay ui-front" );
+
+		$('body').css({
+			'overflow' : 'hidden',
+			'padding-right' : '17px'
+		});
+
 		this._on( this.overlay, {
 			mousedown: "_keepFocus"
 		} );
 		this.document.data( "ui-dialog-overlays",
 			( this.document.data( "ui-dialog-overlays" ) || 0 ) + 1 );
+
+		this._on( this.overlay, {
+			click: function( event ) {
+				event.preventDefault();
+				this.close( event );
+			}
+		} );
+
 	},
 
 	_destroyOverlay: function() {

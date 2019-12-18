@@ -4,7 +4,9 @@ namespace kilyakus\widget\modal;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
+use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+use kilyakus\button\Button;
 
 class Modal extends \kilyakus\widgets\Widget
 {
@@ -27,6 +29,18 @@ class Modal extends \kilyakus\widgets\Widget
     public $closeButton = [];
 
     public $toggleButton = false;
+
+    public $pluginOptions;
+
+    protected $pluginPreset = [
+        'autoOpen' => false,
+        'width' => 400,
+        'height' => 'auto',
+        'modal' => true,
+        'resizable' => true,
+        'draggable' => true,
+        'stack' => true,
+    ];
 
     public function init()
     {
@@ -90,13 +104,14 @@ class Modal extends \kilyakus\widgets\Widget
     protected function renderToggleButton()
     {
         if (($toggleButton = $this->toggleButton) !== false) {
-            $tag = ArrayHelper::remove($toggleButton, 'tag', 'button');
-            $label = ArrayHelper::remove($toggleButton, 'label', 'Show');
-            if ($tag === 'button' && !isset($toggleButton['type'])) {
-                $toggleButton['type'] = 'button';
-            }
+            // $tag = ArrayHelper::remove($toggleButton, 'tag', 'button');
+            // $label = ArrayHelper::remove($toggleButton, 'label', 'Show');
+            // if ($tag === 'button' && !isset($toggleButton['type'])) {
+            //     $toggleButton['type'] = 'button';
+            // }
 
-            return Html::tag($tag, $label, $toggleButton);
+            // return Html::tag($tag, $label, $toggleButton);
+            return Button::widget($toggleButton);
         } else {
             return null;
         }
@@ -139,12 +154,49 @@ class Modal extends \kilyakus\widgets\Widget
         }
 
         if ($this->toggleButton !== false) {
-            $this->toggleButton = array_merge([
+            $this->toggleButton['options'] = array_merge([
                 'data-toggle' => 'modal',
             ], $this->toggleButton);
-            if (!isset($this->toggleButton['data-target']) && !isset($this->toggleButton['href'])) {
-                $this->toggleButton['data-target'] = '#' . $this->options['id'];
+            if (!isset($this->toggleButton['options']['data-target']) && !isset($this->toggleButton['url'])) {
+                $this->toggleButton['options']['data-target'] = '#' . $this->options['id'];
             }
         }
+
+        $this->pluginOptions = array_merge($this->pluginPreset, $this->pluginOptions);
+
+        if($this->header){
+            $this->pluginOptions = array_merge($this->pluginOptions, ['title' => $this->header]);
+        }
+        $this->pluginOptions = Json::encode($this->pluginOptions); 
+
+        $view = $this->getView();
+
+        $view->registerJs("
+            $(function(){
+
+                var dialog = $('#dialog-to');
+
+                $(document).ready(function(){
+                    dialog.dialog(" . $this->pluginOptions . ");
+                });
+
+                $('#new-dialog').click(function(){
+
+
+                    var dialogExtendOptions = {
+                        'closable' : true,
+                        'maximizable' : true,
+                        'minimizable' : true,
+                        'minimizeLocation' : 'left' || false,
+                        'collapsable' : false,
+                        'dblclick' : 'collapse' || false,
+                        'titlebar' : false
+                    };
+
+                    dialog.dialogExtend(dialogExtendOptions);
+
+                    dialog.dialog( 'open' );
+                });
+            });", \yii\web\View::POS_END);
     }
 }

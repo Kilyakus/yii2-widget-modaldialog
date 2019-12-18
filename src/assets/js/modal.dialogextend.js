@@ -65,7 +65,6 @@
         style = '';
         style += '<style class="dialog-extend-css" type="text/css">';
         style += '.ui-dialog .ui-dialog-titlebar-buttonpane>a { float: right; }';
-        style += '.ui-dialog .ui-dialog-titlebar-restore { width: 20px; height: 20px; }';
         style += '.ui-dialog .ui-dialog-titlebar-restore span { display: block; margin: 1px; }';
         style += '.ui-dialog .ui-dialog-titlebar-restore:hover,';
         style += '.ui-dialog .ui-dialog-titlebar-restore:focus { padding: 0; }';
@@ -310,7 +309,6 @@
       if (!$(".dialog-extend-collapse-css").length) {
         style = '';
         style += '<style class="dialog-extend-collapse-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse { width: 20px; height: 20px; }';
         style += '.ui-dialog .ui-dialog-titlebar-collapse span { display: block; margin: 1px; }';
         style += '.ui-dialog .ui-dialog-titlebar-collapse:hover,';
         style += '.ui-dialog .ui-dialog-titlebar-collapse:focus { padding: 0; }';
@@ -399,7 +397,6 @@
       if (!$(".dialog-extend-maximize-css").length) {
         style = '';
         style += '<style class="dialog-extend-maximize-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize { width: 20px; height: 20px; }';
         style += '.ui-dialog .ui-dialog-titlebar-maximize span { display: block; margin: 1px; }';
         style += '.ui-dialog .ui-dialog-titlebar-maximize:hover,';
         style += '.ui-dialog .ui-dialog-titlebar-maximize:focus { padding: 0; }';
@@ -485,7 +482,6 @@
       if (!$(".dialog-extend-minimize-css").length) {
         style = '';
         style += '<style class="dialog-extend-minimize-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize { width: 20px; height: 20px; }';
         style += '.ui-dialog .ui-dialog-titlebar-minimize span { display: block; margin: 1px; }';
         style += '.ui-dialog .ui-dialog-titlebar-minimize:hover,';
         style += '.ui-dialog .ui-dialog-titlebar-minimize:focus { padding: 0; }';
