@@ -95,7 +95,7 @@ button.ui-button::-moz-focus-inner {border:0;padding:0;}
 .ui-resizable-ne {cursor:ne-resize;width:9px;height:9px;right:-5px;top:-5px;}
 
 @media(max-width:823px){
-	.ui-dialog {max-width:100%;border-radius:0!important;}
+	.ui-dialog {min-width:100%;max-width:100%;border-radius:0!important;}
 	.ui-dialog .ui-dialog-titlebar-maximize {display:none!important;}
 }
 

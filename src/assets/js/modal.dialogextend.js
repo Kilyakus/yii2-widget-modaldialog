@@ -170,7 +170,7 @@
         this.original_size_maxHeight = $(this.element[0]).dialog("option", "maxHeight");
         this.original_position_mode = $(this.element[0]).dialog("widget").css("position");
         this.original_position_left = $(this.element[0]).dialog("widget").offset().left - $('body').scrollLeft();
-        this.original_position_top = $(this.element[0]).dialog("widget").offset().top - $('body').scrollTop();
+        this.original_position_top = $(this.element[0]).dialog("widget").position().top; //$(this.element[0]).dialog("widget").offset().top - $('body').scrollTop();
         return this.original_titlebar_wrap = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar").css("white-space");
       }
     },
@@ -313,6 +313,12 @@
       "maximize": null
     },
     maximize: function() {
+      var newHeight, newWidth;
+
+      $('body').css({'overflow' : 'hidden'});
+
+      newHeight = $(window).height();
+      newWidth = $(window).width();
       this._trigger("beforeMaximize");
       if (this._state !== "normal") {
         this._restore();
@@ -321,12 +327,6 @@
       if ($(this.element[0]).dialog("option", "draggable")) {
         $(this.element[0]).dialog("widget").draggable("option", "handle", null).find(".ui-dialog-draggable-handle").css("cursor", "text").end();
       }
-
-      var newHeight, newWidth;
-      $('body').css({'overflow' : 'hidden'});
-      newHeight = $(window).height();
-      newWidth = $(window).width();
-
       $(this.element[0]).dialog("widget").css("position", "fixed").find(".ui-dialog-content").show().dialog("widget").find(".ui-dialog-buttonpane").show().end().find(".ui-dialog-content").dialog("option", {
         "resizable": false,
         "draggable": false,
@@ -346,6 +346,7 @@
       var original;
 
       original = this._loadSnapshot();
+
       $(this.element[0]).dialog("widget").css("position", original.position.mode).find(".ui-dialog-titlebar").css("white-space", original.titlebar.wrap).end().find(".ui-dialog-content").dialog("option", {
         "resizable": original.config.resizable,
         "draggable": original.config.draggable,
