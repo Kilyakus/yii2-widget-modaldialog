@@ -24,7 +24,7 @@
 .ui-widget-overlay {position:fixed;top:0;left:0;width:100%;height:100%;}
 
 .ui-button {display:inline-block;position:relative;padding:0;line-height:normal;margin-right:.1em;cursor:pointer;vertical-align:middle;background:none;border:0;text-align:center;overflow:visible;color:#666;/* removes extra width in IE */}
-.ui-button {width:30px;height:30px;float:right;font-size:24px;}
+.ui-button {width:30px;height:30px;float:right;font-size:20px;}
 .ui-button:hover {color:#333;}
 .ui-button,
 .ui-button:link,
