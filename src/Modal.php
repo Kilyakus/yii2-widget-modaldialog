@@ -10,27 +10,21 @@ use kilyakus\button\Button;
 
 class Modal extends \kilyakus\widgets\Widget
 {
-    const SIZE_LARGE = "modal-lg";
-    const SIZE_SMALL = "modal-sm";
-    const SIZE_DEFAULT = "";
-
     public $header;
 
     public $headerOptions;
 
-    public $bodyOptions = ['class' => 'modal-body'];
+    public $bodyOptions = [];
 
     public $footer;
 
     public $footerOptions;
 
-    public $size;
-
-    public $closeButton = [];
-
     public $toggleButton = false;
 
-    public $pluginOptions;
+    public $pluginOptions = [];
+
+    public $clientOptions = [];
 
     protected $pluginPreset = [
         'autoOpen' => false,
@@ -42,6 +36,17 @@ class Modal extends \kilyakus\widgets\Widget
         'stack' => true,
     ];
 
+    protected $clientPreset = [
+        'show' => [
+            'effect' => 'puff',
+            'duration' => 100
+        ],
+        'hide' => [
+            'effect' => 'puff',
+            'duration' => 200
+        ],
+    ];
+
     public function init()
     {
         parent::init();
@@ -50,51 +55,22 @@ class Modal extends \kilyakus\widgets\Widget
 
         echo $this->renderToggleButton();
         echo Html::beginTag('div', $this->options);
-        echo Html::beginTag('div', ['class' => 'modal-dialog ' . $this->size]);
-        echo Html::beginTag('div', ['class' => 'modal-content']);
-        echo $this->renderHeader();
-        echo $this->renderBodyBegin();
+        echo Html::beginTag('div', $this->bodyOptions);
     }
 
     public function run()
     {
-        echo $this->renderBodyEnd();
+        echo Html::endTag('div');
         echo $this->renderFooter();
-        echo Html::endTag('div'); // modal-content
-        echo Html::endTag('div'); // modal-dialog
         echo Html::endTag('div');
 
-        $this->registerPlugin('modal');
-    }
-
-    protected function renderHeader()
-    {
-        $button = $this->renderCloseButton();
-        if ($button !== null) {
-            $this->header = $button . $this->header;
-        }
-        if ($this->header !== null) {
-            Html::addCssClass($this->headerOptions, ['widget' => 'modal-header']);
-            return Html::tag('div', $this->header, $this->headerOptions);
-        } else {
-            return null;
-        }
-    }
-
-    protected function renderBodyBegin()
-    {
-        return Html::beginTag('div', $this->bodyOptions);
-    }
-
-    protected function renderBodyEnd()
-    {
-        return Html::endTag('div');
+        $this->registerPlugin('dialog');
     }
 
     protected function renderFooter()
     {
         if ($this->footer !== null) {
-            Html::addCssClass($this->footerOptions, ['widget' => 'modal-footer']);
+            Html::addCssClass($this->footerOptions, ['widget' => 'modal-widget-footer']);
             return Html::tag('div', $this->footer, $this->footerOptions);
         } else {
             return null;
@@ -103,30 +79,8 @@ class Modal extends \kilyakus\widgets\Widget
 
     protected function renderToggleButton()
     {
-        if (($toggleButton = $this->toggleButton) !== false) {
-            // $tag = ArrayHelper::remove($toggleButton, 'tag', 'button');
-            // $label = ArrayHelper::remove($toggleButton, 'label', 'Show');
-            // if ($tag === 'button' && !isset($toggleButton['type'])) {
-            //     $toggleButton['type'] = 'button';
-            // }
-
-            // return Html::tag($tag, $label, $toggleButton);
-            return Button::widget($toggleButton);
-        } else {
-            return null;
-        }
-    }
-
-    protected function renderCloseButton()
-    {
-        if (($closeButton = $this->closeButton) !== false) {
-            $tag = ArrayHelper::remove($closeButton, 'tag', 'button');
-            $label = ArrayHelper::remove($closeButton, 'label', '&times;');
-            if ($tag === 'button' && !isset($closeButton['type'])) {
-                $closeButton['type'] = 'button';
-            }
-
-            return Html::tag($tag, $label, $closeButton);
+        if ($this->toggleButton !== false) {
+            return Button::widget($this->toggleButton);
         } else {
             return null;
         }
@@ -135,38 +89,39 @@ class Modal extends \kilyakus\widgets\Widget
     protected function initOptions()
     {
         $this->options = array_merge([
-            'class' => 'fade',
             'role' => 'dialog',
             'tabindex' => -1,
         ], $this->options);
-        Html::addCssClass($this->options, ['widget' => 'modal']);
-
-        if ($this->clientOptions !== false) {
-            $this->clientOptions = array_merge(['show' => false], $this->clientOptions);
-        }
-
-        if ($this->closeButton !== false) {
-            $this->closeButton = array_merge([
-                'data-dismiss' => 'modal',
-                'aria-hidden' => 'true',
-                'class' => 'close',
-            ], $this->closeButton);
-        }
+        Html::addCssStyle($this->options, ['display' => 'none']);
+        Html::addCssClass($this->bodyOptions, ['class' => 'modal-widget-body']);
 
         if ($this->toggleButton !== false) {
             $this->toggleButton['options'] = array_merge([
-                'data-toggle' => 'modal',
+                'data-toggle' => 'dialog',
             ], $this->toggleButton);
             if (!isset($this->toggleButton['options']['data-target']) && !isset($this->toggleButton['url'])) {
                 $this->toggleButton['options']['data-target'] = '#' . $this->options['id'];
             }
         }
 
-        $this->pluginOptions = array_merge($this->pluginPreset, $this->pluginOptions);
+        if(!empty($this->clientOptions)){
+            $this->clientOptions = array_merge($this->clientPreset, $this->clientOptions);
+        }else{
+            $this->clientOptions = $this->clientPreset;
+        }
+
+        if(!empty($this->pluginOptions)){
+            $this->pluginOptions = array_merge($this->pluginPreset, $this->pluginOptions);
+        }else{
+            $this->pluginOptions = $this->pluginPreset;
+        }
+
+        $this->pluginOptions = array_merge_recursive($this->pluginOptions, $this->clientOptions);
 
         if($this->header){
-            $this->pluginOptions = array_merge($this->pluginOptions, ['title' => $this->header]);
+            $this->pluginOptions = array_merge_recursive($this->pluginOptions, ['title' => $this->header]);
         }
+
         $this->pluginOptions = Json::encode($this->pluginOptions); 
 
         $view = $this->getView();
@@ -174,13 +129,13 @@ class Modal extends \kilyakus\widgets\Widget
         $view->registerJs("
             $(function(){
 
-                var dialog = $('#dialog-to');
+                var dialog = $('#" . $this->id . "');
 
                 $(document).ready(function(){
                     dialog.dialog(" . $this->pluginOptions . ");
                 });
 
-                $('#new-dialog').click(function(){
+                $('[data-target=\"#" . $this->id . "\"][data-toggle=\"dialog\"]').click(function(){
 
 
                     var dialogExtendOptions = {
@@ -197,6 +152,6 @@ class Modal extends \kilyakus\widgets\Widget
 
                     dialog.dialog( 'open' );
                 });
-            });", \yii\web\View::POS_END);
+            });", \yii\web\View::POS_READY);
     }
 }

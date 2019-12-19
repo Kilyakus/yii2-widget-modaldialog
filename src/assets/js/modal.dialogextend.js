@@ -3,7 +3,7 @@
 
   $ = jQuery;
 
-  $.widget("mi.dialogExtend", {
+  $.widget("modal.dialogExtend", {
     version: "2.0.0",
     modes: {},
     options: {
@@ -20,7 +20,7 @@
     },
     _create: function() {
       this._state = "normal";
-      if (!$(this.element[0]).data("mi-dialog")) {
+      if (!$(this.element[0]).data("modal-dialog")) {
         $.error("jQuery.dialogExtend Error : Only jQuery UI Dialog element is accepted");
       }
       this._verifyOptions();
@@ -34,7 +34,7 @@
       return this._trigger("load");
     },
     _setState: function(state) {
-      $(this.element[0]).removeClass("ui-dialog-" + this._state).addClass("ui-dialog-" + state);
+      $(this.element[0]).removeClass("modal-dialog-" + this._state).addClass("modal-dialog-" + state);
       return this._state = state;
     },
     _verifyOptions: function() {
@@ -64,11 +64,11 @@
       if (!$(".dialog-extend-css").length) {
         style = '';
         style += '<style class="dialog-extend-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-buttonpane>a { float: right; }';
-        style += '.ui-dialog .ui-dialog-titlebar-restore span { display: block; margin: 1px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-restore:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-restore:focus { padding: 0; }';
-        style += '.ui-dialog .ui-dialog-titlebar ::selection { background-color: transparent; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-buttonpane>a { float: right; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-restore span { display: block; margin: 1px; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-restore:hover,';
+        style += '.modal-dialog-container .modal-dialog-titlebar-restore:focus { padding: 0; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar ::selection { background-color: transparent; }';
         style += '</style>';
         $(style).appendTo("body");
       }
@@ -82,31 +82,17 @@
       var buttonPane, mode, name, titlebar, _ref,
         _this = this;
 
-      titlebar = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar");
-      buttonPane = $('<div class="ui-dialog-titlebar-buttonpane"></div>').appendTo(titlebar);
+      titlebar = $(this.element[0]).dialog("widget").find(".modal-dialog-titlebar");
+      buttonPane = $('<div class="modal-dialog-titlebar-buttonpane"></div>').appendTo(titlebar);
       buttonPane.css({
         "position": "absolute",
         "top": "50%",
-        "right": "15px",
-        "margin-top": "-10px",
-        "height": "18px"
+        "right": "10px",
+        "margin-top": "-15px",
+        "height": "20px"
       });
-      titlebar.find(".ui-dialog-titlebar-close").css({
-        "position": "relative",
-        "float": "right",
-        "top": "auto",
-        "right": "auto",
-        "margin": 0
-      }).find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close).end().appendTo(buttonPane).end();
-      buttonPane.append('<a class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-restore" href="#"><span class="fa ' + this.options.icons.restore + '" title="restore"></span></a>').find('.ui-dialog-titlebar-restore').attr("role", "button").mouseover(function() {
-        return $(this).addClass("ui-state-hover");
-      }).mouseout(function() {
-        return $(this).removeClass("ui-state-hover");
-      }).focus(function() {
-        return $(this).addClass("ui-state-focus");
-      }).blur(function() {
-        return $(this).removeClass("ui-state-focus");
-      }).end().find(".ui-dialog-titlebar-close").toggle(this.options.closable).end().find(".ui-dialog-titlebar-restore").hide().click(function(e) {
+      titlebar.find(".modal-dialog-titlebar-close").find(".modal-icon").removeClass("modal-icon-closethick").addClass(this.options.icons.close).end().appendTo(buttonPane).end();
+      buttonPane.append('<button type="button" class="modal-button modal-corner-all modal-widget modal-dialog-titlebar-restore"><i class="fa ' + this.options.icons.restore + '" title="restore"></i></button>').find('.modal-dialog-titlebar-restore').attr("role", "button").end().find(".modal-dialog-titlebar-close").toggle(this.options.closable).end().find(".modal-dialog-titlebar-restore").hide().click(function(e) {
         e.preventDefault();
         return _this.restore();
       }).end();
@@ -131,16 +117,8 @@
       var buttonPane,
         _this = this;
 
-      buttonPane = $(this.element[0]).dialog("widget").find('.ui-dialog-titlebar-buttonpane');
-      return buttonPane.append('<a class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-' + name + '" href="#" title="' + name + '"><span class="fa ' + this.options.icons[name] + '"></span></a>').find(".ui-dialog-titlebar-" + name).attr("role", "button").mouseover(function() {
-        return $(this).addClass("ui-state-hover");
-      }).mouseout(function() {
-        return $(this).removeClass("ui-state-hover");
-      }).focus(function() {
-        return $(this).addClass("ui-state-focus");
-      }).blur(function() {
-        return $(this).removeClass("ui-state-focus");
-      }).end().find(".ui-dialog-titlebar-" + name).toggle(this.options[mode.option]).click(function(e) {
+      buttonPane = $(this.element[0]).dialog("widget").find('.modal-dialog-titlebar-buttonpane');
+      return buttonPane.append('<button type="button" class="modal-button modal-corner-all modal-widget modal-dialog-titlebar-' + name + '" title="' + name + '"><i class="fa ' + this.options.icons[name] + '"></i></button>').find(".modal-dialog-titlebar-" + name).attr("role", "button").end().find(".modal-dialog-titlebar-" + name).toggle(this.options[mode.option]).click(function(e) {
         e.preventDefault();
         return _this[name]();
       }).end();
@@ -153,10 +131,10 @@
           return 0;
         case "none":
           if ($(this.element[0]).dialog("option", "draggable")) {
-            handle = $("<div />").addClass("ui-dialog-draggable-handle").css("cursor", "move").height(5);
+            handle = $("<div />").addClass("modal-dialog-draggable-handle").css("cursor", "move").height(5);
             $(this.element[0]).dialog("widget").prepend(handle).draggable("option", "handle", handle);
           }
-          return $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar").find(".ui-dialog-title").html("&nbsp;").end().css({
+          return $(this.element[0]).dialog("widget").find(".modal-dialog-titlebar").find(".modal-dialog-title").html("&nbsp;").end().css({
             "background-color": "transparent",
             "background-image": "none",
             "border": 0,
@@ -166,7 +144,7 @@
             "z-index": 9999
           }).end();
         case "transparent":
-          return $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar").css({
+          return $(this.element[0]).dialog("widget").find(".modal-dialog-titlebar").css({
             "background-color": "transparent",
             "background-image": "none",
             "border": 0
@@ -201,7 +179,7 @@
         this.original_position_mode = $(this.element[0]).dialog("widget").css("position");
         this.original_position_left = $(this.element[0]).dialog("widget").offset().left - $('body').scrollLeft();
         this.original_position_top = $(this.element[0]).dialog("widget").offset().top - $('body').scrollTop();
-        return this.original_titlebar_wrap = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar").css("white-space");
+        return this.original_titlebar_wrap = $(this.element[0]).dialog("widget").find(".modal-dialog-titlebar").css("white-space");
       }
     },
     _loadSnapshot: function() {
@@ -229,20 +207,20 @@
       var mode, name, state, _ref, _ref1, _results;
 
       state = newstate || this._state;
-      $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-restore").toggle(state !== "normal").css({
+      $(this.element[0]).dialog("widget").find(".modal-dialog-titlebar-restore").toggle(state !== "normal").css({
         // "right": "1.4em"
       }).end();
       _ref = this.modes;
       for (name in _ref) {
         mode = _ref[name];
-        $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-" + name).toggle(state !== mode.state && this.options[mode.option]);
+        $(this.element[0]).dialog("widget").find(".modal-dialog-titlebar-" + name).toggle(state !== mode.state && this.options[mode.option]);
       }
       _ref1 = this.modes;
       _results = [];
       for (name in _ref1) {
         mode = _ref1[name];
         if (mode.state === state) {
-          _results.push($(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-restore").insertAfter($(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-" + name)).end());
+          _results.push($(this.element[0]).dialog("widget").find(".modal-dialog-titlebar-restore").insertAfter($(this.element[0]).dialog("widget").find(".modal-dialog-titlebar-" + name)).end());
         } else {
           _results.push(void 0);
         }
@@ -258,7 +236,7 @@
 
   $ = jQuery;
 
-  $.extend(true, $.mi.dialogExtend.prototype, {
+  $.extend(true, $.modal.dialogExtend.prototype, {
     modes: {
       "collapse": {
         option: "collapsable",
@@ -276,7 +254,7 @@
     collapse: function() {
       var newHeight, pos;
 
-      newHeight = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar").height() + 15;
+      newHeight = $(this.element[0]).dialog("widget").find(".modal-dialog-titlebar").height() + 15;
       this._trigger("beforeCollapse");
       if (this._state !== "normal") {
         this._restore();
@@ -288,7 +266,7 @@
         "height": newHeight,
         "maxHeight": newHeight,
         "position": [pos.left - $(document).scrollLeft(), pos.top - $(document).scrollTop()]
-      }).on('dialogclose', this._collapse_restore).hide().dialog("widget").find(".ui-dialog-buttonpane:visible").hide().end().find(".ui-dialog-titlebar").css("white-space", "nowrap").end().find(".ui-dialog-content");
+      }).on('dialogclose', this._collapse_restore).hide().dialog("widget").find(".modal-dialog-buttonpane:visible").hide().end().find(".modal-dialog-titlebar").css("white-space", "nowrap").end().find(".modal-dialog-content");
       this._setState("collapsed");
       this._toggleButtons();
       return this._trigger("collapse");
@@ -297,7 +275,7 @@
       var original;
 
       original = this._loadSnapshot();
-      return $(this.element[0]).show().dialog("widget").find(".ui-dialog-buttonpane:hidden").show().end().find(".ui-dialog-titlebar").css("white-space", original.titlebar.wrap).end().find(".ui-dialog-content").dialog("option", {
+      return $(this.element[0]).show().dialog("widget").find(".modal-dialog-buttonpane:hidden").show().end().find(".modal-dialog-titlebar").css("white-space", original.titlebar.wrap).end().find(".modal-dialog-content").dialog("option", {
         "resizable": original.config.resizable,
         "height": original.size.height,
         "maxHeight": original.size.maxHeight
@@ -309,9 +287,9 @@
       if (!$(".dialog-extend-collapse-css").length) {
         style = '';
         style += '<style class="dialog-extend-collapse-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse span { display: block; margin: 1px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-collapse:focus { padding: 0; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-collapse span { display: block; margin: 1px; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-collapse:hover,';
+        style += '.modal-dialog-container .modal-dialog-titlebar-collapse:focus { padding: 0; }';
         style += '</style>';
         return $(style).appendTo("body");
       }
@@ -328,7 +306,7 @@
 
   $ = jQuery;
 
-  $.extend(true, $.mi.dialogExtend.prototype, {
+  $.extend(true, $.modal.dialogExtend.prototype, {
     modes: {
       "maximize": {
         option: "maximizable",
@@ -346,17 +324,17 @@
     maximize: function() {
       var newHeight, newWidth;
 
-      newHeight = $(window).height() - 11;
-      newWidth = $(window).width() - 11;
+      newHeight = $(window).height();
+      newWidth = $(window).width();
       this._trigger("beforeMaximize");
       if (this._state !== "normal") {
         this._restore();
       }
       this._saveSnapshot();
       if ($(this.element[0]).dialog("option", "draggable")) {
-        $(this.element[0]).dialog("widget").draggable("option", "handle", null).find(".ui-dialog-draggable-handle").css("cursor", "text").end();
+        $(this.element[0]).dialog("widget").draggable("option", "handle", null).find(".modal-dialog-draggable-handle").css("cursor", "text").end();
       }
-      $(this.element[0]).dialog("widget").css("position", "fixed").find(".ui-dialog-content").show().dialog("widget").find(".ui-dialog-buttonpane").show().end().find(".ui-dialog-content").dialog("option", {
+      $(this.element[0]).dialog("widget").css("position", "fixed").find(".modal-dialog-content").show().dialog("widget").find(".modal-dialog-buttonpane").show().end().find(".modal-dialog-content").dialog("option", {
         "resizable": false,
         "draggable": false,
         "height": newHeight,
@@ -375,7 +353,7 @@
       var original;
 
       original = this._loadSnapshot();
-      $(this.element[0]).dialog("widget").css("position", original.position.mode).find(".ui-dialog-titlebar").css("white-space", original.titlebar.wrap).end().find(".ui-dialog-content").dialog("option", {
+      $(this.element[0]).dialog("widget").css("position", original.position.mode).find(".modal-dialog-titlebar").css("white-space", original.titlebar.wrap).end().find(".modal-dialog-content").dialog("option", {
         "resizable": original.config.resizable,
         "draggable": original.config.draggable,
         "height": original.size.height,
@@ -388,7 +366,7 @@
         }
       });
       if ($(this.element[0]).dialog("option", "draggable")) {
-        return $(this.element[0]).dialog("widget").draggable("option", "handle", $(this.element[0]).dialog("widget").find(".ui-dialog-draggable-handle").length ? $(this.element[0]).dialog("widget").find(".ui-dialog-draggable-handle") : ".ui-dialog-titlebar").find(".ui-dialog-draggable-handle").css("cursor", "move");
+        return $(this.element[0]).dialog("widget").draggable("option", "handle", $(this.element[0]).dialog("widget").find(".modal-dialog-draggable-handle").length ? $(this.element[0]).dialog("widget").find(".modal-dialog-draggable-handle") : ".modal-dialog-titlebar").find(".modal-dialog-draggable-handle").css("cursor", "move");
       }
     },
     _initStyles_maximize: function() {
@@ -397,9 +375,9 @@
       if (!$(".dialog-extend-maximize-css").length) {
         style = '';
         style += '<style class="dialog-extend-maximize-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize span { display: block; margin: 1px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-maximize:focus { padding: 0; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-maximize span { display: block; margin: 1px; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-maximize:hover,';
+        style += '.modal-dialog-container .modal-dialog-titlebar-maximize:focus { padding: 0; }';
         style += '</style>';
         return $(style).appendTo("body");
       }
@@ -413,7 +391,7 @@
 
   $ = jQuery;
 
-  $.extend(true, $.mi.dialogExtend.prototype, {
+  $.extend(true, $.modal.dialogExtend.prototype, {
     modes: {
       "minimize": {
         option: "minimizable",
@@ -451,7 +429,7 @@
       }
       this._toggleButtons("minimized");
       dialogcontrols = $(this.element[0]).dialog("widget").clone().children().remove().end();
-      $(this.element[0]).dialog("widget").find('.ui-dialog-titlebar').clone(true, true).appendTo(dialogcontrols);
+      $(this.element[0]).dialog("widget").find('.modal-dialog-titlebar').clone(true, true).appendTo(dialogcontrols);
       dialogcontrols.css({
         "float": this.options.minimizeLocation,
         "margin": 1
@@ -459,7 +437,7 @@
       fixedContainer.append(dialogcontrols);
       $(this.element[0]).data("dialog-extend-minimize-controls", dialogcontrols);
       if ($(this.element[0]).dialog("option", "draggable")) {
-        dialogcontrols.removeClass("ui-draggable");
+        dialogcontrols.removeClass("modal-draggable");
       }
       dialogcontrols.css({
         "height": "auto",
@@ -482,9 +460,9 @@
       if (!$(".dialog-extend-minimize-css").length) {
         style = '';
         style += '<style class="dialog-extend-minimize-css" type="text/css">';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize span { display: block; margin: 1px; }';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize:hover,';
-        style += '.ui-dialog .ui-dialog-titlebar-minimize:focus { padding: 0; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-minimize span { display: block; margin: 1px; }';
+        style += '.modal-dialog-container .modal-dialog-titlebar-minimize:hover,';
+        style += '.modal-dialog-container .modal-dialog-titlebar-minimize:focus { padding: 0; }';
         style += '</style>';
         return $(style).appendTo("body");
       }

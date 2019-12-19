@@ -6,9 +6,9 @@
 	}
 }(function( $ ) {
 
-$.mi = $.mi || {};
+$.modal = $.modal || {};
 
-var version = $.mi.version = "1.12.1";
+var version = $.modal.version = "1.12.1";
 
 var widgetUuid = 0;
 var widgetSlice = Array.prototype.slice;
@@ -454,8 +454,8 @@ $.Widget.prototype = {
 
 		// If the widget is becoming disabled, then nothing is interactive
 		if ( value ) {
-			this._removeClass( this.hoverable, null, "ui-state-hover" );
-			this._removeClass( this.focusable, null, "ui-state-focus" );
+			this._removeClass( this.hoverable, null, "modal-state-hover" );
+			this._removeClass( this.focusable, null, "modal-state-focus" );
 		}
 	},
 
@@ -566,7 +566,7 @@ $.Widget.prototype = {
 				// - disabled class as method for disabling individual parts
 				if ( !suppressDisabledCheck &&
 						( instance.options.disabled === true ||
-						$( this ).hasClass( "ui-state-disabled" ) ) ) {
+						$( this ).hasClass( "modal-state-disabled" ) ) ) {
 					return;
 				}
 				return ( typeof handler === "string" ? instance[ handler ] : handler )
@@ -615,10 +615,10 @@ $.Widget.prototype = {
 		this.hoverable = this.hoverable.add( element );
 		this._on( element, {
 			mouseenter: function( event ) {
-				this._addClass( $( event.currentTarget ), null, "ui-state-hover" );
+				this._addClass( $( event.currentTarget ), null, "modal-state-hover" );
 			},
 			mouseleave: function( event ) {
-				this._removeClass( $( event.currentTarget ), null, "ui-state-hover" );
+				this._removeClass( $( event.currentTarget ), null, "modal-state-hover" );
 			}
 		} );
 	},
@@ -627,10 +627,10 @@ $.Widget.prototype = {
 		this.focusable = this.focusable.add( element );
 		this._on( element, {
 			focusin: function( event ) {
-				this._addClass( $( event.currentTarget ), null, "ui-state-focus" );
+				this._addClass( $( event.currentTarget ), null, "modal-state-focus" );
 			},
 			focusout: function( event ) {
-				this._removeClass( $( event.currentTarget ), null, "ui-state-focus" );
+				this._removeClass( $( event.currentTarget ), null, "modal-state-focus" );
 			}
 		} );
 	},
@@ -712,20 +712,20 @@ var widget = $.widget;
 
 /*!
  * jQuery UI Position 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
  *
- * http://api.jquerymi.com/position/
+ * http://api.jquerymodal.com/position/
  */
 
 //>>label: Position
 //>>group: Core
 //>>description: Positions elements relative to other elements.
-//>>docs: http://api.jquerymi.com/position/
-//>>demos: http://jquerymi.com/position/
+//>>docs: http://api.jquerymodal.com/position/
+//>>demos: http://jquerymodal.com/position/
 
 
 ( function() {
@@ -953,8 +953,8 @@ $.fn.position = function( options ) {
 		};
 
 		$.each( [ "left", "top" ], function( i, dir ) {
-			if ( $.mi.position[ collision[ i ] ] ) {
-				$.mi.position[ collision[ i ] ][ dir ]( position, {
+			if ( $.modal.position[ collision[ i ] ] ) {
+				$.modal.position[ collision[ i ] ][ dir ]( position, {
 					targetWidth: targetWidth,
 					targetHeight: targetHeight,
 					elemWidth: elemWidth,
@@ -1016,7 +1016,7 @@ $.fn.position = function( options ) {
 	} );
 };
 
-$.mi.position = {
+$.modal.position = {
 	fit: {
 		left: function( position, data ) {
 			var within = data.within,
@@ -1183,24 +1183,24 @@ $.mi.position = {
 	},
 	flipfit: {
 		left: function() {
-			$.mi.position.flip.left.apply( this, arguments );
-			$.mi.position.fit.left.apply( this, arguments );
+			$.modal.position.flip.left.apply( this, arguments );
+			$.modal.position.fit.left.apply( this, arguments );
 		},
 		top: function() {
-			$.mi.position.flip.top.apply( this, arguments );
-			$.mi.position.fit.top.apply( this, arguments );
+			$.modal.position.flip.top.apply( this, arguments );
+			$.modal.position.fit.top.apply( this, arguments );
 		}
 	}
 };
 
 } )();
 
-var position = $.mi.position;
+var position = $.modal.position;
 
 
 /*!
  * jQuery UI :data 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -1210,7 +1210,7 @@ var position = $.mi.position;
 //>>label: :data Selector
 //>>group: Core
 //>>description: Selects elements which have data stored under the specified key.
-//>>docs: http://api.jquerymi.com/data-selector/
+//>>docs: http://api.jquerymodal.com/data-selector/
 
 
 var data = $.extend( $.expr[ ":" ], {
@@ -1229,7 +1229,7 @@ var data = $.extend( $.expr[ ":" ], {
 
 /*!
  * jQuery UI Disable Selection 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -1239,7 +1239,7 @@ var data = $.extend( $.expr[ ":" ], {
 //>>label: disableSelection
 //>>group: Core
 //>>description: Disable selection of text content within the set of matched elements.
-//>>docs: http://api.jquerymi.com/disableSelection/
+//>>docs: http://api.jquerymodal.com/disableSelection/
 
 // This file is deprecated
 
@@ -1251,21 +1251,21 @@ var disableSelection = $.fn.extend( {
 			"mousedown";
 
 		return function() {
-			return this.on( eventType + ".ui-disableSelection", function( event ) {
+			return this.on( eventType + ".modal-disableSelection", function( event ) {
 				event.preventDefault();
 			} );
 		};
 	} )(),
 
 	enableSelection: function() {
-		return this.off( ".ui-disableSelection" );
+		return this.off( ".modal-disableSelection" );
 	}
 } );
 
 
 /*!
  * jQuery UI Effects 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -1277,14 +1277,14 @@ var disableSelection = $.fn.extend( {
 // jscs:disable maximumLineLength
 //>>description: Extends the internal jQuery effects. Includes morphing and easing. Required by all other effects.
 // jscs:enable maximumLineLength
-//>>docs: http://api.jquerymi.com/category/effects-core/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/category/effects-core/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
-var dataSpace = "ui-effects-",
-	dataSpaceStyle = "ui-effects-style",
-	dataSpaceAnimated = "ui-effects-animated",
+var dataSpace = "modal-effects-",
+	dataSpaceStyle = "modal-effects-style",
+	dataSpaceAnimated = "modal-effects-animated",
 
 	// Create a local jQuery because jQuery Color relies on it and the
 	// global may not exist with AMD and a custom build (#10199)
@@ -1308,7 +1308,7 @@ if ( $.expr && $.expr.filters && $.expr.filters.animated ) {
 	} )( $.expr.filters.animated );
 }
 
-if ( $.miBackCompat !== false ) {
+if ( $.modalBackCompat !== false ) {
 	$.extend( $.effects, {
 
 		// Saves a set of properties in a data storage
@@ -1343,7 +1343,7 @@ if ( $.miBackCompat !== false ) {
 		createWrapper: function( element ) {
 
 			// If the element is already wrapped, return it
-			if ( element.parent().is( ".ui-effects-wrapper" ) ) {
+			if ( element.parent().is( ".modal-effects-wrapper" ) ) {
 				return element.parent();
 			}
 
@@ -1354,7 +1354,7 @@ if ( $.miBackCompat !== false ) {
 					"float": element.css( "float" )
 				},
 				wrapper = $( "<div></div>" )
-					.addClass( "ui-effects-wrapper" )
+					.addClass( "modal-effects-wrapper" )
 					.css( {
 						fontSize: "100%",
 						background: "transparent",
@@ -1421,7 +1421,7 @@ if ( $.miBackCompat !== false ) {
 		removeWrapper: function( element ) {
 			var active = document.activeElement;
 
-			if ( element.parent().is( ".ui-effects-wrapper" ) ) {
+			if ( element.parent().is( ".modal-effects-wrapper" ) ) {
 				element.parent().replaceWith( element );
 
 				// Fixes #7595 - Elements lose focus when wrapped.
@@ -1513,7 +1513,6 @@ $.extend( $.effects, {
 		return mode;
 	},
 
-	// Translates a [top,left] array into a baseline value
 	getBaseline: function( origin, original ) {
 		var y, x;
 
@@ -1591,7 +1590,7 @@ $.extend( $.effects, {
 			} )
 			.outerWidth( element.outerWidth() )
 			.outerHeight( element.outerHeight() )
-			.addClass( "ui-effects-placeholder" );
+			.addClass( "modal-effects-placeholder" );
 
 			element.data( dataSpace + "placeholder", placeholder );
 		}
@@ -1689,27 +1688,22 @@ function _normalizeArguments( effect, options, speed, callback ) {
 
 function standardAnimationOption( option ) {
 
-	// Valid standard speeds (nothing, number, named speed)
 	if ( !option || typeof option === "number" || $.fx.speeds[ option ] ) {
 		return true;
 	}
 
-	// Invalid strings - treat as "normal" speed
 	if ( typeof option === "string" && !$.effects.effect[ option ] ) {
 		return true;
 	}
 
-	// Complete callback
 	if ( $.isFunction( option ) ) {
 		return true;
 	}
 
-	// Options hash (but not naming an effect)
 	if ( typeof option === "object" && !option.effect ) {
 		return true;
 	}
 
-	// Didn't match any standard API
 	return false;
 }
 
@@ -1735,7 +1729,7 @@ $.fn.extend( {
 				// as the .show() below destroys the initial state
 				modes.push( normalizedMode );
 
-				// See $.miBackCompat inside of run() for removal of defaultMode in 1.13
+				// See $.modalBackCompat inside of run() for removal of defaultMode in 1.13
 				if ( defaultMode && ( normalizedMode === "show" ||
 						( normalizedMode === defaultMode && normalizedMode === "hide" ) ) ) {
 					el.show();
@@ -1793,7 +1787,7 @@ $.fn.extend( {
 			// as toggle can be either show or hide depending on element state
 			args.mode = modes.shift();
 
-			if ( $.miBackCompat !== false && !defaultMode ) {
+			if ( $.modalBackCompat !== false && !defaultMode ) {
 				if ( elem.is( ":hidden" ) ? mode === "hide" : mode === "show" ) {
 
 					// Call the core method to track "olddisplay" properly
@@ -1894,7 +1888,7 @@ $.fn.extend( {
 				width: target.innerWidth()
 			},
 			startPosition = element.offset(),
-			transfer = $( "<div class='ui-effects-transfer'></div>" )
+			transfer = $( "<div class='modal-effects-transfer'></div>" )
 				.appendTo( "body" )
 				.addClass( options.className )
 				.css( {
@@ -2004,7 +1998,7 @@ var effect = $.effects;
 
 /*!
  * jQuery UI Effects Blind 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2014,8 +2008,8 @@ var effect = $.effects;
 //>>label: Blind Effect
 //>>group: Effects
 //>>description: Blinds the element.
-//>>docs: http://api.jquerymi.com/blind-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/blind-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2060,7 +2054,7 @@ var effectsEffectBlind = $.effects.define( "blind", "hide", function( options, d
 
 /*!
  * jQuery UI Effects Bounce 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2070,8 +2064,8 @@ var effectsEffectBlind = $.effects.define( "blind", "hide", function( options, d
 //>>label: Bounce Effect
 //>>group: Effects
 //>>description: Bounces an element horizontally or vertically n times.
-//>>docs: http://api.jquerymi.com/bounce-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/bounce-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2156,7 +2150,7 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 
 /*!
  * jQuery UI Effects Clip 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2166,8 +2160,8 @@ var effectsEffectBounce = $.effects.define( "bounce", function( options, done ) 
 //>>label: Clip Effect
 //>>group: Effects
 //>>description: Clips the element on and off like an old TV.
-//>>docs: http://api.jquerymi.com/clip-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/clip-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2207,7 +2201,7 @@ var effectsEffectClip = $.effects.define( "clip", "hide", function( options, don
 
 /*!
  * jQuery UI Effects Drop 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2217,8 +2211,8 @@ var effectsEffectClip = $.effects.define( "clip", "hide", function( options, don
 //>>label: Drop Effect
 //>>group: Effects
 //>>description: Moves an element in one direction and hides it at the same time.
-//>>docs: http://api.jquerymi.com/drop-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/drop-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2262,7 +2256,7 @@ var effectsEffectDrop = $.effects.define( "drop", "hide", function( options, don
 
 /*!
  * jQuery UI Effects Explode 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2274,8 +2268,8 @@ var effectsEffectDrop = $.effects.define( "drop", "hide", function( options, don
 // jscs:disable maximumLineLength
 //>>description: Explodes an element in all directions into n pieces. Implodes an element to its original wholeness.
 // jscs:enable maximumLineLength
-//>>docs: http://api.jquerymi.com/explode-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/explode-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2329,7 +2323,7 @@ var effectsEffectExplode = $.effects.define( "explode", "hide", function( option
 				// Select the wrapper - make it overflow: hidden and absolute positioned based on
 				// where the original was located +left and +top equal to the size of pieces
 				.parent()
-					.addClass( "ui-effects-explode" )
+					.addClass( "modal-effects-explode" )
 					.css( {
 						position: "absolute",
 						overflow: "hidden",
@@ -2359,7 +2353,7 @@ var effectsEffectExplode = $.effects.define( "explode", "hide", function( option
 
 /*!
  * jQuery UI Effects Fade 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2369,8 +2363,8 @@ var effectsEffectExplode = $.effects.define( "explode", "hide", function( option
 //>>label: Fade Effect
 //>>group: Effects
 //>>description: Fades the element.
-//>>docs: http://api.jquerymi.com/fade-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/fade-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2392,7 +2386,7 @@ var effectsEffectFade = $.effects.define( "fade", "toggle", function( options, d
 
 /*!
  * jQuery UI Effects Fold 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2402,8 +2396,8 @@ var effectsEffectFade = $.effects.define( "fade", "toggle", function( options, d
 //>>label: Fold Effect
 //>>group: Effects
 //>>description: Folds an element first horizontally and then vertically.
-//>>docs: http://api.jquerymi.com/fold-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/fold-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2467,7 +2461,7 @@ var effectsEffectFold = $.effects.define( "fold", "hide", function( options, don
 
 /*!
  * jQuery UI Effects Highlight 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2477,8 +2471,8 @@ var effectsEffectFold = $.effects.define( "fold", "hide", function( options, don
 //>>label: Highlight Effect
 //>>group: Effects
 //>>description: Highlights the background of an element in a defined color for a custom duration.
-//>>docs: http://api.jquerymi.com/highlight-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/highlight-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2510,7 +2504,7 @@ var effectsEffectHighlight = $.effects.define( "highlight", "show", function( op
 
 /*!
  * jQuery UI Effects Size 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2520,8 +2514,8 @@ var effectsEffectHighlight = $.effects.define( "highlight", "show", function( op
 //>>label: Size Effect
 //>>group: Effects
 //>>description: Resize an element to a specified width and height.
-//>>docs: http://api.jquerymi.com/size-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/size-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2687,7 +2681,7 @@ var effectsEffectSize = $.effects.define( "size", function( options, done ) {
 
 /*!
  * jQuery UI Effects Scale 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2697,8 +2691,8 @@ var effectsEffectSize = $.effects.define( "size", function( options, done ) {
 //>>label: Scale Effect
 //>>group: Effects
 //>>description: Grows or shrinks an element and its content.
-//>>docs: http://api.jquerymi.com/scale-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/scale-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2716,7 +2710,6 @@ var effectsEffectScale = $.effects.define( "scale", function( options, done ) {
 			origin: options.origin || [ "middle", "center" ]
 		}, options );
 
-	// Fade option to support puff
 	if ( options.fade ) {
 		newOptions.from.opacity = 1;
 		newOptions.to.opacity = 0;
@@ -2728,7 +2721,7 @@ var effectsEffectScale = $.effects.define( "scale", function( options, done ) {
 
 /*!
  * jQuery UI Effects Puff 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2738,8 +2731,8 @@ var effectsEffectScale = $.effects.define( "scale", function( options, done ) {
 //>>label: Puff Effect
 //>>group: Effects
 //>>description: Creates a puff effect by scaling the element up and hiding it at the same time.
-//>>docs: http://api.jquerymi.com/puff-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/puff-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2755,7 +2748,7 @@ var effectsEffectPuff = $.effects.define( "puff", "hide", function( options, don
 
 /*!
  * jQuery UI Effects Pulsate 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2765,8 +2758,8 @@ var effectsEffectPuff = $.effects.define( "puff", "hide", function( options, don
 //>>label: Pulsate Effect
 //>>group: Effects
 //>>description: Pulsates an element n times by changing the opacity to zero and back.
-//>>docs: http://api.jquerymi.com/pulsate-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/pulsate-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2805,7 +2798,7 @@ var effectsEffectPulsate = $.effects.define( "pulsate", "show", function( option
 
 /*!
  * jQuery UI Effects Shake 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2815,8 +2808,8 @@ var effectsEffectPulsate = $.effects.define( "pulsate", "show", function( option
 //>>label: Shake Effect
 //>>group: Effects
 //>>description: Shakes an element horizontally or vertically n times.
-//>>docs: http://api.jquerymi.com/shake-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/shake-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2865,7 +2858,7 @@ var effectsEffectShake = $.effects.define( "shake", function( options, done ) {
 
 /*!
  * jQuery UI Effects Slide 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2875,8 +2868,8 @@ var effectsEffectShake = $.effects.define( "shake", function( options, done ) {
 //>>label: Slide Effect
 //>>group: Effects
 //>>description: Slides an element in and out of the viewport.
-//>>docs: http://api.jquerymi.com/slide-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/slide-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
@@ -2927,7 +2920,7 @@ var effectsEffectSlide = $.effects.define( "slide", "show", function( options, d
 
 /*!
  * jQuery UI Effects Transfer 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2937,13 +2930,13 @@ var effectsEffectSlide = $.effects.define( "slide", "show", function( options, d
 //>>label: Transfer Effect
 //>>group: Effects
 //>>description: Displays a transfer effect from one element to another.
-//>>docs: http://api.jquerymi.com/transfer-effect/
-//>>demos: http://jquerymi.com/effect/
+//>>docs: http://api.jquerymodal.com/transfer-effect/
+//>>demos: http://jquerymodal.com/effect/
 
 
 
 var effect;
-if ( $.miBackCompat !== false ) {
+if ( $.modalBackCompat !== false ) {
 	effect = $.effects.define( "transfer", function( options, done ) {
 		$( this ).transfer( options, done );
 	} );
@@ -2953,7 +2946,7 @@ var effectsEffectTransfer = effect;
 
 /*!
  * jQuery UI Focusable 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -2963,12 +2956,12 @@ var effectsEffectTransfer = effect;
 //>>label: :focusable Selector
 //>>group: Core
 //>>description: Selects elements which can be focused.
-//>>docs: http://api.jquerymi.com/focusable-selector/
+//>>docs: http://api.jquerymodal.com/focusable-selector/
 
 
 
 // Selectors
-$.mi.focusable = function( element, hasTabindex ) {
+$.modal.focusable = function( element, hasTabindex ) {
 	var map, mapName, img, focusableIfVisible, fieldset,
 		nodeName = element.nodeName.toLowerCase();
 
@@ -3018,11 +3011,11 @@ function visible( element ) {
 
 $.extend( $.expr[ ":" ], {
 	focusable: function( element ) {
-		return $.mi.focusable( element, $.attr( element, "tabindex" ) != null );
+		return $.modal.focusable( element, $.attr( element, "tabindex" ) != null );
 	}
 } );
 
-var focusable = $.mi.focusable;
+var focusable = $.modal.focusable;
 
 
 
@@ -3037,7 +3030,7 @@ var form = $.fn.form = function() {
 
 /*!
  * jQuery UI Support for jQuery core 1.7.x 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -3116,7 +3109,7 @@ if ( $.fn.jquery.substring( 0, 3 ) === "1.7" ) {
 ;
 /*!
  * jQuery UI Keycode 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -3126,10 +3119,10 @@ if ( $.fn.jquery.substring( 0, 3 ) === "1.7" ) {
 //>>label: Keycode
 //>>group: Core
 //>>description: Provide keycodes as keynames
-//>>docs: http://api.jquerymi.com/jQuery.mi.keyCode/
+//>>docs: http://api.jquerymodal.com/jQuery.modal.keyCode/
 
 
-var keycode = $.mi.keyCode = {
+var keycode = $.modal.keyCode = {
 	BACKSPACE: 8,
 	COMMA: 188,
 	DELETE: 46,
@@ -3152,7 +3145,7 @@ var keycode = $.mi.keyCode = {
 
 
 // Internal use only
-var escapeSelector = $.mi.escapeSelector = ( function() {
+var escapeSelector = $.modal.escapeSelector = ( function() {
 	var selectorEscape = /([!"#$%&'()*+,./:;<=>?@[\]^`{|}~])/g;
 	return function( selector ) {
 		return selector.replace( selectorEscape, "\\$1" );
@@ -3162,7 +3155,7 @@ var escapeSelector = $.mi.escapeSelector = ( function() {
 
 /*!
  * jQuery UI Labels 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -3172,7 +3165,7 @@ var escapeSelector = $.mi.escapeSelector = ( function() {
 //>>label: labels
 //>>group: Core
 //>>description: Find all the labels associated with a given input
-//>>docs: http://api.jquerymi.com/labels/
+//>>docs: http://api.jquerymodal.com/labels/
 
 
 
@@ -3201,7 +3194,7 @@ var labels = $.fn.labels = function() {
 		ancestors = ancestor.add( ancestor.length ? ancestor.siblings() : this.siblings() );
 
 		// Create a selector for the label based on the id
-		selector = "label[for='" + $.mi.escapeSelector( id ) + "']";
+		selector = "label[for='" + $.modal.escapeSelector( id ) + "']";
 
 		labels = labels.add( ancestors.find( selector ).addBack( selector ) );
 
@@ -3214,7 +3207,7 @@ var labels = $.fn.labels = function() {
 
 /*!
  * jQuery UI Scroll Parent 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -3224,7 +3217,7 @@ var labels = $.fn.labels = function() {
 //>>label: scrollParent
 //>>group: Core
 //>>description: Get the closest ancestor element that is scrollable.
-//>>docs: http://api.jquerymi.com/scrollParent/
+//>>docs: http://api.jquerymodal.com/scrollParent/
 
 
 
@@ -3249,7 +3242,7 @@ var scrollParent = $.fn.scrollParent = function( includeHidden ) {
 
 /*!
  * jQuery UI Tabbable 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -3259,7 +3252,7 @@ var scrollParent = $.fn.scrollParent = function( includeHidden ) {
 //>>label: :tabbable Selector
 //>>group: Core
 //>>description: Selects elements which can be tabbed to.
-//>>docs: http://api.jquerymi.com/tabbable-selector/
+//>>docs: http://api.jquerymodal.com/tabbable-selector/
 
 
 
@@ -3267,14 +3260,14 @@ var tabbable = $.extend( $.expr[ ":" ], {
 	tabbable: function( element ) {
 		var tabIndex = $.attr( element, "tabindex" ),
 			hasTabindex = tabIndex != null;
-		return ( !hasTabindex || tabIndex >= 0 ) && $.mi.focusable( element, hasTabindex );
+		return ( !hasTabindex || tabIndex >= 0 ) && $.modal.focusable( element, hasTabindex );
 	}
 } );
 
 
 /*!
  * jQuery UI Unique ID 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -3284,7 +3277,7 @@ var tabbable = $.extend( $.expr[ ":" ], {
 //>>label: uniqueId
 //>>group: Core
 //>>description: Functions to generate and remove uniqueId's
-//>>docs: http://api.jquerymi.com/uniqueId/
+//>>docs: http://api.jquerymodal.com/uniqueId/
 
 
 
@@ -3295,7 +3288,7 @@ var uniqueId = $.fn.extend( {
 		return function() {
 			return this.each( function() {
 				if ( !this.id ) {
-					this.id = "ui-id-" + ( ++uuid );
+					this.id = "modal-id-" + ( ++uuid );
 				}
 			} );
 		};
@@ -3303,7 +3296,7 @@ var uniqueId = $.fn.extend( {
 
 	removeUniqueId: function() {
 		return this.each( function() {
-			if ( /^ui-id-\d+$/.test( this.id ) ) {
+			if ( /^modal-id-\d+$/.test( this.id ) ) {
 				$( this ).removeAttr( "id" );
 			}
 		} );
@@ -3313,7 +3306,7 @@ var uniqueId = $.fn.extend( {
 
 /*!
  * jQuery UI Accordion 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -3325,23 +3318,23 @@ var uniqueId = $.fn.extend( {
 // jscs:disable maximumLineLength
 //>>description: Displays collapsible content panels for presenting information in a limited amount of space.
 // jscs:enable maximumLineLength
-//>>docs: http://api.jquerymi.com/accordion/
-//>>demos: http://jquerymi.com/accordion/
+//>>docs: http://api.jquerymodal.com/accordion/
+//>>demos: http://jquerymodal.com/accordion/
 //>>css.structure: ../../themes/base/core.css
 //>>css.structure: ../../themes/base/accordion.css
 //>>css.theme: ../../themes/base/theme.css
 
 
 
-var widgetsAccordion = $.widget( "mi.accordion", {
+var widgetsAccordion = $.widget( "modal.accordion", {
 	version: "1.12.1",
 	options: {
 		active: 0,
 		animate: {},
 		classes: {
-			"ui-accordion-header": "ui-corner-top",
-			"ui-accordion-header-collapsed": "ui-corner-all",
-			"ui-accordion-content": "ui-corner-bottom"
+			"modal-accordion-header": "modal-corner-top",
+			"modal-accordion-header-collapsed": "modal-corner-all",
+			"modal-accordion-content": "modal-corner-bottom"
 		},
 		collapsible: false,
 		event: "click",
@@ -3377,7 +3370,7 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 		var options = this.options;
 
 		this.prevShow = this.prevHide = $();
-		this._addClass( "ui-accordion", "ui-widget ui-helper-reset" );
+		this._addClass( "modal-accordion", "modal-widget modal-helper-reset" );
 		this.element.attr( "role", "tablist" );
 
 		// Don't allow collapsible: false and active: false / null
@@ -3407,18 +3400,18 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 
 		if ( icons ) {
 			icon = $( "<span>" );
-			this._addClass( icon, "ui-accordion-header-icon", "ui-icon " + icons.header );
+			this._addClass( icon, "modal-accordion-header-icon", "ui-icon " + icons.header );
 			icon.prependTo( this.headers );
-			children = this.active.children( ".ui-accordion-header-icon" );
+			children = this.active.children( ".modal-accordion-header-icon" );
 			this._removeClass( children, icons.header )
 				._addClass( children, null, icons.activeHeader )
-				._addClass( this.headers, "ui-accordion-icons" );
+				._addClass( this.headers, "modal-accordion-icons" );
 		}
 	},
 
 	_destroyIcons: function() {
-		this._removeClass( this.headers, "ui-accordion-icons" );
-		this.headers.children( ".ui-accordion-header-icon" ).remove();
+		this._removeClass( this.headers, "modal-accordion-icons" );
+		this.headers.children( ".modal-accordion-header-icon" ).remove();
 	},
 
 	_destroy: function() {
@@ -3483,8 +3476,8 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 		// Support: IE8 Only
 		// #5332 / #6059 - opacity doesn't cascade to positioned elements in IE
 		// so we need to add the disabled class to the headers and panels
-		this._toggleClass( null, "ui-state-disabled", !!value );
-		this._toggleClass( this.headers.add( this.headers.next() ), null, "ui-state-disabled",
+		this._toggleClass( null, "modal-state-disabled", !!value );
+		this._toggleClass( this.headers.add( this.headers.next() ), null, "modal-state-disabled",
 			!!value );
 	},
 
@@ -3493,7 +3486,7 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 			return;
 		}
 
-		var keyCode = $.mi.keyCode,
+		var keyCode = $.modal.keyCode,
 			length = this.headers.length,
 			currentIndex = this.headers.index( event.target ),
 			toFocus = false;
@@ -3528,7 +3521,7 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 	},
 
 	_panelKeyDown: function( event ) {
-		if ( event.keyCode === $.mi.keyCode.UP && event.ctrlKey ) {
+		if ( event.keyCode === $.modal.keyCode.UP && event.ctrlKey ) {
 			$( event.currentTarget ).prev().trigger( "focus" );
 		}
 	},
@@ -3551,7 +3544,7 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 		} else if ( this.active.length && !$.contains( this.element[ 0 ], this.active[ 0 ] ) ) {
 
 			// all remaining panel are disabled
-			if ( this.headers.length === this.headers.find( ".ui-state-disabled" ).length ) {
+			if ( this.headers.length === this.headers.find( ".modal-state-disabled" ).length ) {
 				options.active = false;
 				this.active = $();
 
@@ -3577,11 +3570,11 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 			prevPanels = this.panels;
 
 		this.headers = this.element.find( this.options.header );
-		this._addClass( this.headers, "ui-accordion-header ui-accordion-header-collapsed",
-			"ui-state-default" );
+		this._addClass( this.headers, "modal-accordion-header modal-accordion-header-collapsed",
+			"modal-state-default" );
 
-		this.panels = this.headers.next().filter( ":not(.ui-accordion-content-active)" ).hide();
-		this._addClass( this.panels, "ui-accordion-content", "ui-helper-reset ui-widget-content" );
+		this.panels = this.headers.next().filter( ":not(.modal-accordion-content-active)" ).hide();
+		this._addClass( this.panels, "modal-accordion-content", "modal-helper-reset modal-widget-content" );
 
 		// Avoid memory leaks (#10056)
 		if ( prevPanels ) {
@@ -3597,9 +3590,9 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 			parent = this.element.parent();
 
 		this.active = this._findActive( options.active );
-		this._addClass( this.active, "ui-accordion-header-active", "ui-state-active" )
-			._removeClass( this.active, "ui-accordion-header-collapsed" );
-		this._addClass( this.active.next(), "ui-accordion-content-active" );
+		this._addClass( this.active, "modal-accordion-header-active", "modal-state-active" )
+			._removeClass( this.active, "modal-accordion-header-collapsed" );
+		this._addClass( this.active.next(), "modal-accordion-content-active" );
 		this.active.next().show();
 
 		this.headers
@@ -3762,23 +3755,23 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 
 		// Switch classes
 		// corner classes on the previously active header stay after the animation
-		this._removeClass( active, "ui-accordion-header-active", "ui-state-active" );
+		this._removeClass( active, "modal-accordion-header-active", "modal-state-active" );
 		if ( options.icons ) {
-			activeChildren = active.children( ".ui-accordion-header-icon" );
+			activeChildren = active.children( ".modal-accordion-header-icon" );
 			this._removeClass( activeChildren, null, options.icons.activeHeader )
 				._addClass( activeChildren, null, options.icons.header );
 		}
 
 		if ( !clickedIsActive ) {
-			this._removeClass( clicked, "ui-accordion-header-collapsed" )
-				._addClass( clicked, "ui-accordion-header-active", "ui-state-active" );
+			this._removeClass( clicked, "modal-accordion-header-collapsed" )
+				._addClass( clicked, "modal-accordion-header-active", "modal-state-active" );
 			if ( options.icons ) {
-				clickedChildren = clicked.children( ".ui-accordion-header-icon" );
+				clickedChildren = clicked.children( ".modal-accordion-header-icon" );
 				this._removeClass( clickedChildren, null, options.icons.header )
 					._addClass( clickedChildren, null, options.icons.activeHeader );
 			}
 
-			this._addClass( clicked.next(), "ui-accordion-content-active" );
+			this._addClass( clicked.next(), "modal-accordion-content-active" );
 		}
 	},
 
@@ -3895,9 +3888,9 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 		var toHide = data.oldPanel,
 			prev = toHide.prev();
 
-		this._removeClass( toHide, "ui-accordion-content-active" );
-		this._removeClass( prev, "ui-accordion-header-active" )
-			._addClass( prev, "ui-accordion-header-collapsed" );
+		this._removeClass( toHide, "modal-accordion-content-active" );
+		this._removeClass( prev, "modal-accordion-header-active" )
+			._addClass( prev, "modal-accordion-header-collapsed" );
 
 		// Work around for rendering bug in IE (#5421)
 		if ( toHide.length ) {
@@ -3909,27 +3902,19 @@ var widgetsAccordion = $.widget( "mi.accordion", {
 
 
 
-var safeActiveElement = $.mi.safeActiveElement = function( document ) {
+var safeActiveElement = $.modal.safeActiveElement = function( document ) {
 	var activeElement;
 
-	// Support: IE 9 only
-	// IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
 	try {
 		activeElement = document.activeElement;
 	} catch ( error ) {
 		activeElement = document.body;
 	}
 
-	// Support: IE 9 - 11 only
-	// IE may return null instead of an element
-	// Interestingly, this only seems to occur when NOT in an iframe
 	if ( !activeElement ) {
 		activeElement = document.body;
 	}
 
-	// Support: IE 11 only
-	// IE11 returns a seemingly empty object in some cases when accessing
-	// document.activeElement from an <iframe>
 	if ( !activeElement.nodeName ) {
 		activeElement = document.body;
 	}
@@ -3940,7 +3925,7 @@ var safeActiveElement = $.mi.safeActiveElement = function( document ) {
 
 /*!
  * jQuery UI Menu 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -3950,15 +3935,15 @@ var safeActiveElement = $.mi.safeActiveElement = function( document ) {
 //>>label: Menu
 //>>group: Widgets
 //>>description: Creates nestable menus.
-//>>docs: http://api.jquerymi.com/menu/
-//>>demos: http://jquerymi.com/menu/
+//>>docs: http://api.jquerymodal.com/menu/
+//>>demos: http://jquerymodal.com/menu/
 //>>css.structure: ../../themes/base/core.css
 //>>css.structure: ../../themes/base/menu.css
 //>>css.theme: ../../themes/base/theme.css
 
 
 
-var widgetsMenu = $.widget( "mi.menu", {
+var widgetsMenu = $.widget( "modal.menu", {
 	version: "1.12.1",
 	defaultElement: "<ul>",
 	delay: 300,
@@ -3993,18 +3978,18 @@ var widgetsMenu = $.widget( "mi.menu", {
 				tabIndex: 0
 			} );
 
-		this._addClass( "ui-menu", "ui-widget ui-widget-content" );
+		this._addClass( "modal-menu", "modal-widget modal-widget-content" );
 		this._on( {
 
 			// Prevent focus from sticking to links inside menu after clicking
 			// them (focus should always stay on UL during navigation).
-			"mousedown .ui-menu-item": function( event ) {
+			"mousedown .modal-menu-item": function( event ) {
 				event.preventDefault();
 			},
-			"click .ui-menu-item": function( event ) {
+			"click .modal-menu-item": function( event ) {
 				var target = $( event.target );
-				var active = $( $.mi.safeActiveElement( this.document[ 0 ] ) );
-				if ( !this.mouseHandled && target.not( ".ui-state-disabled" ).length ) {
+				var active = $( $.modal.safeActiveElement( this.document[ 0 ] ) );
+				if ( !this.mouseHandled && target.not( ".modal-state-disabled" ).length ) {
 					this.select( event );
 
 					// Only set the mouseHandled flag if the event will bubble, see #9469.
@@ -4013,23 +3998,23 @@ var widgetsMenu = $.widget( "mi.menu", {
 					}
 
 					// Open submenu on click
-					if ( target.has( ".ui-menu" ).length ) {
+					if ( target.has( ".modal-menu" ).length ) {
 						this.expand( event );
 					} else if ( !this.element.is( ":focus" ) &&
-							active.closest( ".ui-menu" ).length ) {
+							active.closest( ".modal-menu" ).length ) {
 
 						// Redirect focus to the menu
 						this.element.trigger( "focus", [ true ] );
 
 						// If the active item is on the top level, let it stay active.
 						// Otherwise, blur the active item since it is no longer visible.
-						if ( this.active && this.active.parents( ".ui-menu" ).length === 1 ) {
+						if ( this.active && this.active.parents( ".modal-menu" ).length === 1 ) {
 							clearTimeout( this.timer );
 						}
 					}
 				}
 			},
-			"mouseenter .ui-menu-item": function( event ) {
+			"mouseenter .modal-menu-item": function( event ) {
 
 				// Ignore mouse events while typeahead is active, see #10458.
 				// Prevents focusing the wrong item when typeahead causes a scroll while the mouse
@@ -4038,7 +4023,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 					return;
 				}
 
-				var actualTarget = $( event.target ).closest( ".ui-menu-item" ),
+				var actualTarget = $( event.target ).closest( ".modal-menu-item" ),
 					target = $( event.currentTarget );
 
 				// Ignore bubbled events on parent items, see #11641
@@ -4046,14 +4031,14 @@ var widgetsMenu = $.widget( "mi.menu", {
 					return;
 				}
 
-				// Remove ui-state-active class from siblings of the newly focused menu item
+				// Remove modal-state-active class from siblings of the newly focused menu item
 				// to avoid a jump caused by adjacent elements both having a class with a border
-				this._removeClass( target.siblings().children( ".ui-state-active" ),
-					null, "ui-state-active" );
+				this._removeClass( target.siblings().children( ".modal-state-active" ),
+					null, "modal-state-active" );
 				this.focus( event, target );
 			},
 			mouseleave: "collapseAll",
-			"mouseleave .ui-menu": "collapseAll",
+			"mouseleave .modal-menu": "collapseAll",
 			focus: function( event, keepActiveItem ) {
 
 				// If there's already an active item, keep it active
@@ -4068,7 +4053,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 				this._delay( function() {
 					var notContained = !$.contains(
 						this.element[ 0 ],
-						$.mi.safeActiveElement( this.document[ 0 ] )
+						$.modal.safeActiveElement( this.document[ 0 ] )
 					);
 					if ( notContained ) {
 						this.collapseAll( event );
@@ -4094,16 +4079,16 @@ var widgetsMenu = $.widget( "mi.menu", {
 	},
 
 	_destroy: function() {
-		var items = this.element.find( ".ui-menu-item" )
+		var items = this.element.find( ".modal-menu-item" )
 				.removeAttr( "role aria-disabled" ),
-			submenus = items.children( ".ui-menu-item-wrapper" )
+			submenus = items.children( ".modal-menu-item-wrapper" )
 				.removeUniqueId()
 				.removeAttr( "tabIndex role aria-haspopup" );
 
 		// Destroy (sub)menus
 		this.element
 			.removeAttr( "aria-activedescendant" )
-			.find( ".ui-menu" ).addBack()
+			.find( ".modal-menu" ).addBack()
 				.removeAttr( "role aria-labelledby aria-expanded aria-hidden aria-disabled " +
 					"tabIndex" )
 				.removeUniqueId()
@@ -4111,7 +4096,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 
 		submenus.children().each( function() {
 			var elem = $( this );
-			if ( elem.data( "ui-menu-submenu-caret" ) ) {
+			if ( elem.data( "modal-menu-submenu-caret" ) ) {
 				elem.remove();
 			}
 		} );
@@ -4122,37 +4107,37 @@ var widgetsMenu = $.widget( "mi.menu", {
 			preventDefault = true;
 
 		switch ( event.keyCode ) {
-		case $.mi.keyCode.PAGE_UP:
+		case $.modal.keyCode.PAGE_UP:
 			this.previousPage( event );
 			break;
-		case $.mi.keyCode.PAGE_DOWN:
+		case $.modal.keyCode.PAGE_DOWN:
 			this.nextPage( event );
 			break;
-		case $.mi.keyCode.HOME:
+		case $.modal.keyCode.HOME:
 			this._move( "first", "first", event );
 			break;
-		case $.mi.keyCode.END:
+		case $.modal.keyCode.END:
 			this._move( "last", "last", event );
 			break;
-		case $.mi.keyCode.UP:
+		case $.modal.keyCode.UP:
 			this.previous( event );
 			break;
-		case $.mi.keyCode.DOWN:
+		case $.modal.keyCode.DOWN:
 			this.next( event );
 			break;
-		case $.mi.keyCode.LEFT:
+		case $.modal.keyCode.LEFT:
 			this.collapse( event );
 			break;
-		case $.mi.keyCode.RIGHT:
-			if ( this.active && !this.active.is( ".ui-state-disabled" ) ) {
+		case $.modal.keyCode.RIGHT:
+			if ( this.active && !this.active.is( ".modal-state-disabled" ) ) {
 				this.expand( event );
 			}
 			break;
-		case $.mi.keyCode.ENTER:
-		case $.mi.keyCode.SPACE:
+		case $.modal.keyCode.ENTER:
+		case $.modal.keyCode.SPACE:
 			this._activate( event );
 			break;
-		case $.mi.keyCode.ESCAPE:
+		case $.modal.keyCode.ESCAPE:
 			this.collapse( event );
 			break;
 		default:
@@ -4174,7 +4159,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 
 			match = this._filterMenuItems( character );
 			match = skip && match.index( this.active.next() ) !== -1 ?
-				this.active.nextAll( ".ui-menu-item" ) :
+				this.active.nextAll( ".modal-menu-item" ) :
 				match;
 
 			// If no matches on the current filter, reset to the last character pressed
@@ -4201,7 +4186,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 	},
 
 	_activate: function( event ) {
-		if ( this.active && !this.active.is( ".ui-state-disabled" ) ) {
+		if ( this.active && !this.active.is( ".modal-state-disabled" ) ) {
 			if ( this.active.children( "[aria-haspopup='true']" ).length ) {
 				this.expand( event );
 			} else {
@@ -4216,10 +4201,10 @@ var widgetsMenu = $.widget( "mi.menu", {
 			icon = this.options.icons.submenu,
 			submenus = this.element.find( this.options.menus );
 
-		this._toggleClass( "ui-menu-icons", null, !!this.element.find( ".ui-icon" ).length );
+		this._toggleClass( "modal-menu-icons", null, !!this.element.find( ".ui-icon" ).length );
 
 		// Initialize nested menus
-		newSubmenus = submenus.filter( ":not(.ui-menu)" )
+		newSubmenus = submenus.filter( ":not(.modal-menu)" )
 			.hide()
 			.attr( {
 				role: this.options.role,
@@ -4229,42 +4214,42 @@ var widgetsMenu = $.widget( "mi.menu", {
 			.each( function() {
 				var menu = $( this ),
 					item = menu.prev(),
-					submenuCaret = $( "<span>" ).data( "ui-menu-submenu-caret", true );
+					submenuCaret = $( "<span>" ).data( "modal-menu-submenu-caret", true );
 
-				that._addClass( submenuCaret, "ui-menu-icon", "ui-icon " + icon );
+				that._addClass( submenuCaret, "modal-menu-icon", "ui-icon " + icon );
 				item
 					.attr( "aria-haspopup", "true" )
 					.prepend( submenuCaret );
 				menu.attr( "aria-labelledby", item.attr( "id" ) );
 			} );
 
-		this._addClass( newSubmenus, "ui-menu", "ui-widget ui-widget-content ui-front" );
+		this._addClass( newSubmenus, "modal-menu", "modal-widget modal-widget-content modal-front" );
 
 		menus = submenus.add( this.element );
 		items = menus.find( this.options.items );
 
 		// Initialize menu-items containing spaces and/or dashes only as dividers
-		items.not( ".ui-menu-item" ).each( function() {
+		items.not( ".modal-menu-item" ).each( function() {
 			var item = $( this );
 			if ( that._isDivider( item ) ) {
-				that._addClass( item, "ui-menu-divider", "ui-widget-content" );
+				that._addClass( item, "modal-menu-divider", "modal-widget-content" );
 			}
 		} );
 
 		// Don't refresh list items that are already adapted
-		newItems = items.not( ".ui-menu-item, .ui-menu-divider" );
+		newItems = items.not( ".modal-menu-item, .modal-menu-divider" );
 		newWrappers = newItems.children()
-			.not( ".ui-menu" )
+			.not( ".modal-menu" )
 				.uniqueId()
 				.attr( {
 					tabIndex: -1,
 					role: this._itemRole()
 				} );
-		this._addClass( newItems, "ui-menu-item" )
-			._addClass( newWrappers, "ui-menu-item-wrapper" );
+		this._addClass( newItems, "modal-menu-item" )
+			._addClass( newWrappers, "modal-menu-item-wrapper" );
 
 		// Add aria-disabled attribute to any disabled menu item
-		items.filter( ".ui-state-disabled" ).attr( "aria-disabled", "true" );
+		items.filter( ".modal-state-disabled" ).attr( "aria-disabled", "true" );
 
 		// If the active item has been removed, blur the menu
 		if ( this.active && !$.contains( this.element[ 0 ], this.active[ 0 ] ) ) {
@@ -4281,7 +4266,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 
 	_setOption: function( key, value ) {
 		if ( key === "icons" ) {
-			var icons = this.element.find( ".ui-menu-icon" );
+			var icons = this.element.find( ".modal-menu-icon" );
 			this._removeClass( icons, null, this.options.icons.submenu )
 				._addClass( icons, null, value.submenu );
 		}
@@ -4292,7 +4277,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 		this._super( value );
 
 		this.element.attr( "aria-disabled", String( value ) );
-		this._toggleClass( null, "ui-state-disabled", !!value );
+		this._toggleClass( null, "modal-state-disabled", !!value );
 	},
 
 	focus: function( event, item ) {
@@ -4303,8 +4288,8 @@ var widgetsMenu = $.widget( "mi.menu", {
 
 		this.active = item.first();
 
-		focused = this.active.children( ".ui-menu-item-wrapper" );
-		this._addClass( focused, null, "ui-state-active" );
+		focused = this.active.children( ".modal-menu-item-wrapper" );
+		this._addClass( focused, null, "modal-state-active" );
 
 		// Only update aria-activedescendant if there's a role
 		// otherwise we assume focus is managed elsewhere
@@ -4315,9 +4300,9 @@ var widgetsMenu = $.widget( "mi.menu", {
 		// Highlight active parent menu item, if any
 		activeParent = this.active
 			.parent()
-				.closest( ".ui-menu-item" )
-					.children( ".ui-menu-item-wrapper" );
-		this._addClass( activeParent, null, "ui-state-active" );
+				.closest( ".modal-menu-item" )
+					.children( ".modal-menu-item-wrapper" );
+		this._addClass( activeParent, null, "modal-state-active" );
 
 		if ( event && event.type === "keydown" ) {
 			this._close();
@@ -4327,7 +4312,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 			}, this.delay );
 		}
 
-		nested = item.children( ".ui-menu" );
+		nested = item.children( ".modal-menu" );
 		if ( nested.length && event && ( /^mouse/.test( event.type ) ) ) {
 			this._startOpening( nested );
 		}
@@ -4363,8 +4348,8 @@ var widgetsMenu = $.widget( "mi.menu", {
 			return;
 		}
 
-		this._removeClass( this.active.children( ".ui-menu-item-wrapper" ),
-			null, "ui-state-active" );
+		this._removeClass( this.active.children( ".modal-menu-item-wrapper" ),
+			null, "modal-state-active" );
 
 		this._trigger( "blur", event, { item: this.active } );
 		this.active = null;
@@ -4391,7 +4376,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 		}, this.options.position );
 
 		clearTimeout( this.timer );
-		this.element.find( ".ui-menu" ).not( submenu.parents( ".ui-menu" ) )
+		this.element.find( ".modal-menu" ).not( submenu.parents( ".modal-menu" ) )
 			.hide()
 			.attr( "aria-hidden", "true" );
 
@@ -4408,7 +4393,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 
 			// If we were passed an event, look for the submenu that contains the event
 			var currentMenu = all ? this.element :
-				$( event && event.target ).closest( this.element.find( ".ui-menu" ) );
+				$( event && event.target ).closest( this.element.find( ".modal-menu" ) );
 
 			// If we found no valid submenu ancestor, use the main menu to close all
 			// sub menus anyway
@@ -4421,7 +4406,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 			this.blur( event );
 
 			// Work around active item staying active after menu is blurred
-			this._removeClass( currentMenu.find( ".ui-state-active" ), null, "ui-state-active" );
+			this._removeClass( currentMenu.find( ".modal-state-active" ), null, "modal-state-active" );
 
 			this.activeMenu = currentMenu;
 		}, this.delay );
@@ -4434,14 +4419,14 @@ var widgetsMenu = $.widget( "mi.menu", {
 			startMenu = this.active ? this.active.parent() : this.element;
 		}
 
-		startMenu.find( ".ui-menu" )
+		startMenu.find( ".modal-menu" )
 			.hide()
 			.attr( "aria-hidden", "true" )
 			.attr( "aria-expanded", "false" );
 	},
 
 	_closeOnDocumentClick: function( event ) {
-		return !$( event.target ).closest( ".ui-menu" ).length;
+		return !$( event.target ).closest( ".modal-menu" ).length;
 	},
 
 	_isDivider: function( item ) {
@@ -4452,7 +4437,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 
 	collapse: function( event ) {
 		var newItem = this.active &&
-			this.active.parent().closest( ".ui-menu-item", this.element );
+			this.active.parent().closest( ".modal-menu-item", this.element );
 		if ( newItem && newItem.length ) {
 			this._close();
 			this.focus( event, newItem );
@@ -4462,7 +4447,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 	expand: function( event ) {
 		var newItem = this.active &&
 			this.active
-				.children( ".ui-menu " )
+				.children( ".modal-menu " )
 					.find( this.options.items )
 						.first();
 
@@ -4485,11 +4470,11 @@ var widgetsMenu = $.widget( "mi.menu", {
 	},
 
 	isFirstItem: function() {
-		return this.active && !this.active.prevAll( ".ui-menu-item" ).length;
+		return this.active && !this.active.prevAll( ".modal-menu-item" ).length;
 	},
 
 	isLastItem: function() {
-		return this.active && !this.active.nextAll( ".ui-menu-item" ).length;
+		return this.active && !this.active.nextAll( ".modal-menu-item" ).length;
 	},
 
 	_move: function( direction, filter, event ) {
@@ -4497,11 +4482,11 @@ var widgetsMenu = $.widget( "mi.menu", {
 		if ( this.active ) {
 			if ( direction === "first" || direction === "last" ) {
 				next = this.active
-					[ direction === "first" ? "prevAll" : "nextAll" ]( ".ui-menu-item" )
+					[ direction === "first" ? "prevAll" : "nextAll" ]( ".modal-menu-item" )
 					.eq( -1 );
 			} else {
 				next = this.active
-					[ direction + "All" ]( ".ui-menu-item" )
+					[ direction + "All" ]( ".modal-menu-item" )
 					.eq( 0 );
 			}
 		}
@@ -4525,7 +4510,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 		if ( this._hasScroll() ) {
 			base = this.active.offset().top;
 			height = this.element.height();
-			this.active.nextAll( ".ui-menu-item" ).each( function() {
+			this.active.nextAll( ".modal-menu-item" ).each( function() {
 				item = $( this );
 				return item.offset().top - base - height < 0;
 			} );
@@ -4549,7 +4534,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 		if ( this._hasScroll() ) {
 			base = this.active.offset().top;
 			height = this.element.height();
-			this.active.prevAll( ".ui-menu-item" ).each( function() {
+			this.active.prevAll( ".modal-menu-item" ).each( function() {
 				item = $( this );
 				return item.offset().top - base + height > 0;
 			} );
@@ -4568,12 +4553,12 @@ var widgetsMenu = $.widget( "mi.menu", {
 
 		// TODO: It should never be possible to not have an active item at this
 		// point, but the tests don't trigger mouseenter before click.
-		this.active = this.active || $( event.target ).closest( ".ui-menu-item" );
-		var mi = { item: this.active };
-		if ( !this.active.has( ".ui-menu" ).length ) {
+		this.active = this.active || $( event.target ).closest( ".modal-menu-item" );
+		var modal = { item: this.active };
+		if ( !this.active.has( ".modal-menu" ).length ) {
 			this.collapseAll( event, true );
 		}
-		this._trigger( "select", event, mi );
+		this._trigger( "select", event, modal );
 	},
 
 	_filterMenuItems: function( character ) {
@@ -4584,10 +4569,10 @@ var widgetsMenu = $.widget( "mi.menu", {
 			.find( this.options.items )
 
 				// Only match on items, not dividers or other content (#10571)
-				.filter( ".ui-menu-item" )
+				.filter( ".modal-menu-item" )
 					.filter( function() {
 						return regex.test(
-							$.trim( $( this ).children( ".ui-menu-item-wrapper" ).text() ) );
+							$.trim( $( this ).children( ".modal-menu-item-wrapper" ).text() ) );
 					} );
 	}
 } );
@@ -4596,7 +4581,7 @@ var widgetsMenu = $.widget( "mi.menu", {
 
 /*!
  * jQuery UI Button 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -4606,20 +4591,20 @@ var widgetsMenu = $.widget( "mi.menu", {
 //>>label: Button
 //>>group: Widgets
 //>>description: Enhances a form with themeable buttons.
-//>>docs: http://api.jquerymi.com/button/
-//>>demos: http://jquerymi.com/button/
+//>>docs: http://api.jquerymodal.com/button/
+//>>demos: http://jquerymodal.com/button/
 //>>css.structure: ../../themes/base/core.css
 //>>css.structure: ../../themes/base/button.css
 //>>css.theme: ../../themes/base/theme.css
 
 
 
-$.widget( "mi.button", {
+$.widget( "modal.button", {
 	version: "1.12.1",
 	defaultElement: "<button>",
 	options: {
 		classes: {
-			"ui-button": "ui-corner-all"
+			"modal-button": "modal-corner-all"
 		},
 		disabled: null,
 		icon: null,
@@ -4672,14 +4657,14 @@ $.widget( "mi.button", {
 				this.element.html( this.options.label );
 			}
 		}
-		this._addClass( "ui-button", "ui-widget" );
+		this._addClass( "modal-button", "modal-widget" );
 		this._setOption( "disabled", this.options.disabled );
 		this._enhance();
 
 		if ( this.element.is( "a" ) ) {
 			this._on( {
 				"keyup": function( event ) {
-					if ( event.keyCode === $.mi.keyCode.SPACE ) {
+					if ( event.keyCode === $.modal.keyCode.SPACE ) {
 						event.preventDefault();
 
 						// Support: PhantomJS <= 1.9, IE 8 Only
@@ -4724,10 +4709,10 @@ $.widget( "mi.button", {
 		if ( !this.icon ) {
 			this.icon = $( "<span>" );
 
-			this._addClass( this.icon, "ui-button-icon", "ui-icon" );
+			this._addClass( this.icon, "modal-button-icon", "ui-icon" );
 
 			if ( !this.options.showLabel ) {
-				this._addClass( "ui-button-icon-only" );
+				this._addClass( "modal-button-icon-only" );
 			}
 		} else if ( icon ) {
 
@@ -4742,22 +4727,22 @@ $.widget( "mi.button", {
 
 		this._attachIcon( position );
 
-		// If the icon is on top or bottom we need to add the ui-widget-icon-block class and remove
+		// If the icon is on top or bottom we need to add the modal-widget-icon-block class and remove
 		// the iconSpace if there is one.
 		if ( displayBlock ) {
-			this._addClass( this.icon, null, "ui-widget-icon-block" );
+			this._addClass( this.icon, null, "modal-widget-icon-block" );
 			if ( this.iconSpace ) {
 				this.iconSpace.remove();
 			}
 		} else {
 
-			// Position is beginning or end so remove the ui-widget-icon-block class and add the
+			// Position is beginning or end so remove the modal-widget-icon-block class and add the
 			// space if it does not exist
 			if ( !this.iconSpace ) {
 				this.iconSpace = $( "<span> </span>" );
-				this._addClass( this.iconSpace, "ui-button-icon-space" );
+				this._addClass( this.iconSpace, "modal-button-icon-space" );
 			}
-			this._removeClass( this.icon, null, "ui-wiget-icon-block" );
+			this._removeClass( this.icon, null, "modal-wiget-icon-block" );
 			this._attachIconSpace( position );
 		}
 	},
@@ -4814,7 +4799,7 @@ $.widget( "mi.button", {
 
 		// Make sure we can't end up with a button that has neither text nor icon
 		if ( key === "showLabel" ) {
-				this._toggleClass( "ui-button-icon-only", null, !value );
+				this._toggleClass( "modal-button-icon-only", null, !value );
 				this._updateTooltip();
 		}
 
@@ -4836,7 +4821,7 @@ $.widget( "mi.button", {
 		this._super( key, value );
 
 		if ( key === "disabled" ) {
-			this._toggleClass( null, "ui-state-disabled", value );
+			this._toggleClass( null, "modal-state-disabled", value );
 			this.element[ 0 ].disabled = value;
 			if ( value ) {
 				this.element.blur();
@@ -4846,10 +4831,8 @@ $.widget( "mi.button", {
 
 	refresh: function() {
 
-		// Make sure to only check disabled if its an element that supports this otherwise
-		// check for the disabled class to determine state
 		var isDisabled = this.element.is( "input, button" ) ?
-			this.element[ 0 ].disabled : this.element.hasClass( "ui-button-disabled" );
+			this.element[ 0 ].disabled : this.element.hasClass( "modal-button-disabled" );
 
 		if ( isDisabled !== this.options.disabled ) {
 			this._setOptions( { disabled: isDisabled } );
@@ -4859,11 +4842,9 @@ $.widget( "mi.button", {
 	}
 } );
 
-// DEPRECATED
-if ( $.miBackCompat !== false ) {
+if ( $.modalBackCompat !== false ) {
 
-	// Text and Icons options
-	$.widget( "mi.button", $.mi.button, {
+	$.widget( "modal.button", $.modal.button, {
 		options: {
 			text: true,
 			icons: {
@@ -4925,7 +4906,7 @@ if ( $.miBackCompat !== false ) {
 					) ) ) {
 				return orig.apply( this, arguments );
 			}
-			if ( !$.mi.checkboxradio ) {
+			if ( !$.modal.checkboxradio ) {
 				$.error( "Checkboxradio widget missing" );
 			}
 			if ( arguments.length === 0 ) {
@@ -4938,7 +4919,7 @@ if ( $.miBackCompat !== false ) {
 	} )( $.fn.button );
 
 	$.fn.buttonset = function() {
-		if ( !$.mi.controlgroup ) {
+		if ( !$.modal.controlgroup ) {
 			$.error( "Controlgroup widget missing" );
 		}
 		if ( arguments[ 0 ] === "option" && arguments[ 1 ] === "items" && arguments[ 2 ] ) {
@@ -4957,18 +4938,18 @@ if ( $.miBackCompat !== false ) {
 	};
 }
 
-var widgetsButton = $.mi.button;
+var widgetsButton = $.modal.button;
 
 
 // jscs:disable maximumLineLength
 /* jscs:disable requireCamelCaseOrUpperCaseIdentifiers */
 
 // This file is deprecated
-var ie = $.mi.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
+var ie = $.modal.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
 
 /*!
  * jQuery UI Mouse 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -4978,7 +4959,7 @@ var ie = $.mi.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
 //>>label: Mouse
 //>>group: Widgets
 //>>description: Abstracts mouse-based interactions to assist in creating certain widgets.
-//>>docs: http://api.jquerymi.com/mouse/
+//>>docs: http://api.jquerymodal.com/mouse/
 
 
 
@@ -4987,7 +4968,7 @@ $( document ).on( "mouseup", function() {
 	mouseHandled = false;
 } );
 
-var widgetsMouse = $.widget( "mi.mouse", {
+var widgetsMouse = $.widget( "modal.mouse", {
 	version: "1.12.1",
 	options: {
 		cancel: "input, textarea, button, select, option",
@@ -5012,8 +4993,6 @@ var widgetsMouse = $.widget( "mi.mouse", {
 		this.started = false;
 	},
 
-	// TODO: make sure destroying one instance of mouse doesn't mess with
-	// other instances of mouse
 	_mouseDestroy: function() {
 		this.element.off( "." + this.widgetName );
 		if ( this._mouseMoveDelegate ) {
@@ -5025,23 +5004,18 @@ var widgetsMouse = $.widget( "mi.mouse", {
 
 	_mouseDown: function( event ) {
 
-		// don't let more than one widget handle mouseStart
 		if ( mouseHandled ) {
 			return;
 		}
 
 		this._mouseMoved = false;
 
-		// We may have missed mouseup (out of window)
 		( this._mouseStarted && this._mouseUp( event ) );
 
 		this._mouseDownEvent = event;
 
 		var that = this,
 			btnIsLeft = ( event.which === 1 ),
-
-			// event.target.nodeName works around a bug in IE 8 with
-			// disabled inputs (#7620)
 			elIsCancel = ( typeof this.options.cancel === "string" && event.target.nodeName ?
 				$( event.target ).closest( this.options.cancel ).length : false );
 		if ( !btnIsLeft || elIsCancel || !this._mouseCapture( event ) ) {
@@ -5095,7 +5069,7 @@ var widgetsMouse = $.widget( "mi.mouse", {
 		if ( this._mouseMoved ) {
 
 			// IE mouseup check - mouseup happened when mouse was out of window
-			if ( $.mi.ie && ( !document.documentMode || document.documentMode < 9 ) &&
+			if ( $.modal.ie && ( !document.documentMode || document.documentMode < 9 ) &&
 					!event.button ) {
 				return this._mouseUp( event );
 
@@ -5179,11 +5153,11 @@ var widgetsMouse = $.widget( "mi.mouse", {
 
 
 
-// $.mi.plugin is deprecated. Use $.widget() extensions instead.
-var plugin = $.mi.plugin = {
+// $.modal.plugin is deprecated. Use $.widget() extensions instead.
+var plugin = $.modal.plugin = {
 	add: function( module, option, set ) {
 		var i,
-			proto = $.mi[ module ].prototype;
+			proto = $.modal[ module ].prototype;
 		for ( i in set ) {
 			proto.plugins[ i ] = proto.plugins[ i ] || [];
 			proto.plugins[ i ].push( [ option, set[ i ] ] );
@@ -5212,7 +5186,7 @@ var plugin = $.mi.plugin = {
 
 
 
-var safeBlur = $.mi.safeBlur = function( element ) {
+var safeBlur = $.modal.safeBlur = function( element ) {
 
 	// Support: IE9 - 10 only
 	// If the <body> is blurred, IE will switch windows, see #9420
@@ -5224,7 +5198,7 @@ var safeBlur = $.mi.safeBlur = function( element ) {
 
 /*!
  * jQuery UI Draggable 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -5234,13 +5208,13 @@ var safeBlur = $.mi.safeBlur = function( element ) {
 //>>label: Draggable
 //>>group: Interactions
 //>>description: Enables dragging functionality for any element.
-//>>docs: http://api.jquerymi.com/draggable/
-//>>demos: http://jquerymi.com/draggable/
+//>>docs: http://api.jquerymodal.com/draggable/
+//>>demos: http://jquerymodal.com/draggable/
 //>>css.structure: ../../themes/base/draggable.css
 
 
 
-$.widget( "mi.draggable", $.mi.mouse, {
+$.widget( "modal.draggable", $.modal.mouse, {
 	version: "1.12.1",
 	widgetEventPrefix: "drag",
 	options: {
@@ -5280,7 +5254,7 @@ $.widget( "mi.draggable", $.mi.mouse, {
 			this._setPositionRelative();
 		}
 		if ( this.options.addClasses ) {
-			this._addClass( "ui-draggable" );
+			this._addClass( "modal-draggable" );
 		}
 		this._setHandleClassName();
 
@@ -5296,7 +5270,7 @@ $.widget( "mi.draggable", $.mi.mouse, {
 	},
 
 	_destroy: function() {
-		if ( ( this.helper || this.element ).is( ".ui-draggable-dragging" ) ) {
+		if ( ( this.helper || this.element ).is( ".modal-draggable-dragging" ) ) {
 			this.destroyOnClear = true;
 			return;
 		}
@@ -5309,7 +5283,7 @@ $.widget( "mi.draggable", $.mi.mouse, {
 
 		// Among others, prevent a drag on a resizable-handle
 		if ( this.helper || o.disabled ||
-				$( event.target ).closest( ".ui-resizable-handle" ).length > 0 ) {
+				$( event.target ).closest( ".modal-resizable-handle" ).length > 0 ) {
 			return false;
 		}
 
@@ -5348,7 +5322,7 @@ $.widget( "mi.draggable", $.mi.mouse, {
 	},
 
 	_blurActiveElement: function( event ) {
-		var activeElement = $.mi.safeActiveElement( this.document[ 0 ] ),
+		var activeElement = $.modal.safeActiveElement( this.document[ 0 ] ),
 			target = $( event.target );
 
 		// Don't blur if the event occurred on an element that is within
@@ -5359,35 +5333,25 @@ $.widget( "mi.draggable", $.mi.mouse, {
 		}
 
 		// Blur any element that currently has focus, see #4261
-		$.mi.safeBlur( activeElement );
+		$.modal.safeBlur( activeElement );
 	},
 
 	_mouseStart: function( event ) {
 
 		var o = this.options;
 
-		//Create and append the visible helper
 		this.helper = this._createHelper( event );
 
-		this._addClass( this.helper, "ui-draggable-dragging" );
+		this._addClass( this.helper, "modal-draggable-dragging" );
 
-		//Cache the helper size
 		this._cacheHelperProportions();
 
-		//If ddmanager is used for droppables, set the global draggable
-		if ( $.mi.ddmanager ) {
-			$.mi.ddmanager.current = this;
+		if ( $.modal.ddmanager ) {
+			$.modal.ddmanager.current = this;
 		}
 
-		/*
-		 * - Position generation -
-		 * This block generates everything position related - it's the core of draggables.
-		 */
-
-		//Cache the margins of the original element
 		this._cacheMargins();
 
-		//Store the helper's css position
 		this.cssPosition = this.helper.css( "position" );
 		this.scrollParent = this.helper.scrollParent( true );
 		this.offsetParent = this.helper.offsetParent();
@@ -5395,43 +5359,32 @@ $.widget( "mi.draggable", $.mi.mouse, {
 				return $( this ).css( "position" ) === "fixed";
 			} ).length > 0;
 
-		//The element's absolute position on the page minus margins
 		this.positionAbs = this.element.offset();
 		this._refreshOffsets( event );
 		
-		//Generate the original position
 		this.originalPosition = this.position = this._generatePosition( event, false );
 		this.originalPageX = event.pageX;
 		this.originalPageY = event.pageY;
 
-		//Adjust the mouse offset relative to the helper if "cursorAt" is supplied
 		( o.cursorAt && this._adjustOffsetFromHelper( o.cursorAt ) );
 
-		//Set a containment if given in the options
 		this._setContainment();
 
-		//Trigger event + callbacks
 		if ( this._trigger( "start", event ) === false ) {
 			this._clear();
 			return false;
 		}
 
-		//Recache the helper size
 		this._cacheHelperProportions();
 
-		//Prepare the droppable offsets
-		if ( $.mi.ddmanager && !o.dropBehaviour ) {
-			$.mi.ddmanager.prepareOffsets( this, event );
+		if ( $.modal.ddmanager && !o.dropBehaviour ) {
+			$.modal.ddmanager.prepareOffsets( this, event );
 		}
 
-		// Execute the drag once - this causes the helper not to be visible before getting its
-		// correct position
 		this._mouseDrag( event, true );
 
-		// If the ddmanager is used for droppables, inform the manager that dragging has started
-		// (see #5003)
-		if ( $.mi.ddmanager ) {
-			$.mi.ddmanager.dragStart( this, event );
+		if ( $.modal.ddmanager ) {
+			$.modal.ddmanager.dragStart( this, event );
 		}
 
 		return true;
@@ -5465,20 +5418,20 @@ $.widget( "mi.draggable", $.mi.mouse, {
 
 		//Call plugins and callbacks and use the resulting position if something is returned
 		if ( !noPropagation ) {
-			var mi = this._uiHash();
-			if ( this._trigger( "drag", event, mi ) === false ) {
+			var modal = this._uiHash();
+			if ( this._trigger( "drag", event, modal ) === false ) {
 				this._mouseUp( new $.Event( "mouseup", event ) );
 				return false;
 			}
-			this.position = mi.position;
+			this.position = modal.position;
 		}
 
 		this.helper[ 0 ].style.left = this.position.left + "px";
 		this.helper[ 0 ].style.top = this.position.top + "px";
 
-		if ( $.mi.ddmanager ) {
-			// console.log($.mi.ddmanager.drag( this, event ))
-			$.mi.ddmanager.drag( this, event );
+		if ( $.modal.ddmanager ) {
+			// console.log($.modal.ddmanager.drag( this, event ))
+			$.modal.ddmanager.drag( this, event );
 		}
 
 		return false;
@@ -5489,8 +5442,8 @@ $.widget( "mi.draggable", $.mi.mouse, {
 		//If we are using droppables, inform the manager about the drop
 		var that = this,
 			dropped = false;
-		if ( $.mi.ddmanager && !this.options.dropBehaviour ) {
-			dropped = $.mi.ddmanager.drop( this, event );
+		if ( $.modal.ddmanager && !this.options.dropBehaviour ) {
+			dropped = $.modal.ddmanager.drop( this, event );
 		}
 
 		//if a drop comes from outside (a sortable)
@@ -5527,8 +5480,8 @@ $.widget( "mi.draggable", $.mi.mouse, {
 
 		// If the ddmanager is used for droppables, inform the manager that dragging has stopped
 		// (see #5003)
-		if ( $.mi.ddmanager ) {
-			$.mi.ddmanager.dragStop( this, event );
+		if ( $.modal.ddmanager ) {
+			$.modal.ddmanager.dragStop( this, event );
 		}
 
 		// Only need to focus if the event occurred on the draggable itself, see #10527
@@ -5539,12 +5492,12 @@ $.widget( "mi.draggable", $.mi.mouse, {
 			this.element.trigger( "focus" );
 		}
 
-		return $.mi.mouse.prototype._mouseUp.call( this, event );
+		return $.modal.mouse.prototype._mouseUp.call( this, event );
 	},
 
 	cancel: function() {
 
-		if ( this.helper.is( ".ui-draggable-dragging" ) ) {
+		if ( this.helper.is( ".modal-draggable-dragging" ) ) {
 			this._mouseUp( new $.Event( "mouseup", { target: this.element[ 0 ] } ) );
 		} else {
 			this._clear();
@@ -5563,11 +5516,11 @@ $.widget( "mi.draggable", $.mi.mouse, {
 	_setHandleClassName: function() {
 		this.handleElement = this.options.handle ?
 			this.element.find( this.options.handle ) : this.element;
-		this._addClass( this.handleElement, "ui-draggable-handle" );
+		this._addClass( this.handleElement, "modal-draggable-handle" );
 	},
 
 	_removeHandleClassName: function() {
-		this._removeClass( this.handleElement, "ui-draggable-handle" );
+		this._removeClass( this.handleElement, "modal-draggable-handle" );
 	},
 
 	_createHelper: function( event ) {
@@ -5586,7 +5539,7 @@ $.widget( "mi.draggable", $.mi.mouse, {
 				o.appendTo ) );
 		}
 
-		// Http://bugs.jquerymi.com/ticket/9446
+		// Http://bugs.jquerymodal.com/ticket/9446
 		// a helper function can return the original element
 		// which wouldn't have been set to relative in _create
 		if ( helperIsFunction && helper[ 0 ] === this.element[ 0 ] ) {
@@ -5822,7 +5775,6 @@ $.widget( "mi.draggable", $.mi.mouse, {
 			pageX = event.pageX,
 			pageY = event.pageY;
 
-		// Cache the scroll
 		if ( !scrollIsRootNode || !this.offset.scroll ) {
 			this.offset.scroll = {
 				top: this.scrollParent.scrollTop(),
@@ -5830,12 +5782,6 @@ $.widget( "mi.draggable", $.mi.mouse, {
 			};
 		}
 
-		/*
-		 * - Position constraining -
-		 * Constrain the position to a mix of grid, containment.
-		 */
-
-		// If we are not dragging yet, we won't check for options
 		if ( constrainPosition ) {
 			if ( this.containment ) {
 				if ( this.relativeContainer ) {
@@ -5935,7 +5881,7 @@ $.widget( "mi.draggable", $.mi.mouse, {
 	},
 
 	_clear: function() {
-		this._removeClass( this.helper, "ui-draggable-dragging" );
+		this._removeClass( this.helper, "modal-draggable-dragging" );
 		if ( this.helper[ 0 ] !== this.element[ 0 ] && !this.cancelHelperRemoval ) {
 			this.helper.remove();
 		}
@@ -5948,16 +5894,16 @@ $.widget( "mi.draggable", $.mi.mouse, {
 
 	// From now on bulk stuff - mainly helpers
 
-	_trigger: function( type, event, mi ) {
-		mi = mi || this._uiHash();
-		$.mi.plugin.call( this, type, [ event, mi, this ], true );
+	_trigger: function( type, event, modal ) {
+		modal = modal || this._uiHash();
+		$.modal.plugin.call( this, type, [ event, modal, this ], true );
 
 		// Absolute position and offset (see #6884 ) have to be recalculated after plugins
 		if ( /^(drag|start|stop)/.test( type ) ) {
 			this.positionAbs = this._convertPositionTo( "absolute" );
-			mi.offset = this.positionAbs;
+			modal.offset = this.positionAbs;
 		}
-		return $.Widget.prototype._trigger.call( this, type, event, mi );
+		return $.Widget.prototype._trigger.call( this, type, event, modal );
 	},
 
 	plugins: {},
@@ -5973,9 +5919,9 @@ $.widget( "mi.draggable", $.mi.mouse, {
 
 } );
 
-$.mi.plugin.add( "draggable", "connectToSortable", {
-	start: function( event, mi, draggable ) {
-		var uiSortable = $.extend( {}, mi, {
+$.modal.plugin.add( "draggable", "connectToSortable", {
+	start: function( event, modal, draggable ) {
+		var uiSortable = $.extend( {}, modal, {
 			item: draggable.element
 		} );
 
@@ -5986,16 +5932,13 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 			if ( sortable && !sortable.options.disabled ) {
 				draggable.sortables.push( sortable );
 
-				// RefreshPositions is called at drag start to refresh the containerCache
-				// which is used in drag. This ensures it's initialized and synchronized
-				// with any changes that might have happened on the page since initialization.
 				sortable.refreshPositions();
 				sortable._trigger( "activate", event, miSortable );
 			}
 		} );
 	},
-	stop: function( event, mi, draggable ) {
-		var uiSortable = $.extend( {}, mi, {
+	stop: function( event, modal, draggable ) {
+		var uiSortable = $.extend( {}, modal, {
 			item: draggable.element
 		} );
 
@@ -6007,13 +5950,9 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 			if ( sortable.isOver ) {
 				sortable.isOver = 0;
 
-				// Allow this sortable to handle removing the helper
 				draggable.cancelHelperRemoval = true;
 				sortable.cancelHelperRemoval = false;
 
-				// Use _storedCSS To restore properties in the sortable,
-				// as this also handles revert (#9675) since the draggable
-				// may have modified them in unexpected ways (#8809)
 				sortable._storedCSS = {
 					position: sortable.placeholder.css( "position" ),
 					top: sortable.placeholder.css( "top" ),
@@ -6022,26 +5961,20 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 
 				sortable._mouseStop( event );
 
-				// Once drag has ended, the sortable should return to using
-				// its original helper, not the shared helper from draggable
 				sortable.options.helper = sortable.options._helper;
 			} else {
 
-				// Prevent this Sortable from removing the helper.
-				// However, don't set the draggable to remove the helper
-				// either as another connected Sortable may yet handle the removal.
 				sortable.cancelHelperRemoval = true;
 
 				sortable._trigger( "deactivate", event, miSortable );
 			}
 		} );
 	},
-	drag: function( event, mi, draggable ) {
+	drag: function( event, modal, draggable ) {
 		$.each( draggable.sortables, function() {
 			var innermostIntersecting = false,
 				sortable = this;
 
-			// Copy over variables that sortable's _intersectsWith uses
 			sortable.positionAbs = draggable.positionAbs;
 			sortable.helperProportions = draggable.helperProportions;
 			sortable.offset.click = draggable.offset.click;
@@ -6051,7 +5984,6 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 
 				$.each( draggable.sortables, function() {
 
-					// Copy over variables that sortable's _intersectsWith uses
 					this.positionAbs = draggable.positionAbs;
 					this.helperProportions = draggable.helperProportions;
 					this.offset.click = draggable.offset.click;
@@ -6068,33 +6000,25 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 
 			if ( innermostIntersecting ) {
 
-				// If it intersects, we use a little isOver variable and set it once,
-				// so that the move-in stuff gets fired only once.
 				if ( !sortable.isOver ) {
 					sortable.isOver = 1;
 
-					// Store draggable's parent in case we need to reappend to it later.
-					draggable._parent = mi.helper.parent();
+					draggable._parent = modal.helper.parent();
 
-					sortable.currentItem = mi.helper
+					sortable.currentItem = modal.helper
 						.appendTo( sortable.element )
-						.data( "ui-sortable-item", true );
+						.data( "modal-sortable-item", true );
 
-					// Store helper option to later restore it
 					sortable.options._helper = sortable.options.helper;
 
 					sortable.options.helper = function() {
-						return mi.helper[ 0 ];
+						return modal.helper[ 0 ];
 					};
 
-					// Fire the start events of the sortable with our passed browser event,
-					// and our own helper (so it doesn't create a new one)
 					event.target = sortable.currentItem[ 0 ];
 					sortable._mouseCapture( event, true );
 					sortable._mouseStart( event, true, true );
 
-					// Because the browser event is way off the new appended portlet,
-					// modify necessary variables to reflect the changes
 					sortable.offset.click.top = draggable.offset.click.top;
 					sortable.offset.click.left = draggable.offset.click.left;
 					sortable.offset.parent.left -= draggable.offset.parent.left -
@@ -6104,17 +6028,12 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 
 					draggable._trigger( "toSortable", event );
 
-					// Inform draggable that the helper is in a valid drop zone,
-					// used solely in the revert option to handle "valid/invalid".
 					draggable.dropped = sortable.element;
 
-					// Need to refreshPositions of all sortables in the case that
-					// adding to one sortable changes the location of the other sortables (#9675)
 					$.each( draggable.sortables, function() {
 						this.refreshPositions();
 					} );
 
-					// Hack so receive/update callbacks work (mostly)
 					draggable.currentItem = draggable.element;
 					sortable.fromOutside = draggable;
 				}
@@ -6122,31 +6041,21 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 				if ( sortable.currentItem ) {
 					sortable._mouseDrag( event );
 
-					// Copy the sortable's position because the draggable's can potentially reflect
-					// a relative position, while sortable is always absolute, which the dragged
-					// element has now become. (#8809)
-					mi.position = sortable.position;
+					modal.position = sortable.position;
 				}
 			} else {
 
-				// If it doesn't intersect with the sortable, and it intersected before,
-				// we fake the drag stop of the sortable, but make sure it doesn't remove
-				// the helper by using cancelHelperRemoval.
 				if ( sortable.isOver ) {
 
 					sortable.isOver = 0;
 					sortable.cancelHelperRemoval = true;
 
-					// Calling sortable's mouseStop would trigger a revert,
-					// so revert must be temporarily false until after mouseStop is called.
 					sortable.options._revert = sortable.options.revert;
 					sortable.options.revert = false;
 
 					sortable._trigger( "out", event, sortable._uiHash( sortable ) );
 					sortable._mouseStop( event, true );
 
-					// Restore sortable behaviors that were modfied
-					// when the draggable entered the sortable area (#9481)
 					sortable.options.revert = sortable.options._revert;
 					sortable.options.helper = sortable.options._helper;
 
@@ -6154,19 +6063,14 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 						sortable.placeholder.remove();
 					}
 
-					// Restore and recalculate the draggable's offset considering the sortable
-					// may have modified them in unexpected ways. (#8809, #10669)
-					mi.helper.appendTo( draggable._parent );
+					modal.helper.appendTo( draggable._parent );
 					draggable._refreshOffsets( event );
-					mi.position = draggable._generatePosition( event, true );
+					modal.position = draggable._generatePosition( event, true );
 
 					draggable._trigger( "fromSortable", event );
 
-					// Inform draggable that the helper is no longer in a valid drop zone
 					draggable.dropped = false;
 
-					// Need to refreshPositions of all sortables just in case removing
-					// from one sortable changes the location of other sortables (#9675)
 					$.each( draggable.sortables, function() {
 						this.refreshPositions();
 					} );
@@ -6176,8 +6080,8 @@ $.mi.plugin.add( "draggable", "connectToSortable", {
 	}
 } );
 
-$.mi.plugin.add( "draggable", "cursor", {
-	start: function( event, mi, instance ) {
+$.modal.plugin.add( "draggable", "cursor", {
+	start: function( event, modal, instance ) {
 		var t = $( "body" ),
 			o = instance.options;
 
@@ -6186,7 +6090,7 @@ $.mi.plugin.add( "draggable", "cursor", {
 		}
 		t.css( "cursor", o.cursor );
 	},
-	stop: function( event, mi, instance ) {
+	stop: function( event, modal, instance ) {
 		var o = instance.options;
 		if ( o._cursor ) {
 			$( "body" ).css( "cursor", o._cursor );
@@ -6194,25 +6098,25 @@ $.mi.plugin.add( "draggable", "cursor", {
 	}
 } );
 
-$.mi.plugin.add( "draggable", "opacity", {
-	start: function( event, mi, instance ) {
-		var t = $( mi.helper ),
+$.modal.plugin.add( "draggable", "opacity", {
+	start: function( event, modal, instance ) {
+		var t = $( modal.helper ),
 			o = instance.options;
 		if ( t.css( "opacity" ) ) {
 			o._opacity = t.css( "opacity" );
 		}
 		t.css( "opacity", o.opacity );
 	},
-	stop: function( event, mi, instance ) {
+	stop: function( event, modal, instance ) {
 		var o = instance.options;
 		if ( o._opacity ) {
-			$( mi.helper ).css( "opacity", o._opacity );
+			$( modal.helper ).css( "opacity", o._opacity );
 		}
 	}
 } );
 
-$.mi.plugin.add( "draggable", "scroll", {
-	start: function( event, mi, i ) {
+$.modal.plugin.add( "draggable", "scroll", {
+	start: function( event, modal, i ) {
 		if ( !i.scrollParentNotHidden ) {
 			i.scrollParentNotHidden = i.helper.scrollParent( false );
 		}
@@ -6222,7 +6126,7 @@ $.mi.plugin.add( "draggable", "scroll", {
 			i.overflowOffset = i.scrollParentNotHidden.offset();
 		}
 	},
-	drag: function( event, mi, i  ) {
+	drag: function( event, modal, i  ) {
 
 		var o = i.options,
 			scrolled = false,
@@ -6274,21 +6178,21 @@ $.mi.plugin.add( "draggable", "scroll", {
 
 		}
 
-		if ( scrolled !== false && $.mi.ddmanager && !o.dropBehaviour ) {
-			$.mi.ddmanager.prepareOffsets( i, event );
+		if ( scrolled !== false && $.modal.ddmanager && !o.dropBehaviour ) {
+			$.modal.ddmanager.prepareOffsets( i, event );
 		}
 
 	}
 } );
 
-$.mi.plugin.add( "draggable", "snap", {
-	start: function( event, mi, i ) {
+$.modal.plugin.add( "draggable", "snap", {
+	start: function( event, modal, i ) {
 
 		var o = i.options;
 
 		i.snapElements = [];
 
-		$( o.snap.constructor !== String ? ( o.snap.items || ":data(ui-draggable)" ) : o.snap )
+		$( o.snap.constructor !== String ? ( o.snap.items || ":data(modal-draggable)" ) : o.snap )
 			.each( function() {
 				var $t = $( this ),
 					$o = $t.offset();
@@ -6302,13 +6206,13 @@ $.mi.plugin.add( "draggable", "snap", {
 			} );
 
 	},
-	drag: function( event, mi, inst ) {
+	drag: function( event, modal, inst ) {
 
 		var ts, bs, ls, rs, l, r, t, b, i, first,
 			o = inst.options,
 			d = o.snapTolerance,
-			x1 = mi.offset.left, x2 = x1 + inst.helperProportions.width,
-			y1 = mi.offset.top, y2 = y1 + inst.helperProportions.height;
+			x1 = modal.offset.left, x2 = x1 + inst.helperProportions.width,
+			y1 = modal.offset.top, y2 = y1 + inst.helperProportions.height;
 
 		for ( i = inst.snapElements.length - 1; i >= 0; i-- ) {
 
@@ -6338,25 +6242,25 @@ $.mi.plugin.add( "draggable", "snap", {
 				ls = Math.abs( l - x2 ) <= d;
 				rs = Math.abs( r - x1 ) <= d;
 				if ( ts ) {
-					mi.position.top = inst._convertPositionTo( "relative", {
+					modal.position.top = inst._convertPositionTo( "relative", {
 						top: t - inst.helperProportions.height,
 						left: 0
 					} ).top;
 				}
 				if ( bs ) {
-					mi.position.top = inst._convertPositionTo( "relative", {
+					modal.position.top = inst._convertPositionTo( "relative", {
 						top: b,
 						left: 0
 					} ).top;
 				}
 				if ( ls ) {
-					mi.position.left = inst._convertPositionTo( "relative", {
+					modal.position.left = inst._convertPositionTo( "relative", {
 						top: 0,
 						left: l - inst.helperProportions.width
 					} ).left;
 				}
 				if ( rs ) {
-					mi.position.left = inst._convertPositionTo( "relative", {
+					modal.position.left = inst._convertPositionTo( "relative", {
 						top: 0,
 						left: r
 					} ).left;
@@ -6371,25 +6275,25 @@ $.mi.plugin.add( "draggable", "snap", {
 				ls = Math.abs( l - x1 ) <= d;
 				rs = Math.abs( r - x2 ) <= d;
 				if ( ts ) {
-					mi.position.top = inst._convertPositionTo( "relative", {
+					modal.position.top = inst._convertPositionTo( "relative", {
 						top: t,
 						left: 0
 					} ).top;
 				}
 				if ( bs ) {
-					mi.position.top = inst._convertPositionTo( "relative", {
+					modal.position.top = inst._convertPositionTo( "relative", {
 						top: b - inst.helperProportions.height,
 						left: 0
 					} ).top;
 				}
 				if ( ls ) {
-					mi.position.left = inst._convertPositionTo( "relative", {
+					modal.position.left = inst._convertPositionTo( "relative", {
 						top: 0,
 						left: l
 					} ).left;
 				}
 				if ( rs ) {
-					mi.position.left = inst._convertPositionTo( "relative", {
+					modal.position.left = inst._convertPositionTo( "relative", {
 						top: 0,
 						left: r - inst.helperProportions.width
 					} ).left;
@@ -6412,8 +6316,8 @@ $.mi.plugin.add( "draggable", "snap", {
 	}
 } );
 
-$.mi.plugin.add( "draggable", "stack", {
-	start: function( event, mi, instance ) {
+$.modal.plugin.add( "draggable", "stack", {
+	start: function( event, modal, instance ) {
 		var min,
 			o = instance.options,
 			group = $.makeArray( $( o.stack ) ).sort( function( a, b ) {
@@ -6431,9 +6335,9 @@ $.mi.plugin.add( "draggable", "stack", {
 	}
 } );
 
-$.mi.plugin.add( "draggable", "zIndex", {
-	start: function( event, mi, instance ) {
-		var t = $( mi.helper ),
+$.modal.plugin.add( "draggable", "zIndex", {
+	start: function( event, modal, instance ) {
+		var t = $( modal.helper ),
 			o = instance.options;
 
 		if ( t.css( "zIndex" ) ) {
@@ -6441,21 +6345,21 @@ $.mi.plugin.add( "draggable", "zIndex", {
 		}
 		t.css( "zIndex", o.zIndex );
 	},
-	stop: function( event, mi, instance ) {
+	stop: function( event, modal, instance ) {
 		var o = instance.options;
 
 		if ( o._zIndex ) {
-			$( mi.helper ).css( "zIndex", o._zIndex );
+			$( modal.helper ).css( "zIndex", o._zIndex );
 		}
 	}
 } );
 
-var widgetsDraggable = $.mi.draggable;
+var widgetsDraggable = $.modal.draggable;
 
 
 /*!
  * jQuery UI Resizable 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -6465,15 +6369,15 @@ var widgetsDraggable = $.mi.draggable;
 //>>label: Resizable
 //>>group: Interactions
 //>>description: Enables resize functionality for any element.
-//>>docs: http://api.jquerymi.com/resizable/
-//>>demos: http://jquerymi.com/resizable/
+//>>docs: http://api.jquerymodal.com/resizable/
+//>>demos: http://jquerymodal.com/resizable/
 //>>css.structure: ../../themes/base/core.css
 //>>css.structure: ../../themes/base/resizable.css
 //>>css.theme: ../../themes/base/theme.css
 
 
 
-$.widget( "mi.resizable", $.mi.mouse, {
+$.widget( "modal.resizable", $.modal.mouse, {
 	version: "1.12.1",
 	widgetEventPrefix: "resize",
 	options: {
@@ -6484,7 +6388,7 @@ $.widget( "mi.resizable", $.mi.mouse, {
 		aspectRatio: false,
 		autoHide: false,
 		classes: {
-			"ui-resizable-se": "ui-icon ui-icon-gripsmall-diagonal-se"
+			"modal-resizable-se": "ui-icon ui-icon-gripsmall-diagonal-se"
 		},
 		containment: false,
 		ghost: false,
@@ -6526,9 +6430,6 @@ $.widget( "mi.resizable", $.mi.mouse, {
 			return true;
 		}
 
-		// TODO: determine which cases actually cause this to happen
-		// if the element doesn't have the scroll set, see if it's possible to
-		// set the scroll
 		el[ scroll ] = 1;
 		has = ( el[ scroll ] > 0 );
 		el[ scroll ] = 0;
@@ -6540,21 +6441,21 @@ $.widget( "mi.resizable", $.mi.mouse, {
 		var margins,
 			o = this.options,
 			that = this;
-		this._addClass( "ui-resizable" );
+		this._addClass( "modal-resizable" );
 
 		$.extend( this, {
 			_aspectRatio: !!( o.aspectRatio ),
 			aspectRatio: o.aspectRatio,
 			originalElement: this.element,
 			_proportionallyResizeElements: [],
-			_helper: o.helper || o.ghost || o.animate ? o.helper || "ui-resizable-helper" : null
+			_helper: o.helper || o.ghost || o.animate ? o.helper || "modal-resizable-helper" : null
 		} );
 
 		// Wrap the element if it cannot hold child nodes
 		if ( this.element[ 0 ].nodeName.match( /^(canvas|textarea|input|select|button|img)$/i ) ) {
 
 			this.element.wrap(
-				$( "<div class='ui-wrapper' style='overflow: hidden;'></div>" ).css( {
+				$( "<div class='modal-wrapper' style='overflow: hidden;'></div>" ).css( {
 					position: this.element.css( "position" ),
 					width: this.element.outerWidth(),
 					height: this.element.outerHeight(),
@@ -6564,7 +6465,7 @@ $.widget( "mi.resizable", $.mi.mouse, {
 			);
 
 			this.element = this.element.parent().data(
-				"ui-resizable", this.element.resizable( "instance" )
+				"modal-resizable", this.element.resizable( "instance" )
 			);
 
 			this.elementIsWrapper = true;
@@ -6605,7 +6506,7 @@ $.widget( "mi.resizable", $.mi.mouse, {
 					if ( o.disabled ) {
 						return;
 					}
-					that._removeClass( "ui-resizable-autohide" );
+					that._removeClass( "modal-resizable-autohide" );
 					that._handles.show();
 				} )
 				.on( "mouseleave", function() {
@@ -6613,7 +6514,7 @@ $.widget( "mi.resizable", $.mi.mouse, {
 						return;
 					}
 					if ( !that.resizing ) {
-						that._addClass( "ui-resizable-autohide" );
+						that._addClass( "modal-resizable-autohide" );
 						that._handles.hide();
 					}
 				} );
@@ -6630,9 +6531,9 @@ $.widget( "mi.resizable", $.mi.mouse, {
 			_destroy = function( exp ) {
 				$( exp )
 					.removeData( "resizable" )
-					.removeData( "ui-resizable" )
+					.removeData( "modal-resizable" )
 					.off( ".resizable" )
-					.find( ".ui-resizable-handle" )
+					.find( ".modal-resizable-handle" )
 						.remove();
 			};
 
@@ -6672,16 +6573,16 @@ $.widget( "mi.resizable", $.mi.mouse, {
 	_setupHandles: function() {
 		var o = this.options, handle, i, n, hname, axis, that = this;
 		this.handles = o.handles ||
-			( !$( ".ui-resizable-handle", this.element ).length ?
+			( !$( ".modal-resizable-handle", this.element ).length ?
 				"e,s,se" : {
-					n: ".ui-resizable-n",
-					e: ".ui-resizable-e",
-					s: ".ui-resizable-s",
-					w: ".ui-resizable-w",
-					se: ".ui-resizable-se",
-					sw: ".ui-resizable-sw",
-					ne: ".ui-resizable-ne",
-					nw: ".ui-resizable-nw"
+					n: ".modal-resizable-n",
+					e: ".modal-resizable-e",
+					s: ".modal-resizable-s",
+					w: ".modal-resizable-w",
+					se: ".modal-resizable-se",
+					sw: ".modal-resizable-sw",
+					ne: ".modal-resizable-ne",
+					nw: ".modal-resizable-nw"
 				} );
 
 		this._handles = $();
@@ -6697,13 +6598,13 @@ $.widget( "mi.resizable", $.mi.mouse, {
 			for ( i = 0; i < n.length; i++ ) {
 
 				handle = $.trim( n[ i ] );
-				hname = "ui-resizable-" + handle;
+				hname = "modal-resizable-" + handle;
 				axis = $( "<div>" );
-				this._addClass( axis, "ui-resizable-handle " + hname );
+				this._addClass( axis, "modal-resizable-handle " + hname );
 
 				axis.css( { zIndex: o.zIndex } );
 
-				this.handles[ handle ] = ".ui-resizable-" + handle;
+				this.handles[ handle ] = ".modal-resizable-" + handle;
 				this.element.append( axis );
 			}
 
@@ -6751,13 +6652,13 @@ $.widget( "mi.resizable", $.mi.mouse, {
 		// TODO: make renderAxis a prototype function
 		this._renderAxis( this.element );
 
-		this._handles = this._handles.add( this.element.find( ".ui-resizable-handle" ) );
+		this._handles = this._handles.add( this.element.find( ".modal-resizable-handle" ) );
 		this._handles.disableSelection();
 
 		this._handles.on( "mouseover", function() {
 			if ( !that.resizing ) {
 				if ( this.className ) {
-					axis = this.className.match( /ui-resizable-(se|sw|ne|nw|n|e|s|w)/i );
+					axis = this.className.match( /modal-resizable-(se|sw|ne|nw|n|e|s|w)/i );
 				}
 				that.axis = axis && axis[ 1 ] ? axis[ 1 ] : "se";
 			}
@@ -6765,7 +6666,7 @@ $.widget( "mi.resizable", $.mi.mouse, {
 
 		if ( o.autoHide ) {
 			this._handles.hide();
-			this._addClass( "ui-resizable-autohide" );
+			this._addClass( "modal-resizable-autohide" );
 		}
 	},
 
@@ -6836,10 +6737,10 @@ $.widget( "mi.resizable", $.mi.mouse, {
 			o.aspectRatio :
 			( ( this.originalSize.width / this.originalSize.height ) || 1 );
 
-		cursor = $( ".ui-resizable-" + this.axis ).css( "cursor" );
+		cursor = $( ".modal-resizable-" + this.axis ).css( "cursor" );
 		$( "body" ).css( "cursor", cursor === "auto" ? this.axis + "-resize" : cursor );
 
-		this._addClass( "ui-resizable-resizing" );
+		this._addClass( "modal-resizable-resizing" );
 		this._propagate( "start", event );
 		return true;
 	},
@@ -6880,7 +6781,7 @@ $.widget( "mi.resizable", $.mi.mouse, {
 
 		if ( !$.isEmptyObject( props ) ) {
 			this._updatePrevProperties();
-			this._trigger( "resize", event, this.mi() );
+			this._trigger( "resize", event, this.modal() );
 			this._applyChanges();
 		}
 
@@ -6923,7 +6824,7 @@ $.widget( "mi.resizable", $.mi.mouse, {
 
 		$( "body" ).css( "cursor", "auto" );
 
-		this._removeClass( "ui-resizable-resizing" );
+		this._removeClass( "modal-resizable-resizing" );
 
 		this._propagate( "stop", event );
 
@@ -7077,7 +6978,6 @@ $.widget( "mi.resizable", $.mi.mouse, {
 			data.top = dh - o.maxHeight;
 		}
 
-		// Fixing jump error on top/left - bug #2330
 		if ( !data.width && !data.height && !data.left && data.top ) {
 			data.top = null;
 		} else if ( !data.width && !data.height && !data.top && data.left ) {
@@ -7206,13 +7106,13 @@ $.widget( "mi.resizable", $.mi.mouse, {
 	},
 
 	_propagate: function( n, event ) {
-		$.mi.plugin.call( this, n, [ event, this.mi() ] );
-		( n !== "resize" && this._trigger( n, event, this.mi() ) );
+		$.modal.plugin.call( this, n, [ event, this.modal() ] );
+		( n !== "resize" && this._trigger( n, event, this.modal() ) );
 	},
 
 	plugins: {},
 
-	mi: function() {
+	modal: function() {
 		return {
 			originalElement: this.originalElement,
 			element: this.element,
@@ -7230,7 +7130,7 @@ $.widget( "mi.resizable", $.mi.mouse, {
  * Resizable Extensions
  */
 
-$.mi.plugin.add( "resizable", "animate", {
+$.modal.plugin.add( "resizable", "animate", {
 
 	stop: function( event ) {
 		var that = $( this ).resizable( "instance" ),
@@ -7276,7 +7176,7 @@ $.mi.plugin.add( "resizable", "animate", {
 
 } );
 
-$.mi.plugin.add( "resizable", "containment", {
+$.modal.plugin.add( "resizable", "containment", {
 
 	start: function() {
 		var element, p, co, ch, cw, width, height,
@@ -7459,7 +7359,7 @@ $.mi.plugin.add( "resizable", "containment", {
 	}
 } );
 
-$.mi.plugin.add( "resizable", "alsoResize", {
+$.modal.plugin.add( "resizable", "alsoResize", {
 
 	start: function() {
 		var that = $( this ).resizable( "instance" ),
@@ -7467,14 +7367,14 @@ $.mi.plugin.add( "resizable", "alsoResize", {
 
 		$( o.alsoResize ).each( function() {
 			var el = $( this );
-			el.data( "ui-resizable-alsoresize", {
+			el.data( "modal-resizable-alsoresize", {
 				width: parseFloat( el.width() ), height: parseFloat( el.height() ),
 				left: parseFloat( el.css( "left" ) ), top: parseFloat( el.css( "top" ) )
 			} );
 		} );
 	},
 
-	resize: function( event, mi ) {
+	resize: function( event, modal ) {
 		var that = $( this ).resizable( "instance" ),
 			o = that.options,
 			os = that.originalSize,
@@ -7487,8 +7387,8 @@ $.mi.plugin.add( "resizable", "alsoResize", {
 			};
 
 			$( o.alsoResize ).each( function() {
-				var el = $( this ), start = $( this ).data( "ui-resizable-alsoresize" ), style = {},
-					css = el.parents( mi.originalElement[ 0 ] ).length ?
+				var el = $( this ), start = $( this ).data( "modal-resizable-alsoresize" ), style = {},
+					css = el.parents( modal.originalElement[ 0 ] ).length ?
 							[ "width", "height" ] :
 							[ "width", "height", "top", "left" ];
 
@@ -7504,11 +7404,11 @@ $.mi.plugin.add( "resizable", "alsoResize", {
 	},
 
 	stop: function() {
-		$( this ).removeData( "ui-resizable-alsoresize" );
+		$( this ).removeData( "modal-resizable-alsoresize" );
 	}
 } );
 
-$.mi.plugin.add( "resizable", "ghost", {
+$.modal.plugin.add( "resizable", "ghost", {
 
 	start: function() {
 
@@ -7526,11 +7426,11 @@ $.mi.plugin.add( "resizable", "ghost", {
 			top: 0
 		} );
 
-		that._addClass( that.ghost, "ui-resizable-ghost" );
+		that._addClass( that.ghost, "modal-resizable-ghost" );
 
 		// DEPRECATED
 		// TODO: remove after 1.12
-		if ( $.miBackCompat !== false && typeof that.options.ghost === "string" ) {
+		if ( $.modalBackCompat !== false && typeof that.options.ghost === "string" ) {
 
 			// Ghost option
 			that.ghost.addClass( this.options.ghost );
@@ -7560,7 +7460,7 @@ $.mi.plugin.add( "resizable", "ghost", {
 
 } );
 
-$.mi.plugin.add( "resizable", "grid", {
+$.modal.plugin.add( "resizable", "grid", {
 
 	resize: function() {
 		var outerDimensions,
@@ -7634,12 +7534,12 @@ $.mi.plugin.add( "resizable", "grid", {
 
 } );
 
-var widgetsResizable = $.mi.resizable;
+var widgetsResizable = $.modal.resizable;
 
 
 /*!
  * jQuery UI Dialog 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -7649,23 +7549,23 @@ var widgetsResizable = $.mi.resizable;
 //>>label: Dialog
 //>>group: Widgets
 //>>description: Displays customizable dialog windows.
-//>>docs: http://api.jquerymi.com/dialog/
-//>>demos: http://jquerymi.com/dialog/
+//>>docs: http://api.jquerymodal.com/dialog/
+//>>demos: http://jquerymodal.com/dialog/
 //>>css.structure: ../../themes/base/core.css
 //>>css.structure: ../../themes/base/dialog.css
 //>>css.theme: ../../themes/base/theme.css
 
 
 
-$.widget( "mi.dialog", {
+$.widget( "modal.dialog", {
 	version: "1.12.1",
 	options: {
 		appendTo: "body",
 		autoOpen: false,
 		buttons: [],
 		classes: {
-			"ui-dialog": "ui-corner-all",
-			"ui-dialog-titlebar": "ui-corner-all"
+			"modal-dialog-container": "modal-corner-all",
+			"modal-dialog-titlebar": "modal-corner-top"
 		},
 		closeOnEscape: true,
 		closeText: "×",
@@ -7746,7 +7646,6 @@ $.widget( "mi.dialog", {
 			this.options.title = this.originalTitle;
 		}
 
-		// Dialogs can't be disabled
 		if ( this.options.disabled ) {
 			this.options.disabled = false;
 		}
@@ -7756,9 +7655,9 @@ $.widget( "mi.dialog", {
 		this.element
 			.show()
 			.removeAttr( "title" )
-			.appendTo( this.miDialog );
+			.appendTo( this.modalDialog );
 
-		this._addClass( "ui-dialog-content", "ui-widget-content" );
+		this._addClass( "modal-dialog-content", "modal-widget-content" );
 
 		this._createTitlebar();
 		this._createButtonPane();
@@ -7803,7 +7702,7 @@ $.widget( "mi.dialog", {
 			// Without detaching first, the following becomes really slow
 			.detach();
 
-		this.miDialog.remove();
+		this.modalDialog.remove();
 
 		if ( this.originalTitle ) {
 			this.element.attr( "title", this.originalTitle );
@@ -7820,7 +7719,7 @@ $.widget( "mi.dialog", {
 	},
 
 	widget: function() {
-		return this.miDialog;
+		return this.modalDialog;
 	},
 
 	disable: $.noop,
@@ -7843,19 +7742,19 @@ $.widget( "mi.dialog", {
 			// Hiding a focused element doesn't trigger blur in WebKit
 			// so in case we have nothing to focus on, explicitly blur the active element
 			// https://bugs.webkit.org/show_bug.cgi?id=47182
-			$.mi.safeBlur( $.mi.safeActiveElement( this.document[ 0 ] ) );
+			$.modal.safeBlur( $.modal.safeActiveElement( this.document[ 0 ] ) );
 		}
 
-		this._hide( this.miDialog, this.options.hide, function() {
+		this._hide( this.modalDialog, this.options.hide, function() {
 			that._trigger( "close", event );
 		} );
 
-		$('body').css({
-			'overflow' : 'auto',
-			'padding-right' : '0'
-		});
+		// $('body').css({
+		// 	'overflow' : 'auto',
+		// 	'padding-right' : '0'
+		// });
 
-		// this.miDialog.css({
+		// this.modalDialog.css({
 		// 	'position' : 'absolute',
 		// });
 	},
@@ -7870,13 +7769,13 @@ $.widget( "mi.dialog", {
 
 	_moveToTop: function( event, silent ) {
 		var moved = false,
-			zIndices = this.miDialog.siblings( ".ui-front:visible" ).map( function() {
+			zIndices = this.modalDialog.siblings( ".modal-front:visible" ).map( function() {
 				return +$( this ).css( "z-index" );
 			} ).get(),
 			zIndexMax = Math.max.apply( null, zIndices );
 
-		if ( zIndexMax >= +this.miDialog.css( "z-index" ) ) {
-			this.miDialog.css( "z-index", zIndexMax + 1 );
+		if ( zIndexMax >= +this.modalDialog.css( "z-index" ) ) {
+			this.modalDialog.css( "z-index", zIndexMax + 1 );
 			moved = true;
 		}
 
@@ -7897,7 +7796,7 @@ $.widget( "mi.dialog", {
 		}
 
 		this._isOpen = true;
-		this.opener = $( $.mi.safeActiveElement( this.document[ 0 ] ) );
+		this.opener = $( $.modal.safeActiveElement( this.document[ 0 ] ) );
 
 		this._size();
 		this._position();
@@ -7908,10 +7807,10 @@ $.widget( "mi.dialog", {
 		// opening. The overlay shouldn't move after the dialog is open so that
 		// modeless dialogs opened after the modal dialog stack properly.
 		if ( this.overlay ) {
-			this.overlay.css( "z-index", this.miDialog.css( "z-index" ) - 1 );
+			this.overlay.css( "z-index", this.modalDialog.css( "z-index" ) - 1 );
 		}
 
-		this._show( this.miDialog, this.options.show, function() {
+		this._show( this.modalDialog, this.options.show, function() {
 			that._focusTabbable();
 			that._trigger( "focus" );
 		} );
@@ -7941,13 +7840,13 @@ $.widget( "mi.dialog", {
 			hasFocus = this.element.find( ":tabbable" );
 		}
 		if ( !hasFocus.length ) {
-			hasFocus = this.miDialogButtonPane.find( ":tabbable" );
+			hasFocus = this.modalDialogButtonPane.find( ":tabbable" );
 		}
 		if ( !hasFocus.length ) {
-			hasFocus = this.miDialogTitlebarClose.filter( ":tabbable" );
+			hasFocus = this.modalDialogTitlebarClose.filter( ":tabbable" );
 		}
 		if ( !hasFocus.length ) {
-			hasFocus = this.miDialog;
+			hasFocus = this.modalDialog;
 		}
 		hasFocus.eq( 0 ).trigger( "focus" );
 
@@ -7958,20 +7857,20 @@ $.widget( "mi.dialog", {
 			for (var i = 0; i < childrens.length; i++) {
 				height += $(childrens[i]).height();
 			}
-			// height += this.miDialogTitlebar.height();
+			// height += this.modalDialogTitlebar.height();
 
 			if(height >= $(window).height()){
-				this.miDialog.css({'height' : '100%'});
-				this.element.css({'height' : (this.miDialog.height() - this.miDialogTitlebar.height()) + 'px' });
+				this.modalDialog.css({'height' : '100%'});
+				this.element.css({'height' : (this.modalDialog.height() - this.modalDialogTitlebar.height()) + 'px' });
 			}
 		}
 	},
 
 	_keepFocus: function( event ) {
 		function checkFocus() {
-			var activeElement = $.mi.safeActiveElement( this.document[ 0 ] ),
-				isActive = this.miDialog[ 0 ] === activeElement ||
-					$.contains( this.miDialog[ 0 ], activeElement );
+			var activeElement = $.modal.safeActiveElement( this.document[ 0 ] ),
+				isActive = this.modalDialog[ 0 ] === activeElement ||
+					$.contains( this.modalDialog[ 0 ], activeElement );
 			if ( !isActive ) {
 				this._focusTabbable();
 			}
@@ -7986,7 +7885,7 @@ $.widget( "mi.dialog", {
 	},
 
 	_createWrapper: function() {
-		this.miDialog = $( "<div>" )
+		this.modalDialog = $( "<div>" )
 			.hide()
 			.attr( {
 
@@ -7997,32 +7896,32 @@ $.widget( "mi.dialog", {
 			.css({'position' : 'fixed'})
 			.appendTo( this._appendTo() );
 
-		this._addClass( this.miDialog, "ui-dialog", "ui-widget ui-widget-content ui-front" );
-		this._on( this.miDialog, {
+		this._addClass( this.modalDialog, "modal-dialog-container", "modal-widget modal-widget-content modal-front" );
+		this._on( this.modalDialog, {
 			keydown: function( event ) {
 				if ( this.options.closeOnEscape && !event.isDefaultPrevented() && event.keyCode &&
-						event.keyCode === $.mi.keyCode.ESCAPE ) {
+						event.keyCode === $.modal.keyCode.ESCAPE ) {
 					event.preventDefault();
 					this.close( event );
 					return;
 				}
 
 				// Prevent tabbing out of dialogs
-				if ( event.keyCode !== $.mi.keyCode.TAB || event.isDefaultPrevented() ) {
+				if ( event.keyCode !== $.modal.keyCode.TAB || event.isDefaultPrevented() ) {
 					return;
 				}
-				var tabbables = this.miDialog.find( ":tabbable" ),
+				var tabbables = this.modalDialog.find( ":tabbable" ),
 					first = tabbables.filter( ":first" ),
 					last = tabbables.filter( ":last" );
 
-				if ( ( event.target === last[ 0 ] || event.target === this.miDialog[ 0 ] ) &&
+				if ( ( event.target === last[ 0 ] || event.target === this.modalDialog[ 0 ] ) &&
 						!event.shiftKey ) {
 					this._delay( function() {
 						first.trigger( "focus" );
 					} );
 					event.preventDefault();
 				} else if ( ( event.target === first[ 0 ] ||
-						event.target === this.miDialog[ 0 ] ) && event.shiftKey ) {
+						event.target === this.modalDialog[ 0 ] ) && event.shiftKey ) {
 					this._delay( function() {
 						last.trigger( "focus" );
 					} );
@@ -8040,7 +7939,7 @@ $.widget( "mi.dialog", {
 		// that the dialog content is marked up properly
 		// otherwise we brute force the content as the description
 		if ( !this.element.find( "[aria-describedby]" ).length ) {
-			this.miDialog.attr( {
+			this.modalDialog.attr( {
 				"aria-describedby": this.element.uniqueId().attr( "id" )
 			} );
 		}
@@ -8049,19 +7948,19 @@ $.widget( "mi.dialog", {
 	_createTitlebar: function() {
 		var uiDialogTitle;
 
-		this.miDialogTitlebar = $( "<div>" );
-		this._addClass( this.miDialogTitlebar,
-			"ui-dialog-titlebar", "ui-widget-header ui-helper-clearfix" );
-		this._on( this.miDialogTitlebar, {
+		this.modalDialogTitlebar = $( "<div>" );
+		this._addClass( this.modalDialogTitlebar,
+			"modal-dialog-titlebar", "modal-widget-header modal-helper-clearfix" );
+		this._on( this.modalDialogTitlebar, {
 			mousedown: function( event ) {
 
 				// Don't prevent click on close button (#8838)
 				// Focusing a dialog that is partially scrolled out of view
 				// causes the browser to scroll it into view, preventing the click event
-				if ( !$( event.target ).closest( ".ui-dialog-titlebar-close" ) ) {
+				if ( !$( event.target ).closest( ".modal-dialog-titlebar-close" ) ) {
 
 					// Dialog isn't getting focus when dragging (#8063)
-					this.miDialog.trigger( "focus" );
+					this.modalDialog.trigger( "focus" );
 				}
 			}
 		} );
@@ -8069,29 +7968,29 @@ $.widget( "mi.dialog", {
 		// Support: IE
 		// Use type="button" to prevent enter keypresses in textboxes from closing the
 		// dialog in IE (#9312)
-		this.miDialogTitlebarClose = $( "<button type='button'></button>" )
+		this.modalDialogTitlebarClose = $( "<button type='button'></button>" )
 			.button( {
 				label: $( "<a>" ).text( this.options.closeText ).html(),
 				// icon: "ui-icon-closethick",
 				// showLabel: false
 			} )
-			.appendTo( this.miDialogTitlebar );
+			.appendTo( this.modalDialogTitlebar );
 
-		this._addClass( this.miDialogTitlebarClose, "ui-dialog-titlebar-close" );
-		this._on( this.miDialogTitlebarClose, {
+		this._addClass( this.modalDialogTitlebarClose, "modal-dialog-titlebar-close" );
+		this._on( this.modalDialogTitlebarClose, {
 			click: function( event ) {
 				event.preventDefault();
 				this.close( event );
 			}
 		} );
 
-		uiDialogTitle = $( "<span>" ).uniqueId().prependTo( this.miDialogTitlebar );
-		this._addClass( uiDialogTitle, "ui-dialog-title" );
+		uiDialogTitle = $( "<span>" ).uniqueId().prependTo( this.modalDialogTitlebar );
+		this._addClass( uiDialogTitle, "modal-dialog-title" );
 		this._title( uiDialogTitle );
 
-		this.miDialogTitlebar.prependTo( this.miDialog );
+		this.modalDialogTitlebar.prependTo( this.modalDialog );
 
-		this.miDialog.attr( {
+		this.modalDialog.attr( {
 			"aria-labelledby": uiDialogTitle.attr( "id" )
 		} );
 	},
@@ -8105,13 +8004,13 @@ $.widget( "mi.dialog", {
 	},
 
 	_createButtonPane: function() {
-		this.miDialogButtonPane = $( "<div>" );
-		this._addClass( this.miDialogButtonPane, "ui-dialog-buttonpane",
-			"ui-widget-content ui-helper-clearfix" );
+		this.modalDialogButtonPane = $( "<div>" );
+		this._addClass( this.modalDialogButtonPane, "modal-dialog-buttonpane",
+			"modal-widget-content modal-helper-clearfix" );
 
-		this.miButtonSet = $( "<div>" )
-			.appendTo( this.miDialogButtonPane );
-		this._addClass( this.miButtonSet, "ui-dialog-buttonset" );
+		this.modalButtonSet = $( "<div>" )
+			.appendTo( this.modalDialogButtonPane );
+		this._addClass( this.modalButtonSet, "modal-dialog-buttonset" );
 
 		this._createButtons();
 	},
@@ -8121,11 +8020,11 @@ $.widget( "mi.dialog", {
 			buttons = this.options.buttons;
 
 		// If we already have a button pane, remove it
-		this.miDialogButtonPane.remove();
-		this.miButtonSet.empty();
+		this.modalDialogButtonPane.remove();
+		this.modalButtonSet.empty();
 
 		if ( $.isEmptyObject( buttons ) || ( $.isArray( buttons ) && !buttons.length ) ) {
-			this._removeClass( this.miDialog, "ui-dialog-buttons" );
+			this._removeClass( this.modalDialog, "modal-dialog-buttons" );
 			return;
 		}
 
@@ -8135,10 +8034,8 @@ $.widget( "mi.dialog", {
 				{ click: props, text: name } :
 				props;
 
-			// Default to a non-submitting button
 			props = $.extend( { type: "button" }, props );
 
-			// Change the context for the click callback to be the main element
 			click = props.click;
 			buttonOptions = {
 				icon: props.icon,
@@ -8163,73 +8060,73 @@ $.widget( "mi.dialog", {
 
 			$( "<button></button>", props )
 				.button( buttonOptions )
-				.appendTo( that.miButtonSet )
+				.appendTo( that.modalButtonSet )
 				.on( "click", function() {
 					click.apply( that.element[ 0 ], arguments );
 				} );
 		} );
-		this._addClass( this.miDialog, "ui-dialog-buttons" );
-		this.miDialogButtonPane.appendTo( this.miDialog );
+		this._addClass( this.modalDialog, "modal-dialog-buttons" );
+		this.modalDialogButtonPane.appendTo( this.modalDialog );
 	},
 
 	_makeDraggable: function() {
 		var that = this,
 			options = this.options;
 
-		function filteredUi( mi ) {
+		function filteredUi( modal ) {
 			return {
-				position: mi.position,
-				offset: mi.offset
+				position: modal.position,
+				offset: modal.offset
 			};
 		}
 
-		this.miDialog.draggable( {
-			cancel: ".ui-dialog-content, .ui-dialog-titlebar-close",
-			handle: ".ui-dialog-titlebar",
+		this.modalDialog.draggable( {
+			cancel: ".modal-dialog-content, .modal-dialog-titlebar-close",
+			handle: ".modal-dialog-titlebar",
 			containment: "document",
-			start: function( event, mi ) {
-				that._addClass( $( this ), "ui-dialog-dragging" );
+			start: function( event, modal ) {
+				that._addClass( $( this ), "modal-dialog-dragging" );
 				that._blockFrames();
-				that._trigger( "dragStart", event, filteredUi( mi ) );
+				that._trigger( "dragStart", event, filteredUi( modal ) );
 
 				$( this ).css({'position' : 'absolute'});
 
 				if(!that.positionStart){
-					that.positionStart = mi.position.top;
+					that.positionStart = modal.position.top;
 				}
 			},
-			drag: function( event, mi ) {
+			drag: function( event, modal ) {
 
 				var offsetTop = that.document.scrollTop(),
-					offsetBottom = that.document.scrollTop() + that.window.height() - that.miDialog.height();
+					offsetBottom = that.document.scrollTop() + that.window.height() - that.modalDialog.height();
 
-				if(mi.position.top <= offsetTop){
-					mi.position.top = mi.offset.top;
-				}else if(mi.position.top >= that.document.scrollTop() + that.window.height()){
-					mi.position.top = offsetBottom;
+				if(modal.position.top <= offsetTop){
+					modal.position.top = modal.offset.top;
+				}else if(modal.position.top >= that.document.scrollTop() + that.window.height()){
+					modal.position.top = offsetBottom;
 				}else{
-					mi.position.top = mi.position.top + that.document.scrollTop();
+					modal.position.top = modal.position.top + that.document.scrollTop();
 				}
 
-				that._trigger( "drag", event, filteredUi( mi ) );
+				that._trigger( "drag", event, filteredUi( modal ) );
 			},
-			stop: function( event, mi ) {
+			stop: function( event, modal ) {
 				var offsetTop = that.document.scrollTop(),
-					offsetBottom = that.document.scrollTop() + that.window.height() - that.miDialog.height();
+					offsetBottom = that.document.scrollTop() + that.window.height() - that.modalDialog.height();
 
-				if(mi.position.top < offsetTop){
-					mi.position.top = offsetTop;
-				}else if(mi.position.top > offsetBottom){
-					mi.position.top = offsetBottom;
+				if(modal.position.top < offsetTop){
+					modal.position.top = offsetTop;
+				}else if(modal.position.top > offsetBottom){
+					modal.position.top = offsetBottom;
 				}
 
 				$( this ).css({
 					'position' : 'fixed',
-					'top' : mi.position.top - that.document.scrollTop() + 'px'
+					'top' : modal.position.top - that.document.scrollTop() + 'px'
 				});
 
-				var left = mi.position.left - that.document.scrollLeft(),
-					top = mi.position.top - that.document.scrollTop();
+				var left = modal.position.left - that.document.scrollLeft(),
+					top = modal.position.top - that.document.scrollTop();
 
 				options.position = {
 					my: "left top",
@@ -8237,9 +8134,9 @@ $.widget( "mi.dialog", {
 						"top" + ( top >= 0 ? "+" : "" ) + top,
 					of: that.window
 				};
-				that._removeClass( $( this ), "ui-dialog-dragging" );
+				that._removeClass( $( this ), "modal-dialog-dragging" );
 				that._unblockFrames();
-				that._trigger( "dragStop", event, filteredUi( mi ) );
+				that._trigger( "dragStop", event, filteredUi( modal ) );
 			}
 		} );
 	},
@@ -8249,24 +8146,22 @@ $.widget( "mi.dialog", {
 			options = this.options,
 			handles = options.resizable,
 
-			// .ui-resizable has position: relative defined in the stylesheet
-			// but dialogs have to use absolute or fixed positioning
-			position = this.miDialog.css( "position" ),
+			position = this.modalDialog.css( "position" ),
 			resizeHandles = typeof handles === "string" ?
 				handles :
 				"n,e,s,w,se,sw,ne,nw";
 
-		function filteredUi( mi ) {
+		function filteredUi( modal ) {
 			return {
-				originalPosition: mi.originalPosition,
-				originalSize: mi.originalSize,
-				position: mi.position,
-				size: mi.size
+				originalPosition: modal.originalPosition,
+				originalSize: modal.originalSize,
+				position: modal.position,
+				size: modal.size
 			};
 		}
 
-		this.miDialog.resizable( {
-			cancel: ".ui-dialog-content",
+		this.modalDialog.resizable( {
+			cancel: ".modal-dialog-content",
 			containment: "document",
 			alsoResize: this.element,
 			maxWidth: options.maxWidth,
@@ -8274,30 +8169,30 @@ $.widget( "mi.dialog", {
 			minWidth: options.minWidth,
 			minHeight: this._minHeight(),
 			handles: resizeHandles,
-			start: function( event, mi ) {
-				that._addClass( $( this ), "ui-dialog-resizing" );
+			start: function( event, modal ) {
+				that._addClass( $( this ), "modal-dialog-resizing" );
 				that._blockFrames();
-				that._trigger( "resizeStart", event, filteredUi( mi ) );
+				that._trigger( "resizeStart", event, filteredUi( modal ) );
 			},
-			resize: function( event, mi ) {
-				that._trigger( "resize", event, filteredUi( mi ) );
+			resize: function( event, modal ) {
+				that._trigger( "resize", event, filteredUi( modal ) );
 			},
-			stop: function( event, mi ) {
-				var offset = that.miDialog.offset(),
+			stop: function( event, modal ) {
+				var offset = that.modalDialog.offset(),
 					left = offset.left - that.document.scrollLeft(),
 					top = offset.top - that.document.scrollTop();
 
-				options.height = that.miDialog.height();
-				options.width = that.miDialog.width();
+				options.height = that.modalDialog.height();
+				options.width = that.modalDialog.width();
 				options.position = {
 					my: "left top",
 					at: "left" + ( left >= 0 ? "+" : "" ) + left + " " +
 						"top" + ( top >= 0 ? "+" : "" ) + top,
 					of: that.window
 				};
-				that._removeClass( $( this ), "ui-dialog-resizing" );
+				that._removeClass( $( this ), "modal-dialog-resizing" );
 				that._unblockFrames();
-				that._trigger( "resizeStop", event, filteredUi( mi ) );
+				that._trigger( "resizeStop", event, filteredUi( modal ) );
 			}
 		} )
 			.css( "position", position );
@@ -8326,10 +8221,10 @@ $.widget( "mi.dialog", {
 	},
 
 	_trackingInstances: function() {
-		var instances = this.document.data( "ui-dialog-instances" );
+		var instances = this.document.data( "modal-dialog-instances" );
 		if ( !instances ) {
 			instances = [];
-			this.document.data( "ui-dialog-instances", instances );
+			this.document.data( "modal-dialog-instances", instances );
 		}
 		return instances;
 	},
@@ -8344,14 +8239,13 @@ $.widget( "mi.dialog", {
 
 	_position: function() {
 
-		// Need to show the dialog to get the actual offset in the position plugin
-		var isVisible = this.miDialog.is( ":visible" );
+		var isVisible = this.modalDialog.is( ":visible" );
 		if ( !isVisible ) {
-			this.miDialog.show();
+			this.modalDialog.show();
 		}
-		this.miDialog.position( this.options.position );
+		this.modalDialog.position( this.options.position );
 		if ( !isVisible ) {
-			this.miDialog.hide();
+			this.modalDialog.hide();
 		}
 	},
 
@@ -8375,14 +8269,14 @@ $.widget( "mi.dialog", {
 			this._size();
 			this._position();
 		}
-		if ( this.miDialog.is( ":data(ui-resizable)" ) ) {
-			this.miDialog.resizable( "option", resizableOptions );
+		if ( this.modalDialog.is( ":data(modal-resizable)" ) ) {
+			this.modalDialog.resizable( "option", resizableOptions );
 		}
 	},
 
 	_setOption: function( key, value ) {
 		var isDraggable, isResizable,
-			uiDialog = this.miDialog;
+			uiDialog = this.modalDialog;
 
 		if ( key === "disabled" ) {
 			return;
@@ -8391,7 +8285,7 @@ $.widget( "mi.dialog", {
 		this._super( key, value );
 
 		if ( key === "appendTo" ) {
-			this.miDialog.appendTo( this._appendTo() );
+			this.modalDialog.appendTo( this._appendTo() );
 		}
 
 		if ( key === "buttons" ) {
@@ -8399,7 +8293,7 @@ $.widget( "mi.dialog", {
 		}
 
 		if ( key === "closeText" ) {
-			this.miDialogTitlebarClose.button( {
+			this.modalDialogTitlebarClose.button( {
 
 				// Ensure that we always pass a string
 				label: $( "<a>" ).text( "" + this.options.closeText ).html()
@@ -8407,7 +8301,7 @@ $.widget( "mi.dialog", {
 		}
 
 		if ( key === "draggable" ) {
-			isDraggable = uiDialog.is( ":data(ui-draggable)" );
+			isDraggable = uiDialog.is( ":data(modal-draggable)" );
 			if ( isDraggable && !value ) {
 				uiDialog.draggable( "destroy" );
 			}
@@ -8423,32 +8317,27 @@ $.widget( "mi.dialog", {
 
 		if ( key === "resizable" ) {
 
-			// currently resizable, becoming non-resizable
-			isResizable = uiDialog.is( ":data(ui-resizable)" );
+			isResizable = uiDialog.is( ":data(modal-resizable)" );
 			if ( isResizable && !value ) {
 				uiDialog.resizable( "destroy" );
 			}
 
-			// Currently resizable, changing handles
 			if ( isResizable && typeof value === "string" ) {
 				uiDialog.resizable( "option", "handles", value );
 			}
 
-			// Currently non-resizable, becoming resizable
 			if ( !isResizable && value !== false ) {
 				this._makeResizable();
 			}
 		}
 
 		if ( key === "title" ) {
-			this._title( this.miDialogTitlebar.find( ".ui-dialog-title" ) );
+			this._title( this.modalDialogTitlebar.find( ".modal-dialog-title" ) );
 		}
 	},
 
 	_size: function() {
 
-		// If the user has resized the dialog, the .ui-dialog and .ui-dialog-content
-		// divs will both have width and height set, so we need to reset them
 		var nonContentHeight, minContentHeight, maxContentHeight,
 			options = this.options;
 
@@ -8464,9 +8353,7 @@ $.widget( "mi.dialog", {
 			options.width = options.minWidth;
 		}
 
-		// Reset wrapper sizing
-		// determine the height of all the non-content elements
-		nonContentHeight = this.miDialog.css( {
+		nonContentHeight = this.modalDialog.css( {
 			height: "auto",
 			width: options.width
 		} )
@@ -8486,8 +8373,8 @@ $.widget( "mi.dialog", {
 			this.element.height( Math.max( 0, options.height - nonContentHeight ) );
 		}
 
-		if ( this.miDialog.is( ":data(ui-resizable)" ) ) {
-			this.miDialog.resizable( "option", "minHeight", this._minHeight() );
+		if ( this.modalDialog.is( ":data(modal-resizable)" ) ) {
+			this.modalDialog.resizable( "option", "minHeight", this._minHeight() );
 		}
 	},
 
@@ -8514,13 +8401,11 @@ $.widget( "mi.dialog", {
 	},
 
 	_allowInteraction: function( event ) {
-		if ( $( event.target ).closest( ".ui-dialog" ).length ) {
+		if ( $( event.target ).closest( ".modal-dialog-container" ).length ) {
 			return true;
 		}
 
-		// TODO: Remove hack when datepicker implements
-		// the .ui-front logic (#8989)
-		return !!$( event.target ).closest( ".ui-datepicker" ).length;
+		return !!$( event.target ).closest( ".modal-datepicker" ).length;
 	},
 
 	_createOverlay: function() {
@@ -8528,18 +8413,13 @@ $.widget( "mi.dialog", {
 			return;
 		}
 
-		// We use a delay in case the overlay is created from an
-		// event that we're going to be cancelling (#2804)
 		var isOpening = true;
 		this._delay( function() {
 			isOpening = false;
 		} );
 
-		if ( !this.document.data( "ui-dialog-overlays" ) ) {
+		if ( !this.document.data( "modal-dialog-overlays" ) ) {
 
-			// Prevent use of anchors and inputs
-			// Using _on() for an event handler shared across many instances is
-			// safe because the dialogs stack and must be closed in reverse order
 			this._on( this.document, {
 				focusin: function( event ) {
 					if ( isOpening ) {
@@ -8557,18 +8437,18 @@ $.widget( "mi.dialog", {
 		this.overlay = $( "<div>" )
 			.appendTo( this._appendTo() );
 
-		this._addClass( this.overlay, null, "ui-widget-overlay ui-front" );
+		this._addClass( this.overlay, null, "modal-widget-overlay modal-front" );
 
-		$('body').css({
-			'overflow' : 'hidden',
-			'padding-right' : '17px'
-		});
+		// $('body').css({
+		// 	'overflow' : 'hidden',
+		// 	'padding-right' : '17px'
+		// });
 
 		this._on( this.overlay, {
 			mousedown: "_keepFocus"
 		} );
-		this.document.data( "ui-dialog-overlays",
-			( this.document.data( "ui-dialog-overlays" ) || 0 ) + 1 );
+		this.document.data( "modal-dialog-overlays",
+			( this.document.data( "modal-dialog-overlays" ) || 0 ) + 1 );
 
 		this._on( this.overlay, {
 			click: function( event ) {
@@ -8585,13 +8465,13 @@ $.widget( "mi.dialog", {
 		}
 
 		if ( this.overlay ) {
-			var overlays = this.document.data( "ui-dialog-overlays" ) - 1;
+			var overlays = this.document.data( "modal-dialog-overlays" ) - 1;
 
 			if ( !overlays ) {
 				this._off( this.document, "focusin" );
-				this.document.removeData( "ui-dialog-overlays" );
+				this.document.removeData( "modal-dialog-overlays" );
 			} else {
-				this.document.data( "ui-dialog-overlays", overlays );
+				this.document.data( "modal-dialog-overlays", overlays );
 			}
 
 			this.overlay.remove();
@@ -8600,22 +8480,19 @@ $.widget( "mi.dialog", {
 	}
 } );
 
-// DEPRECATED
-// TODO: switch return back to widget declaration at top of file when this is removed
-if ( $.miBackCompat !== false ) {
+if ( $.modalBackCompat !== false ) {
 
-	// Backcompat for dialogClass option
-	$.widget( "mi.dialog", $.mi.dialog, {
+	$.widget( "modal.dialog", $.modal.dialog, {
 		options: {
 			dialogClass: ""
 		},
 		_createWrapper: function() {
 			this._super();
-			this.miDialog.addClass( this.options.dialogClass );
+			this.modalDialog.addClass( this.options.dialogClass );
 		},
 		_setOption: function( key, value ) {
 			if ( key === "dialogClass" ) {
-				this.miDialog
+				this.modalDialog
 					.removeClass( this.options.dialogClass )
 					.addClass( value );
 			}
@@ -8624,12 +8501,12 @@ if ( $.miBackCompat !== false ) {
 	} );
 }
 
-var widgetsDialog = $.mi.dialog;
+var widgetsDialog = $.modal.dialog;
 
 
 /*!
  * jQuery UI Droppable 1.12.1
- * http://jquerymi.com
+ * http://jquerymodal.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
@@ -8639,12 +8516,12 @@ var widgetsDialog = $.mi.dialog;
 //>>label: Droppable
 //>>group: Interactions
 //>>description: Enables drop targets for draggable elements.
-//>>docs: http://api.jquerymi.com/droppable/
-//>>demos: http://jquerymi.com/droppable/
+//>>docs: http://api.jquerymodal.com/droppable/
+//>>demos: http://jquerymodal.com/droppable/
 
 
 
-$.widget( "mi.droppable", {
+$.widget( "modal.droppable", {
 	version: "1.12.1",
 	widgetEventPrefix: "drop",
 	options: {
@@ -8676,12 +8553,8 @@ $.widget( "mi.droppable", {
 
 		this.proportions = function( /* valueToWrite */ ) {
 			if ( arguments.length ) {
-
-				// Store the droppable's proportions
 				proportions = arguments[ 0 ];
 			} else {
-
-				// Retrieve or derive the droppable's proportions
 				return proportions ?
 					proportions :
 					proportions = {
@@ -8693,15 +8566,13 @@ $.widget( "mi.droppable", {
 
 		this._addToManager( o.scope );
 
-		o.addClasses && this._addClass( "ui-droppable" );
+		o.addClasses && this._addClass( "modal-droppable" );
 
 	},
 
 	_addToManager: function( scope ) {
-
-		// Add the reference and positions to the manager
-		$.mi.ddmanager.droppables[ scope ] = $.mi.ddmanager.droppables[ scope ] || [];
-		$.mi.ddmanager.droppables[ scope ].push( this );
+		$.modal.ddmanager.droppables[ scope ] = $.modal.ddmanager.droppables[ scope ] || [];
+		$.modal.ddmanager.droppables[ scope ].push( this );
 	},
 
 	_splice: function( drop ) {
@@ -8714,7 +8585,7 @@ $.widget( "mi.droppable", {
 	},
 
 	_destroy: function() {
-		var drop = $.mi.ddmanager.droppables[ this.options.scope ];
+		var drop = $.modal.ddmanager.droppables[ this.options.scope ];
 
 		this._splice( drop );
 	},
@@ -8726,7 +8597,7 @@ $.widget( "mi.droppable", {
 				return d.is( value );
 			};
 		} else if ( key === "scope" ) {
-			var drop = $.mi.ddmanager.droppables[ this.options.scope ];
+			var drop = $.modal.ddmanager.droppables[ this.options.scope ];
 
 			this._splice( drop );
 			this._addToManager( value );
@@ -8736,28 +8607,27 @@ $.widget( "mi.droppable", {
 	},
 
 	_activate: function( event ) {
-		var draggable = $.mi.ddmanager.current;
+		var draggable = $.modal.ddmanager.current;
 
 		this._addActiveClass();
 		if ( draggable ) {
-			this._trigger( "activate", event, this.mi( draggable ) );
+			this._trigger( "activate", event, this.modal( draggable ) );
 		}
 	},
 
 	_deactivate: function( event ) {
-		var draggable = $.mi.ddmanager.current;
+		var draggable = $.modal.ddmanager.current;
 
 		this._removeActiveClass();
 		if ( draggable ) {
-			this._trigger( "deactivate", event, this.mi( draggable ) );
+			this._trigger( "deactivate", event, this.modal( draggable ) );
 		}
 	},
 
 	_over: function( event ) {
 
-		var draggable = $.mi.ddmanager.current;
+		var draggable = $.modal.ddmanager.current;
 
-		// Bail if draggable and droppable are same element
 		if ( !draggable || ( draggable.currentItem ||
 				draggable.element )[ 0 ] === this.element[ 0 ] ) {
 			return;
@@ -8766,16 +8636,15 @@ $.widget( "mi.droppable", {
 		if ( this.accept.call( this.element[ 0 ], ( draggable.currentItem ||
 				draggable.element ) ) ) {
 			this._addHoverClass();
-			this._trigger( "over", event, this.mi( draggable ) );
+			this._trigger( "over", event, this.modal( draggable ) );
 		}
 
 	},
 
 	_out: function( event ) {
 
-		var draggable = $.mi.ddmanager.current;
+		var draggable = $.modal.ddmanager.current;
 
-		// Bail if draggable and droppable are same element
 		if ( !draggable || ( draggable.currentItem ||
 				draggable.element )[ 0 ] === this.element[ 0 ] ) {
 			return;
@@ -8784,25 +8653,24 @@ $.widget( "mi.droppable", {
 		if ( this.accept.call( this.element[ 0 ], ( draggable.currentItem ||
 				draggable.element ) ) ) {
 			this._removeHoverClass();
-			this._trigger( "out", event, this.mi( draggable ) );
+			this._trigger( "out", event, this.modal( draggable ) );
 		}
 
 	},
 
 	_drop: function( event, custom ) {
 
-		var draggable = custom || $.mi.ddmanager.current,
+		var draggable = custom || $.modal.ddmanager.current,
 			childrenIntersection = false;
 
-		// Bail if draggable and droppable are same element
 		if ( !draggable || ( draggable.currentItem ||
 				draggable.element )[ 0 ] === this.element[ 0 ] ) {
 			return false;
 		}
 
 		this.element
-			.find( ":data(ui-droppable)" )
-			.not( ".ui-draggable-dragging" )
+			.find( ":data(modal-droppable)" )
+			.not( ".modal-draggable-dragging" )
 			.each( function() {
 				var inst = $( this ).droppable( "instance" );
 				if (
@@ -8830,7 +8698,7 @@ $.widget( "mi.droppable", {
 			this._removeActiveClass();
 			this._removeHoverClass();
 
-			this._trigger( "drop", event, this.mi( draggable ) );
+			this._trigger( "drop", event, this.modal( draggable ) );
 			return this.element;
 		}
 
@@ -8838,7 +8706,7 @@ $.widget( "mi.droppable", {
 
 	},
 
-	mi: function( c ) {
+	modal: function( c ) {
 		return {
 			draggable: ( c.currentItem || c.element ),
 			helper: c.helper,
@@ -8847,26 +8715,24 @@ $.widget( "mi.droppable", {
 		};
 	},
 
-	// Extension points just to make backcompat sane and avoid duplicating logic
-	// TODO: Remove in 1.13 along with call to it below
 	_addHoverClass: function() {
-		this._addClass( "ui-droppable-hover" );
+		this._addClass( "modal-droppable-hover" );
 	},
 
 	_removeHoverClass: function() {
-		this._removeClass( "ui-droppable-hover" );
+		this._removeClass( "modal-droppable-hover" );
 	},
 
 	_addActiveClass: function() {
-		this._addClass( "ui-droppable-active" );
+		this._addClass( "modal-droppable-active" );
 	},
 
 	_removeActiveClass: function() {
-		this._removeClass( "ui-droppable-active" );
+		this._removeClass( "modal-droppable-active" );
 	}
 } );
 
-var intersect = $.mi.intersect = ( function() {
+var intersect = $.modal.intersect = ( function() {
 	function isOverAxis( x, reference, size ) {
 		return ( x >= reference ) && ( x < ( reference + size ) );
 	}
@@ -8918,25 +8784,22 @@ var intersect = $.mi.intersect = ( function() {
 /*
 	This manager tracks offsets of draggables and droppables
 */
-$.mi.ddmanager = {
+$.modal.ddmanager = {
 	current: null,
 	droppables: { "default": [] },
 	prepareOffsets: function( t, event ) {
 
 		var i, j,
-			m = $.mi.ddmanager.droppables[ t.options.scope ] || [],
+			m = $.modal.ddmanager.droppables[ t.options.scope ] || [],
 			type = event ? event.type : null, // workaround for #2317
-			list = ( t.currentItem || t.element ).find( ":data(ui-droppable)" ).addBack();
+			list = ( t.currentItem || t.element ).find( ":data(modal-droppable)" ).addBack();
 
 		droppablesLoop: for ( i = 0; i < m.length; i++ ) {
-
-			// No disabled and non-accepted
 			if ( m[ i ].options.disabled || ( t && !m[ i ].accept.call( m[ i ].element[ 0 ],
 					( t.currentItem || t.element ) ) ) ) {
 				continue;
 			}
 
-			// Filter out elements in the current dragged item
 			for ( j = 0; j < list.length; j++ ) {
 				if ( list[ j ] === m[ i ].element[ 0 ] ) {
 					m[ i ].proportions().height = 0;
@@ -8949,7 +8812,6 @@ $.mi.ddmanager = {
 				continue;
 			}
 
-			// Activate the droppable if used directly from draggables
 			if ( type === "mousedown" ) {
 				m[ i ]._activate.call( m[ i ], event );
 			}
@@ -8967,8 +8829,7 @@ $.mi.ddmanager = {
 
 		var dropped = false;
 
-		// Create a copy of the droppables in case the list changes during the drop (#9116)
-		$.each( ( $.mi.ddmanager.droppables[ draggable.options.scope ] || [] ).slice(), function() {
+		$.each( ( $.modal.ddmanager.droppables[ draggable.options.scope ] || [] ).slice(), function() {
 
 			if ( !this.options ) {
 				return;
@@ -8990,25 +8851,17 @@ $.mi.ddmanager = {
 
 	},
 	dragStart: function( draggable, event ) {
-
-		// Listen for scrolling so that if the dragging causes scrolling the position of the
-		// droppables can be recalculated (see #5003)
 		draggable.element.parentsUntil( "body" ).on( "scroll.droppable", function() {
 			if ( !draggable.options.refreshPositions ) {
-				$.mi.ddmanager.prepareOffsets( draggable, event );
+				$.modal.ddmanager.prepareOffsets( draggable, event );
 			}
 		} );
 	},
 	drag: function( draggable, event ) {
-
-		// If you have a highly dynamic page, you might try this option. It renders positions
-		// every time you move the mouse.
 		if ( draggable.options.refreshPositions ) {
-			$.mi.ddmanager.prepareOffsets( draggable, event );
+			$.modal.ddmanager.prepareOffsets( draggable, event );
 		}
-
-		// Run through all droppables and check their positions based on specific tolerance options
-		$.each( $.mi.ddmanager.droppables[ draggable.options.scope ] || [], function() {
+		$.each( $.modal.ddmanager.droppables[ draggable.options.scope ] || [], function() {
 
 			if ( this.options.disabled || this.greedyChild || !this.visible ) {
 				return;
@@ -9025,9 +8878,8 @@ $.mi.ddmanager = {
 
 			if ( this.options.greedy ) {
 
-				// find droppable parents with same scope
 				scope = this.options.scope;
-				parent = this.element.parents( ":data(ui-droppable)" ).filter( function() {
+				parent = this.element.parents( ":data(modal-droppable)" ).filter( function() {
 					return $( this ).droppable( "instance" ).options.scope === scope;
 				} );
 
@@ -9037,7 +8889,6 @@ $.mi.ddmanager = {
 				}
 			}
 
-			// We just moved into a greedy child
 			if ( parentInstance && c === "isover" ) {
 				parentInstance.isover = false;
 				parentInstance.isout = true;
@@ -9048,7 +8899,6 @@ $.mi.ddmanager = {
 			this[ c === "isout" ? "isover" : "isout" ] = false;
 			this[ c === "isover" ? "_over" : "_out" ].call( this, event );
 
-			// We just moved out of a greedy child
 			if ( parentInstance && c === "isout" ) {
 				parentInstance.isout = false;
 				parentInstance.isover = true;
@@ -9060,20 +8910,14 @@ $.mi.ddmanager = {
 	dragStop: function( draggable, event ) {
 		draggable.element.parentsUntil( "body" ).off( "scroll.droppable" );
 
-		// Call prepareOffsets one final time since IE does not fire return scroll events when
-		// overflow was caused by drag (see #5003)
 		if ( !draggable.options.refreshPositions ) {
-			$.mi.ddmanager.prepareOffsets( draggable, event );
+			$.modal.ddmanager.prepareOffsets( draggable, event );
 		}
 	}
 };
 
-// DEPRECATED
-// TODO: switch return back to widget declaration at top of file when this is removed
-if ( $.miBackCompat !== false ) {
-
-	// Backcompat for activeClass and hoverClass options
-	$.widget( "mi.droppable", $.mi.droppable, {
+if ( $.modalBackCompat !== false ) {
+	$.widget( "modal.droppable", $.modal.droppable, {
 		options: {
 			hoverClass: false,
 			activeClass: false
@@ -9105,6 +8949,6 @@ if ( $.miBackCompat !== false ) {
 	} );
 }
 
-var widgetsDroppable = $.mi.droppable;
+var widgetsDroppable = $.modal.droppable;
 
 }));
