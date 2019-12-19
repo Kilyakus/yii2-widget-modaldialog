@@ -84,7 +84,7 @@
       buttonPane = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-buttonpane");
 
       titlebar.find(".ui-dialog-titlebar-close").find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close).end().appendTo(buttonPane).end();
-      buttonPane.append('<button type="button" class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-restore"><i class="fa ' + this.options.icons.restore + '" title="restore"></i></button>').find('.ui-dialog-titlebar-restore').attr("role", "button").end().find(".ui-dialog-titlebar-close").toggle(this.options.closable).end().find(".ui-dialog-titlebar-restore").hide().click(function(e) {
+      buttonPane.append('<button type="button" class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-restore"><i class="far ' + this.options.icons.restore + '" title="restore"></i></button>').find('.ui-dialog-titlebar-restore').attr("role", "button").end().find(".ui-dialog-titlebar-close").toggle(this.options.closable).end().find(".ui-dialog-titlebar-restore").hide().click(function(e) {
         e.preventDefault();
         return _this.restore();
       }).end();
@@ -110,7 +110,7 @@
         _this = this;
 
       buttonPane = $(this.element[0]).dialog("widget").find('.ui-dialog-titlebar-buttonpane');
-      return buttonPane.append('<button type="button" class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-' + name + '" title="' + name + '"><i class="fa ' + this.options.icons[name] + '"></i></button>').find(".ui-dialog-titlebar-" + name).attr("role", "button").end().find(".ui-dialog-titlebar-" + name).toggle(this.options[mode.option]).click(function(e) {
+      return buttonPane.append('<button type="button" class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-' + name + '" title="' + name + '"><i class="far ' + this.options.icons[name] + '"></i></button>').find(".ui-dialog-titlebar-" + name).attr("role", "button").end().find(".ui-dialog-titlebar-" + name).toggle(this.options[mode.option]).click(function(e) {
         e.preventDefault();
         return _this[name]();
       }).end();
@@ -313,10 +313,6 @@
       "maximize": null
     },
     maximize: function() {
-      var newHeight, newWidth;
-
-      newHeight = $(window).height();
-      newWidth = $(window).width();
       this._trigger("beforeMaximize");
       if (this._state !== "normal") {
         this._restore();
@@ -325,6 +321,12 @@
       if ($(this.element[0]).dialog("option", "draggable")) {
         $(this.element[0]).dialog("widget").draggable("option", "handle", null).find(".ui-dialog-draggable-handle").css("cursor", "text").end();
       }
+
+      var newHeight, newWidth;
+      $('body').css({'overflow' : 'hidden'});
+      newHeight = $(window).height();
+      newWidth = $(window).width();
+
       $(this.element[0]).dialog("widget").css("position", "fixed").find(".ui-dialog-content").show().dialog("widget").find(".ui-dialog-buttonpane").show().end().find(".ui-dialog-content").dialog("option", {
         "resizable": false,
         "draggable": false,
@@ -356,6 +358,7 @@
           of: window
         }
       });
+      $('body').css({'overflow' : 'auto'});
       if ($(this.element[0]).dialog("option", "draggable")) {
         return $(this.element[0]).dialog("widget").draggable("option", "handle", $(this.element[0]).dialog("widget").find(".ui-dialog-draggable-handle").length ? $(this.element[0]).dialog("widget").find(".ui-dialog-draggable-handle") : ".ui-dialog-titlebar").find(".ui-dialog-draggable-handle").css("cursor", "move");
       }

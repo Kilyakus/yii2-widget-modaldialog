@@ -6806,7 +6806,7 @@ $.widget( "modal.dialog", {
 			"ui-dialog-titlebar": "ui-corner-top"
 		},
 		closeOnEscape: true,
-		closeText: "×",
+		closeText: "<i class=\"far fa-window-close\"></i>",
 		draggable: true,
 		hide: null,
 		height: "auto",
@@ -7173,7 +7173,7 @@ $.widget( "modal.dialog", {
 
 		this.modalDialogTitlebarClose = $( "<button type='button'></button>" )
 			.button( {
-				label: $( "<a>" ).text( this.options.closeText ).html(),
+				label: this.options.closeText,
 				// icon: "ui-icon-closethick",
 				// showLabel: false
 			} )
@@ -7977,7 +7977,7 @@ $.modal.ddmanager = {
 
 		var i, j,
 			m = $.modal.ddmanager.droppables[ t.options.scope ] || [],
-			type = event ? event.type : null, // workaround for #2317
+			type = event ? event.type : null,
 			list = ( t.currentItem || t.element ).find( ":data(ui-droppable)" ).addBack();
 
 		droppablesLoop: for ( i = 0; i < m.length; i++ ) {
