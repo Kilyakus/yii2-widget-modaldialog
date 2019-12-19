@@ -63,14 +63,12 @@ class Modal extends \kilyakus\widgets\Widget
         echo Html::endTag('div');
         echo $this->renderFooter();
         echo Html::endTag('div');
-
-        $this->registerPlugin('dialog');
     }
 
     protected function renderFooter()
     {
         if ($this->footer !== null) {
-            Html::addCssClass($this->footerOptions, ['widget' => 'modal-widget-footer']);
+            Html::addCssClass($this->footerOptions, ['widget' => 'ui-widget-footer']);
             return Html::tag('div', $this->footer, $this->footerOptions);
         } else {
             return null;
@@ -93,11 +91,11 @@ class Modal extends \kilyakus\widgets\Widget
             'tabindex' => -1,
         ], $this->options);
         Html::addCssStyle($this->options, ['display' => 'none']);
-        Html::addCssClass($this->bodyOptions, ['class' => 'modal-widget-body']);
+        Html::addCssClass($this->bodyOptions, ['class' => 'ui-widget-body']);
 
         if ($this->toggleButton !== false) {
             $this->toggleButton['options'] = array_merge([
-                'data-toggle' => 'dialog',
+                'data-toggle' => 'ui-dialog',
             ], $this->toggleButton);
             if (!isset($this->toggleButton['options']['data-target']) && !isset($this->toggleButton['url'])) {
                 $this->toggleButton['options']['data-target'] = '#' . $this->options['id'];
@@ -135,8 +133,7 @@ class Modal extends \kilyakus\widgets\Widget
                     dialog.dialog(" . $this->pluginOptions . ");
                 });
 
-                $('[data-target=\"#" . $this->id . "\"][data-toggle=\"dialog\"]').click(function(){
-
+                $('[data-target=\"#" . $this->id . "\"][data-toggle=\"ui-dialog\"]').click(function(){
 
                     var dialogExtendOptions = {
                         'closable' : true,
