@@ -24,6 +24,8 @@ class Modal extends \kilyakus\widgets\Widget
 
     public $pluginOptions = [];
 
+    public $extendOptions = [];
+
     public $clientOptions = [];
 
     protected $pluginPreset = [
@@ -34,6 +36,16 @@ class Modal extends \kilyakus\widgets\Widget
         'resizable' => true,
         'draggable' => true,
         'stack' => true,
+    ];
+
+    protected $extendPreset = [
+        'titlebar' => true,
+        'closable' => true,
+        'maximizable' => true,
+        'minimizable' => true,
+        'minimizeLocation' => 'left', // false,
+        'collapsable' => false,
+        'dblclick' => 'collapse', // false,
     ];
 
     protected $clientPreset = [
@@ -120,7 +132,15 @@ class Modal extends \kilyakus\widgets\Widget
             $this->pluginOptions = array_merge_recursive($this->pluginOptions, ['title' => $this->header]);
         }
 
-        $this->pluginOptions = Json::encode($this->pluginOptions); 
+        $this->pluginOptions = Json::encode($this->pluginOptions);
+
+        if(!empty($this->extendOptions)){
+            $this->extendOptions = array_merge($this->extendPreset, $this->extendOptions);
+        }else{
+            $this->extendOptions = $this->extendPreset;
+        }
+        
+        $this->extendOptions = Json::encode($this->extendOptions);
 
         $view = $this->getView();
 
@@ -135,17 +155,7 @@ class Modal extends \kilyakus\widgets\Widget
 
                 $('[data-target=\"#" . $this->id . "\"][data-toggle=\"ui-dialog\"]').click(function(){
 
-                    var dialogExtendOptions = {
-                        'closable' : true,
-                        'maximizable' : true,
-                        'minimizable' : true,
-                        'minimizeLocation' : 'left' || false,
-                        'collapsable' : false,
-                        'dblclick' : 'collapse' || false,
-                        'titlebar' : false
-                    };
-
-                    dialog.dialogExtend(dialogExtendOptions);
+                    dialog.dialogExtend(" . $this->extendOptions . ");
 
                     dialog.dialog( 'open' );
                 });

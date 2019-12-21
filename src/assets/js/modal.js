@@ -7187,6 +7187,13 @@ $.widget( "modal.dialog", {
 			}
 		} );
 
+		this._on( $(this.modalDialog.find('[data-dismiss=ui-dialog]')) , {
+			click: function( event ) {
+				event.preventDefault();
+				this.close( event );
+			}
+		} );
+
 		uiDialogTitle = $( "<span>" ).uniqueId().prependTo( this.modalDialogTitlebar );
 		this._addClass( uiDialogTitle, "ui-dialog-title" );
 		this._title( uiDialogTitle );
