@@ -39,13 +39,13 @@ class Modal extends \kilyakus\widgets\Widget
     ];
 
     protected $extendPreset = [
-        'titlebar' => true,
         'closable' => true,
         'maximizable' => true,
         'minimizable' => true,
         'minimizeLocation' => 'left', // false,
         'collapsable' => false,
         'dblclick' => 'collapse', // false,
+        'titlebar' => false,
     ];
 
     protected $clientPreset = [
@@ -106,9 +106,7 @@ class Modal extends \kilyakus\widgets\Widget
         Html::addCssClass($this->bodyOptions, ['class' => 'ui-widget-body']);
 
         if ($this->toggleButton !== false) {
-            $this->toggleButton['options'] = array_merge([
-                'data-toggle' => 'ui-dialog',
-            ], $this->toggleButton);
+            $this->toggleButton['options']['data-toggle'] = 'ui-dialog';
             if (!isset($this->toggleButton['options']['data-target']) && !isset($this->toggleButton['url'])) {
                 $this->toggleButton['options']['data-target'] = '#' . $this->options['id'];
             }
