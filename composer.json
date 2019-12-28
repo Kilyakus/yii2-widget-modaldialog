@@ -10,7 +10,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "kilyakus/yii2-widget-button"
+        "kilyakus/yii2-widget-button": "*"
     },
     "autoload": {
         "psr-4": {
