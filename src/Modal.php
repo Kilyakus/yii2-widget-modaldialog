@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 use kilyakus\button\Button;
+use kilyakus\widget\scrollbar\Scrollbar;
 
 class Modal extends \kilyakus\widgets\Widget
 {
@@ -66,15 +67,21 @@ class Modal extends \kilyakus\widgets\Widget
         $this->initOptions();
 
         echo $this->renderToggleButton();
-        echo Html::beginTag('div', $this->options);
+
+        Scrollbar::begin([
+            'options' => $this->options,
+        ]);
+
         echo Html::beginTag('div', $this->bodyOptions);
     }
 
     public function run()
     {
         echo Html::endTag('div');
+
         echo $this->renderFooter();
-        echo Html::endTag('div');
+        
+        Scrollbar::end();
     }
 
     protected function renderFooter()
@@ -103,7 +110,7 @@ class Modal extends \kilyakus\widgets\Widget
             'tabindex' => -1,
         ], $this->options);
         Html::addCssStyle($this->options, ['display' => 'none']);
-        Html::addCssClass($this->bodyOptions, ['class' => 'ui-widget-body']);
+        Html::addCssClass($this->bodyOptions, 'ui-widget-body');
 
         if ($this->toggleButton !== false) {
             $this->toggleButton['options']['data-toggle'] = 'ui-dialog';
