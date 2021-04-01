@@ -24,7 +24,7 @@
 .ui-widget-overlay {position:fixed;top:0;left:0;width:100%;height:100%;}
 
 .ui-button {display:inline-block;position:relative;padding:0;line-height:normal;margin-right:.1em;cursor:pointer;vertical-align:middle;background:none;border:0;text-align:center;overflow:visible;color:#666;/* removes extra width in IE */}
-.ui-button {width:30px;height:30px;float:right;font-size:20px;}
+.ui-button {width:30px;height:30px;float:right;font-size:18px;}
 .ui-button:hover {color:#333;}
 .ui-button,
 .ui-button:link,
@@ -67,7 +67,7 @@ input.ui-button {padding:.4em 1em;}
 /* reset extra padding in Firefox, see h5bp.com/l */
 input.ui-button::-moz-focus-inner,
 button.ui-button::-moz-focus-inner {border:0;padding:0;}
-.ui-dialog {overflow:hidden;position:absolute;top:0;left:0;padding:0;outline:0;margin:0;color:#808080;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-box-shadow:0 0 3px rgba(0, 0, 0, 0.6);-moz-box-shadow:0 0 3px rgba(0, 0, 0, 0.6);box-shadow:0 0 3px rgba(0, 0, 0, 0.6);display:flex;flex-direction:column;}
+.ui-dialog {overflow:hidden;position:absolute;top:0;left:0;padding:0;outline:0;margin:0;color:#808080;-webkit-box-shadow:0 0 14px rgba(0, 0, 0, 0.6);-moz-box-shadow:0 0 14px rgba(0, 0, 0, 0.6);box-shadow:0 0 14px rgba(0, 0, 0, 0.6);display:flex;flex-direction:column;}
 .ui-dialog .ui-dialog-titlebar {padding:15px;padding-right:100px;position:relative;}
 .ui-dialog .ui-dialog-titlebar-buttonpane {position:absolute;top:50%;right:10px;margin-top:-15px;height:20px;}
 .ui-dialog .ui-dialog-titlebar-close {}
@@ -96,7 +96,8 @@ button.ui-button::-moz-focus-inner {border:0;padding:0;}
 
 @media(max-width:823px){
 	.ui-dialog {min-width:100%;max-width:100%;border-radius:0!important;}
-	.ui-dialog .ui-dialog-titlebar-maximize {display:none!important;}
+	.ui-dialog .ui-dialog-titlebar-maximize,
+	.ui-dialog .ui-dialog-titlebar-minimize {display:none;}
 }
 
 /* Component containers

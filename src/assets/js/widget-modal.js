@@ -6806,7 +6806,7 @@ $.widget( "modal.dialog", {
 			"ui-dialog-titlebar": "ui-corner-top"
 		},
 		closeOnEscape: true,
-		closeText: "<i class=\"far fa-window-close\"></i>",
+		closeText: "<i class=\"fa fa-times\"></i>",
 		draggable: true,
 		hide: null,
 		height: "auto",

@@ -12,7 +12,7 @@
       "titlebar": false,
       "icons": {
         "close": "ui-icon-closethick",
-        "restore": "fa-window-restore"
+        "restore": "far fa-window-restore"
       },
       "load": null,
       "beforeRestore": null,
@@ -84,7 +84,7 @@
       buttonPane = $(this.element[0]).dialog("widget").find(".ui-dialog-titlebar-buttonpane");
 
       titlebar.find(".ui-dialog-titlebar-close").find(".ui-icon").removeClass("ui-icon-closethick").addClass(this.options.icons.close).end().appendTo(buttonPane).end();
-      buttonPane.append('<button type="button" class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-restore"><i class="far ' + this.options.icons.restore + '" title="restore"></i></button>').find('.ui-dialog-titlebar-restore').attr("role", "button").end().find(".ui-dialog-titlebar-close").toggle(this.options.closable).end().find(".ui-dialog-titlebar-restore").hide().click(function(e) {
+      buttonPane.append('<button type="button" class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-restore"><i class="' + this.options.icons.restore + '" title="restore"></i></button>').find('.ui-dialog-titlebar-restore').attr("role", "button").end().find(".ui-dialog-titlebar-close").toggle(this.options.closable).end().find(".ui-dialog-titlebar-restore").hide().click(function(e) {
         e.preventDefault();
         return _this.restore();
       }).end();
@@ -110,7 +110,7 @@
         _this = this;
 
       buttonPane = $(this.element[0]).dialog("widget").find('.ui-dialog-titlebar-buttonpane');
-      return buttonPane.append('<button type="button" class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-' + name + '" title="' + name + '"><i class="far ' + this.options.icons[name] + '"></i></button>').find(".ui-dialog-titlebar-" + name).attr("role", "button").end().find(".ui-dialog-titlebar-" + name).toggle(this.options[mode.option]).click(function(e) {
+      return buttonPane.append('<button type="button" class="ui-button ui-corner-all ui-widget ui-dialog-titlebar-' + name + '" title="' + name + '"><i class="' + this.options.icons[name] + '"></i></button>').find(".ui-dialog-titlebar-" + name).attr("role", "button").end().find(".ui-dialog-titlebar-" + name).toggle(this.options[mode.option]).click(function(e) {
         e.preventDefault();
         return _this[name]();
       }).end();
@@ -238,7 +238,7 @@
     options: {
       "collapsable": false,
       "icons": {
-        "collapse": "fa-caret-down"
+        "collapse": "far fa-caret-down"
       },
       "beforeCollapse": null,
       "collapse": null
@@ -307,7 +307,7 @@
     options: {
       "maximizable": false,
       "icons": {
-        "maximize": "fa-window-maximize"
+        "maximize": "fa fa-expand"
       },
       "beforeMaximize": null,
       "maximize": null
@@ -396,7 +396,7 @@
       "minimizable": false,
       "minimizeLocation": "left",
       "icons": {
-        "minimize": "fa-window-minimize"
+        "minimize": "far fa-window-minimize"
       },
       "beforeMinimize": null,
       "minimize": null

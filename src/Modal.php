@@ -60,6 +60,8 @@ class Modal extends \kilyakus\widgets\Widget
         ],
     ];
 
+    public $content;
+
     public function init()
     {
         parent::init();
@@ -73,6 +75,10 @@ class Modal extends \kilyakus\widgets\Widget
         ]);
 
         echo Html::beginTag('div', $this->bodyOptions);
+
+        if($this->content){
+            echo $this->content;
+        }
     }
 
     public function run()
